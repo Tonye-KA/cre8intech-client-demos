@@ -8,47 +8,47 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-Contrast Styling (Yellow Page Background + Black Text)
+# Custom High-End Styling (Clean White Page + Warm Soft Yellow Card Container)
 st.markdown("""
     <style>
-    /* Force Entire Page Background to Money Wit Vibrant Yellow */
+    /* 1. Force Page Background to Clean Modern White */
     .stApp {
-        background-color: #F59E0B !important;
+        background-color: #FFFFFF !important;
     }
 
-    /* Force Main Text to Bold Black/Navy */
+    /* 2. Headings & Typography */
     h1, h2, h3, p, span, label {
         color: #0F172A !important;
         font-family: 'Helvetica Neue', sans-serif;
     }
 
-    /* Cre8intech Badge - Sleek Navy Card with Gold Text */
+    /* 3. Cre8intech Demo Badge Header */
     .demo-badge {
         background-color: #0F172A;
         color: #F59E0B !important;
-        padding: 6px 16px;
+        padding: 6px 14px;
         border-radius: 20px;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 800;
         letter-spacing: 1px;
         display: inline-block;
         margin-bottom: 12px;
     }
 
-    /* Form Container - Clean White Card on Yellow Background */
+    /* 4. Soft Warm Yellow Card Container for the Assessment */
     div[data-testid="stForm"] {
-        background-color: #FFFFFF !important;
-        border: 2px solid #0F172A !important;
+        background-color: #FFF9E6 !important; /* Elegant, soft Money Wit Yellow */
+        border: 2px solid #FCD34D !important;  /* Warm golden border */
         border-radius: 16px !important;
-        padding: 28px !important;
-        box-shadow: 0px 8px 24px rgba(15, 23, 42, 0.15);
+        padding: 32px !important;
+        box-shadow: 0px 8px 24px rgba(15, 23, 42, 0.06);
     }
 
-    /* DROPDOWNS: Crisp White Container with Dark Navy Border & Text */
+    /* 5. DROPDOWNS: Crisp White Box with Dark Navy Border & Text */
     div[data-baseweb="select"] > div {
-        background-color: #F8FAFC !important;
-        border: 2px solid #0F172A !important;
-        border-radius: 10px !important;
+        background-color: #FFFFFF !important;
+        border: 1.5px solid #0F172A !important;
+        border-radius: 8px !important;
         padding: 4px !important;
     }
 
@@ -62,7 +62,7 @@ st.markdown("""
         fill: #0F172A !important;
     }
 
-    /* Dropdown Popup Menu List */
+    /* Dropdown Popup Options Menu */
     ul[role="listbox"] {
         background-color: #FFFFFF !important;
         border: 2px solid #0F172A !important;
@@ -79,37 +79,41 @@ st.markdown("""
         color: #0F172A !important;
     }
 
-    /* ACTION BUTTON: Deep Navy Button with Bold White/Yellow Text */
+    /* 6. ACTION BUTTON: Eye-Catching Money Wit Gold with Bold Navy Text */
     div.stButton > button {
-        background-color: #0F172A !important;
-        border-radius: 10px !important;
+        background-color: #F59E0B !important;
+        border-radius: 8px !important;
         border: none !important;
         padding: 14px 24px !important;
         width: 100% !important;
         margin-top: 10px !important;
-        box-shadow: 0px 4px 12px rgba(15, 23, 42, 0.3) !important;
+        box-shadow: 0px 4px 12px rgba(245, 158, 11, 0.3) !important;
     }
 
     div.stButton > button * {
-        color: #F59E0B !important;
+        color: #0F172A !important;
         font-size: 16px !important;
         font-weight: 800 !important;
         letter-spacing: 0.5px !important;
     }
 
     div.stButton > button:hover {
-        background-color: #1E293B !important;
+        background-color: #D97706 !important;
+    }
+
+    div.stButton > button:hover * {
+        color: #FFFFFF !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Restored Badge Header & Title
+# Badge Header & Title
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
 st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
-st.write("**Complete this 2-minute assessment to receive an instant financial health summary and discover your custom Money Wit roadmap.**")
+st.write("Complete this 2-minute assessment to receive an instant financial health summary and discover your custom Money Wit roadmap.")
 
-# Assessment Form
+# Assessment Form inside Yellow Card
 with st.form("diagnostic_form"):
     earner_type = st.selectbox(
         "1. What best describes your current career / earning stage?",
@@ -136,7 +140,7 @@ if submitted:
         client = openai.OpenAI(api_key=api_key)
         
         prompt = f"""
-        Analyze this user for Money Wit Africa:
+        Analyze this user for Money Wit Africa (Founder: Oler Oladele, CFA):
         - Earner Stage: {earner_type}
         - Primary Goal: {primary_goal}
         - Biggest Hurdle: {biggest_challenge}
