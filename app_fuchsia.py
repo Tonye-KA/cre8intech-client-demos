@@ -3,12 +3,12 @@ import openai
 
 # Page Setup
 st.set_page_config(
-    page_title="Fuchsia AI Health Concierge | Fuchsia Desserts", 
+    page_title="Fuchsia Health Concierge | Fuchsia Desserts", 
     page_icon="🍰", 
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Overrides Global Config)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Zero Yellow, Even Tabs)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
@@ -78,7 +78,7 @@ st.markdown("""
         fill: #D946EF !important;
     }
 
-    /* DROPDOWN POPUP MENU (OVERRIDE YELLOW HOVER STATES) */
+    /* DROPDOWN POPUP MENU */
     ul[role="listbox"],
     div[data-baseweb="menu"],
     div[data-baseweb="popover"],
@@ -106,11 +106,21 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* TABS STYLING */
+    /* EVENLY SPACED TABS (FILL FULL CONTAINER WIDTH) */
+    div[data-baseweb="tab-list"] {
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        border-bottom: 1px solid #E5E7EB !important;
+    }
+
     button[data-baseweb="tab"] {
+        flex: 1 1 0px !important;
+        text-align: center !important;
+        justify-content: center !important;
         background-color: transparent !important;
         border: none !important;
-        padding-bottom: 8px !important;
+        padding-bottom: 12px !important;
     }
 
     button[data-baseweb="tab"] div p {
@@ -118,16 +128,18 @@ st.markdown("""
         font-size: 15px !important;
         font-weight: 700 !important;
         color: #6B7280 !important;
+        white-space: nowrap !important;
     }
 
     button[aria-selected="true"] div p {
         color: #D946EF !important;
     }
 
-    /* ACTION BUTTON: Signature Fuchsia Pink */
+    /* FORCE ALL BUTTONS & FORM SUBMIT BUTTONS TO FUCHSIA PINK (OVERRIDE ALL YELLOW) */
     div.stButton > button,
-    button[kind="primary"],
-    button[kind="secondary"] {
+    button[kind="primaryFormSubmit"],
+    button[kind="secondaryFormSubmit"],
+    button[data-testid="stFormSubmitButton"] > button {
         background-color: #D946EF !important; /* FUCHSIA PINK */
         background-image: none !important;
         color: #FFFFFF !important;
@@ -141,8 +153,9 @@ st.markdown("""
     }
 
     div.stButton > button *,
-    button[kind="primary"] *,
-    button[kind="secondary"] * {
+    button[kind="primaryFormSubmit"] *,
+    button[kind="secondaryFormSubmit"] *,
+    button[data-testid="stFormSubmitButton"] > button * {
         color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
         font-size: 14px !important;
@@ -151,7 +164,9 @@ st.markdown("""
         text-transform: uppercase !important;
     }
 
-    div.stButton > button:hover {
+    div.stButton > button:hover,
+    button[kind="primaryFormSubmit"]:hover,
+    button[data-testid="stFormSubmitButton"] > button:hover {
         background-color: #C026D3 !important;
         transform: translateY(-1px);
     }
@@ -160,13 +175,13 @@ st.markdown("""
 
 # Header Section
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
-st.title("🍰 Fuchsia AI Health Concierge")
+st.title("🍰 Fuchsia Health Concierge")
 st.caption("Configured for **Fuchsia Desserts** (Founder: Tosan)")
-st.write("Welcome! I am **Fuchsia**, your AI health concierge. Discover the **health benefits** of our desserts or plan custom **event catering & luxury gifts**.")
+st.write("Welcome! I am **Fuchsia**, your health concierge. Discover the **health benefits** of our desserts or plan custom **event catering & luxury gifts**.")
 
 # System Instructions
 SYSTEM_PROMPT = """
-You are 'Fuchsia', the friendly and knowledgeable AI Health Concierge for Fuchsia Desserts (Founder: Tosan).
+You are 'Fuchsia', the friendly and knowledgeable Health Concierge for Fuchsia Desserts (Founder: Tosan).
 Introduce yourself warmly as 'Fuchsia'. Speak in a candid, encouraging, expert tone. Avoid heavy medical or technical jargon.
 
 CORE PRINCIPLE:
@@ -225,7 +240,7 @@ with tab1:
             st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
         else:
             client = openai.OpenAI(api_key=api_key)
-            prompt = f"Introduce yourself as Fuchsia, the AI Health Concierge. Educate the customer on the health benefits of Fuchsia Desserts for: Product Selected = {product_choice}, Health Goal = {health_focus}. Explain clearly how the wholesome ingredients support their health and recommend specific items."
+            prompt = f"Introduce yourself as Fuchsia, the Health Concierge. Educate the customer on the health benefits of Fuchsia Desserts for: Product Selected = {product_choice}, Health Goal = {health_focus}. Explain clearly how the wholesome ingredients support their health and recommend specific items."
             
             with st.spinner("Fuchsia is analyzing your health match..."):
                 res = client.chat.completions.create(
