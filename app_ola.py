@@ -4,7 +4,7 @@ import openai
 # Page Setup
 st.set_page_config(page_title="Financial Diagnostic | Money Wit Africa", page_icon="📊", layout="centered")
 
-# Custom Brand Styling (Money Wit Africa Palette - High Contrast)
+# Custom Brand Styling (Money Wit Africa Palette - Button Text Fix)
 st.markdown("""
     <style>
     .stApp {
@@ -15,18 +15,28 @@ st.markdown("""
         color: #0F172A !important;
         font-family: 'Georgia', serif;
     }
-    .stButton>button {
+
+    /* BUTTON FIX: Force button container & internal text to be Financial Gold */
+    div.stButton > button {
         background-color: #0F172A !important;
-        color: #F59E0B !important;
-        border-radius: 6px;
-        border: 1px solid #D97706;
-        font-weight: bold;
-        width: 100%;
+        border-radius: 6px !important;
+        border: 1px solid #D97706 !important;
+        width: 100% !important;
     }
-    .stButton>button:hover {
+
+    div.stButton > button * {
+        color: #F59E0B !important;
+        font-weight: bold !important;
+    }
+
+    div.stButton > button:hover {
         background-color: #D97706 !important;
+    }
+
+    div.stButton > button:hover * {
         color: #FFFFFF !important;
     }
+
     .demo-badge {
         background-color: #D97706;
         color: white !important;
