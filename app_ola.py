@@ -4,31 +4,32 @@ import openai
 # Page Setup
 st.set_page_config(page_title="Financial Diagnostic | Money Wit Africa", page_icon="📊", layout="centered")
 
-# Custom Brand Styling (Money Wit Africa Palette)
+# Custom Brand Styling (Money Wit Africa Palette - High Contrast)
 st.markdown("""
     <style>
     .stApp {
-        background-color: #F8FAFC;
+        background-color: #F8FAFC !important;
+        color: #0F172A !important;
     }
-    h1 {
+    h1, h2, h3, p, span, label, div {
         color: #0F172A !important;
         font-family: 'Georgia', serif;
     }
     .stButton>button {
-        background-color: #0F172A;
-        color: #F59E0B;
+        background-color: #0F172A !important;
+        color: #F59E0B !important;
         border-radius: 6px;
         border: 1px solid #D97706;
         font-weight: bold;
         width: 100%;
     }
     .stButton>button:hover {
-        background-color: #D97706;
-        color: white;
+        background-color: #D97706 !important;
+        color: #FFFFFF !important;
     }
     .demo-badge {
         background-color: #D97706;
-        color: white;
+        color: white !important;
         padding: 4px 12px;
         border-radius: 12px;
         font-size: 12px;
