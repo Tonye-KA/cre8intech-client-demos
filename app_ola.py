@@ -4,39 +4,77 @@ import openai
 # Page Setup
 st.set_page_config(page_title="Financial Diagnostic | Money Wit Africa", page_icon="📊", layout="centered")
 
-# Custom Brand Styling (Money Wit Africa Palette - Button Text Fix)
+# Custom Brand Styling (Money Wit Africa - High Contrast & Fixed Dropdowns/Buttons)
 st.markdown("""
     <style>
+    /* Main Background */
     .stApp {
         background-color: #F8FAFC !important;
         color: #0F172A !important;
     }
+    
+    /* Typography */
     h1, h2, h3, p, span, label, div {
         color: #0F172A !important;
         font-family: 'Georgia', serif;
     }
 
-    /* BUTTON FIX: Force button container & internal text to be Financial Gold */
-    div.stButton > button {
-        background-color: #0F172A !important;
-        border-radius: 6px !important;
-        border: 1px solid #D97706 !important;
+    /* FIX SELECT / DROPDOWN BOXES */
+    div[data-baseweb="select"] > div {
+        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        border: 1.5px solid #CBD5E1 !important;
+        border-radius: 8px !important;
+    }
+
+    div[data-baseweb="select"] * {
+        color: #0F172A !important;
+        background-color: #FFFFFF !important;
+        font-weight: 500 !important;
+    }
+
+    /* DROPDOWN MENU LIST FIX */
+    ul[data-baseweb="menu"] {
+        background-color: #FFFFFF !important;
+    }
+    
+    ul[data-baseweb="menu"] li {
+        color: #0F172A !important;
+        background-color: #FFFFFF !important;
+    }
+
+    /* CATCHY VIBRANT YELLOW SUBMIT BUTTON WITH BLACK TEXT */
+    div.stButton > button, 
+    div[data-testid="stFormSubmitButton"] > button {
+        background-color: #F59E0B !important; /* Vibrant Money Wit Yellow/Gold */
+        border-radius: 8px !important;
+        border: 2px solid #D97706 !important;
         width: 100% !important;
+        padding: 12px 20px !important;
+        transition: all 0.2s ease-in-out;
     }
 
-    div.stButton > button * {
+    /* Force Button Text to Bold Solid Black */
+    div.stButton > button *, 
+    div[data-testid="stFormSubmitButton"] > button * {
+        color: #000000 !important;
+        font-weight: 800 !important;
+        font-size: 16px !important;
+    }
+
+    /* Hover State: Dark Navy with Yellow Text */
+    div.stButton > button:hover, 
+    div[data-testid="stFormSubmitButton"] > button:hover {
+        background-color: #0F172A !important;
+        border-color: #0F172A !important;
+    }
+
+    div.stButton > button:hover *, 
+    div[data-testid="stFormSubmitButton"] > button:hover * {
         color: #F59E0B !important;
-        font-weight: bold !important;
     }
 
-    div.stButton > button:hover {
-        background-color: #D97706 !important;
-    }
-
-    div.stButton > button:hover * {
-        color: #FFFFFF !important;
-    }
-
+    /* Demo Badge */
     .demo-badge {
         background-color: #D97706;
         color: white !important;
