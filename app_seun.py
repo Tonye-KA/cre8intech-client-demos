@@ -4,7 +4,7 @@ import openai
 # Page Setup
 st.set_page_config(page_title="MathsBot | Green Obsidian", page_icon="📐", layout="centered")
 
-# Custom Brand Styling (Green Obsidian Palette - High Contrast)
+# Custom Brand Styling (Green Obsidian Palette - White Button Text Fix)
 st.markdown("""
     <style>
     /* Force main app background */
@@ -35,18 +35,21 @@ st.markdown("""
         font-weight: 500;
     }
 
-    /* Buttons */
-    .stButton>button {
+    /* BUTTON FIX: Force button container & internal text to be solid white */
+    div.stButton > button {
         background-color: #0F382C !important;
-        color: #FFFFFF !important;
-        border-radius: 8px;
-        border: none;
-        padding: 10px 16px;
-        font-weight: bold;
+        border-radius: 8px !important;
+        border: none !important;
+        padding: 10px 16px !important;
     }
-    .stButton>button:hover {
-        background-color: #10B981 !important;
+
+    div.stButton > button * {
         color: #FFFFFF !important;
+        font-weight: bold !important;
+    }
+
+    div.stButton > button:hover {
+        background-color: #10B981 !important;
     }
 
     /* Demo Badge */
