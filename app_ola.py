@@ -4,10 +4,10 @@ import openai
 # Page Setup
 st.set_page_config(page_title="Financial Diagnostic | Money Wit Africa", page_icon="📊", layout="centered")
 
-# Custom Brand Styling (Money Wit Africa - High Contrast & Fixed Dropdowns/Buttons)
+# Custom Brand Styling (Money Wit Africa Palette - Gold/Yellow Accent & High Contrast)
 st.markdown("""
     <style>
-    /* Main Background */
+    /* Force page background */
     .stApp {
         background-color: #F8FAFC !important;
         color: #0F172A !important;
@@ -19,69 +19,68 @@ st.markdown("""
         font-family: 'Georgia', serif;
     }
 
-    /* FIX SELECT / DROPDOWN BOXES */
+    /* DROPDOWN FIX: Clean white background with bold dark text */
     div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
-        color: #0F172A !important;
-        border: 1.5px solid #CBD5E1 !important;
+        border: 1.5px solid #0F172A !important;
         border-radius: 8px !important;
+        color: #0F172A !important;
     }
-
+    
+    /* Dropdown selected text and arrow icon */
     div[data-baseweb="select"] * {
         color: #0F172A !important;
-        background-color: #FFFFFF !important;
-        font-weight: 500 !important;
+        font-weight: 600 !important;
     }
 
-    /* DROPDOWN MENU LIST FIX */
-    ul[data-baseweb="menu"] {
+    /* Dropdown menu list items popup */
+    ul[role="listbox"] {
         background-color: #FFFFFF !important;
     }
     
-    ul[data-baseweb="menu"] li {
+    ul[role="listbox"] li {
         color: #0F172A !important;
         background-color: #FFFFFF !important;
     }
 
-    /* CATCHY VIBRANT YELLOW SUBMIT BUTTON WITH BLACK TEXT */
-    div.stButton > button, 
-    div[data-testid="stFormSubmitButton"] > button {
-        background-color: #F59E0B !important; /* Vibrant Money Wit Yellow/Gold */
+    ul[role="listbox"] li:hover {
+        background-color: #FEF3C7 !important; /* Soft yellow highlight on hover */
+    }
+
+    /* SUBMIT BUTTON: Catchy Gold/Yellow background with Bold Black text */
+    div.stButton > button {
+        background-color: #F59E0B !important; /* Financial Gold */
         border-radius: 8px !important;
-        border: 2px solid #D97706 !important;
-        width: 100% !important;
+        border: none !important;
         padding: 12px 20px !important;
-        transition: all 0.2s ease-in-out;
+        width: 100% !important;
+        box-shadow: 0px 4px 10px rgba(245, 158, 11, 0.3) !important;
     }
 
-    /* Force Button Text to Bold Solid Black */
-    div.stButton > button *, 
-    div[data-testid="stFormSubmitButton"] > button * {
-        color: #000000 !important;
-        font-weight: 800 !important;
+    div.stButton > button * {
+        color: #000000 !important; /* Bold Black Text */
         font-size: 16px !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.5px !important;
     }
 
-    /* Hover State: Dark Navy with Yellow Text */
-    div.stButton > button:hover, 
-    div[data-testid="stFormSubmitButton"] > button:hover {
-        background-color: #0F172A !important;
-        border-color: #0F172A !important;
+    div.stButton > button:hover {
+        background-color: #D97706 !important; /* Slightly deeper gold on hover */
     }
 
-    div.stButton > button:hover *, 
-    div[data-testid="stFormSubmitButton"] > button:hover * {
-        color: #F59E0B !important;
+    div.stButton > button:hover * {
+        color: #FFFFFF !important;
     }
 
-    /* Demo Badge */
+    /* Demo Badge Header */
     .demo-badge {
-        background-color: #D97706;
-        color: white !important;
-        padding: 4px 12px;
+        background-color: #0F172A;
+        color: #F59E0B !important;
+        padding: 6px 14px;
         border-radius: 12px;
         font-size: 12px;
         font-weight: bold;
+        letter-spacing: 1px;
     }
     </style>
 """, unsafe_allow_html=True)
