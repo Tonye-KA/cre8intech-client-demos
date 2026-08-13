@@ -8,11 +8,68 @@ st.set_page_config(
     layout="centered"
 )
 
-# Header
-st.markdown("### 📊 Financial Health Diagnostic Tool")
-st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
-st.markdown("---")
+# Custom Styling (Restores Cre8intech Badge & Money Wit Palette Buttons)
+st.markdown("""
+    <style>
+    /* Demo Badge Header */
+    .demo-badge {
+        background-color: #0F172A;
+        color: #F59E0B !important;
+        padding: 6px 14px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        display: inline-block;
+        margin-bottom: 12px;
+    }
 
+    /* Headings */
+    h1 {
+        color: #0F172A !important;
+        font-family: 'Georgia', serif;
+        font-weight: bold;
+    }
+
+    /* Form Container */
+    div[data-testid="stForm"] {
+        background-color: #FFFFFF !important;
+        border: 2px solid #E2E8F0 !important;
+        border-radius: 12px !important;
+        padding: 24px !important;
+        box-shadow: 0px 4px 12px rgba(15, 23, 42, 0.05);
+    }
+
+    /* Primary Submit Button: Rich Gold Background with Deep Navy Text */
+    div.stButton > button {
+        background-color: #F59E0B !important; /* Money Wit Gold */
+        border-radius: 8px !important;
+        border: none !important;
+        padding: 12px 20px !important;
+        width: 100% !important;
+        box-shadow: 0px 4px 10px rgba(245, 158, 11, 0.25) !important;
+    }
+
+    div.stButton > button * {
+        color: #0F172A !important; /* Deep Navy Text */
+        font-size: 16px !important;
+        font-weight: bold !important;
+    }
+
+    div.stButton > button:hover {
+        background-color: #0F172A !important;
+    }
+
+    div.stButton > button:hover * {
+        color: #F59E0B !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Restored Badge Header & Title
+st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
+st.title("📊 Financial Health Diagnostic Tool")
+st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
 st.write("Complete this 2-minute assessment to receive an instant financial health summary and discover your custom Money Wit roadmap.")
 
 # Assessment Form
@@ -32,7 +89,7 @@ with st.form("diagnostic_form"):
         ["Financial jargon is confusing", "Lack of time to analyze deals", "Inconsistency in execution", "Need a vetted community & accountability"]
     )
     
-    submitted = st.form_submit_button("Generate Financial Profile 🚀", type="primary")
+    submitted = st.form_submit_button("Generate Financial Profile 🚀")
 
 if submitted:
     api_key = st.secrets.get("OPENAI_API_KEY", "")
