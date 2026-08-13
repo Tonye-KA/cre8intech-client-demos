@@ -8,60 +8,98 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (Restores Cre8intech Badge & Money Wit Palette Buttons)
+# Custom High-End Styling (Money Wit Gold & Deep Navy)
 st.markdown("""
     <style>
-    /* Demo Badge Header */
+    /* Main Background Force */
+    .stApp {
+        background-color: #0F172A !important;
+    }
+
+    /* Headings & Text */
+    h1, h2, h3, p, span, label {
+        color: #FFFFFF !important;
+        font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    /* Cre8intech Badge */
     .demo-badge {
-        background-color: #0F172A;
-        color: #F59E0B !important;
+        background-color: #F59E0B;
+        color: #0F172A !important;
         padding: 6px 14px;
-        border-radius: 12px;
-        font-size: 12px;
-        font-weight: bold;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 800;
         letter-spacing: 1px;
         display: inline-block;
         margin-bottom: 12px;
     }
 
-    /* Headings */
-    h1 {
-        color: #0F172A !important;
-        font-family: 'Georgia', serif;
-        font-weight: bold;
-    }
-
     /* Form Container */
     div[data-testid="stForm"] {
-        background-color: #FFFFFF !important;
-        border: 2px solid #E2E8F0 !important;
-        border-radius: 12px !important;
-        padding: 24px !important;
-        box-shadow: 0px 4px 12px rgba(15, 23, 42, 0.05);
+        background-color: #1E293B !important;
+        border: 1px solid #334155 !important;
+        border-radius: 16px !important;
+        padding: 28px !important;
+        box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
     }
 
-    /* Primary Submit Button: Rich Gold Background with Deep Navy Text */
+    /* MAKE DROPDOWNS POP: Gold Border, Dark Card, White Text */
+    div[data-baseweb="select"] > div {
+        background-color: #0F172A !important;
+        border: 2px solid #F59E0B !important; /* Money Wit Logo Gold */
+        border-radius: 10px !important;
+        padding: 4px !important;
+    }
+
+    div[data-baseweb="select"] * {
+        color: #FFFFFF !important;
+        font-weight: 600 !important;
+    }
+
+    /* Arrow icon inside dropdowns */
+    div[data-baseweb="select"] svg {
+        fill: #F59E0B !important;
+    }
+
+    /* Dropdown popup menu list */
+    ul[role="listbox"] {
+        background-color: #1E293B !important;
+        border: 1px solid #F59E0B !important;
+    }
+
+    ul[role="listbox"] li {
+        color: #FFFFFF !important;
+        background-color: #1E293B !important;
+    }
+
+    ul[role="listbox"] li:hover {
+        background-color: #F59E0B !important;
+        color: #0F172A !important;
+    }
+
+    /* ACTION BUTTON: Eye-catching Logo Gold with Bold Dark Text */
     div.stButton > button {
-        background-color: #F59E0B !important; /* Money Wit Gold */
-        border-radius: 8px !important;
+        background-color: #F59E0B !important;
+        border-radius: 10px !important;
         border: none !important;
-        padding: 12px 20px !important;
+        padding: 14px 24px !important;
         width: 100% !important;
-        box-shadow: 0px 4px 10px rgba(245, 158, 11, 0.25) !important;
+        margin-top: 10px !important;
+        box-shadow: 0px 4px 15px rgba(245, 158, 11, 0.4) !important;
+        transition: all 0.3s ease !important;
     }
 
     div.stButton > button * {
-        color: #0F172A !important; /* Deep Navy Text */
+        color: #0F172A !important;
         font-size: 16px !important;
-        font-weight: bold !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.5px !important;
     }
 
     div.stButton > button:hover {
-        background-color: #0F172A !important;
-    }
-
-    div.stButton > button:hover * {
-        color: #F59E0B !important;
+        background-color: #FFC107 !important;
+        transform: translateY(-2px);
     }
     </style>
 """, unsafe_allow_html=True)
