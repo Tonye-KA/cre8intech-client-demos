@@ -4,7 +4,7 @@ import openai
 # Page Setup
 st.set_page_config(page_title="Financial Diagnostic | Money Wit Africa", page_icon="📊", layout="centered")
 
-# Custom Brand Styling (Money Wit Africa Palette - Gold/Yellow Accent & High Contrast)
+# Custom Brand Styling (Money Wit Africa Palette - Complete Dropdown Styling)
 st.markdown("""
     <style>
     /* Force page background */
@@ -19,53 +19,65 @@ st.markdown("""
         font-family: 'Georgia', serif;
     }
 
-    /* DROPDOWN FIX: Clean white background with bold dark text */
-    div[data-baseweb="select"] > div {
-        background-color: #FFFFFF !important;
-        border: 1.5px solid #0F172A !important;
+    /* FORCE ALL DROPDOWN CONTAINERS TO BE GOLD/YELLOW WITH BLACK TEXT */
+    div[data-baseweb="select"], 
+    div[data-baseweb="select"] > div,
+    div[data-baseweb="select"] * {
+        background-color: #F59E0B !important; /* Money Wit Gold/Yellow */
+        color: #000000 !important;             /* Bold Black Text */
+        font-weight: 700 !important;
         border-radius: 8px !important;
-        color: #0F172A !important;
+        border: none !important;
+    }
+
+    /* Force text inside the selected option box */
+    div[data-baseweb="select"] div[role="button"] {
+        color: #000000 !important;
+    }
+
+    /* Force dropdown arrow icon to be black */
+    div[data-baseweb="select"] svg {
+        fill: #000000 !important;
+        color: #000000 !important;
+    }
+
+    /* DROPDOWN POPUP MENU (LIST OF OPTIONS) */
+    ul[role="listbox"],
+    div[data-baseweb="menu"] {
+        background-color: #F59E0B !important;
     }
     
-    /* Dropdown selected text and arrow icon */
-    div[data-baseweb="select"] * {
-        color: #0F172A !important;
+    ul[role="listbox"] li,
+    div[data-baseweb="menu"] div {
+        color: #000000 !important;
+        background-color: #F59E0B !important;
         font-weight: 600 !important;
     }
 
-    /* Dropdown menu list items popup */
-    ul[role="listbox"] {
-        background-color: #FFFFFF !important;
-    }
-    
-    ul[role="listbox"] li {
-        color: #0F172A !important;
-        background-color: #FFFFFF !important;
+    /* Hover effect on dropdown items */
+    ul[role="listbox"] li:hover,
+    div[data-baseweb="menu"] div:hover {
+        background-color: #D97706 !important; /* Deeper gold on hover */
+        color: #FFFFFF !important;
     }
 
-    ul[role="listbox"] li:hover {
-        background-color: #FEF3C7 !important; /* Soft yellow highlight on hover */
-    }
-
-    /* SUBMIT BUTTON: Catchy Gold/Yellow background with Bold Black text */
+    /* SUBMIT BUTTON: Match Brand Styling */
     div.stButton > button {
-        background-color: #F59E0B !important; /* Financial Gold */
+        background-color: #0F172A !important; /* Deep Navy Button */
         border-radius: 8px !important;
         border: none !important;
         padding: 12px 20px !important;
         width: 100% !important;
-        box-shadow: 0px 4px 10px rgba(245, 158, 11, 0.3) !important;
     }
 
     div.stButton > button * {
-        color: #000000 !important; /* Bold Black Text */
+        color: #F59E0B !important; /* Gold Text on Navy Button */
         font-size: 16px !important;
         font-weight: 800 !important;
-        letter-spacing: 0.5px !important;
     }
 
     div.stButton > button:hover {
-        background-color: #D97706 !important; /* Slightly deeper gold on hover */
+        background-color: #D97706 !important;
     }
 
     div.stButton > button:hover * {
