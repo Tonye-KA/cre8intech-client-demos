@@ -8,69 +8,70 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Money Wit Gold & Deep Navy)
+# Custom High-Contrast Styling (Yellow Page Background + Black Text)
 st.markdown("""
     <style>
-    /* Main Background Force */
+    /* Force Entire Page Background to Money Wit Vibrant Yellow */
     .stApp {
-        background-color: #0F172A !important;
+        background-color: #F59E0B !important;
     }
 
-    /* Headings & Text */
+    /* Force Main Text to Bold Black/Navy */
     h1, h2, h3, p, span, label {
-        color: #FFFFFF !important;
+        color: #0F172A !important;
         font-family: 'Helvetica Neue', sans-serif;
     }
 
-    /* Cre8intech Badge */
+    /* Cre8intech Badge - Sleek Navy Card with Gold Text */
     .demo-badge {
-        background-color: #F59E0B;
-        color: #0F172A !important;
-        padding: 6px 14px;
+        background-color: #0F172A;
+        color: #F59E0B !important;
+        padding: 6px 16px;
         border-radius: 20px;
-        font-size: 11px;
+        font-size: 12px;
         font-weight: 800;
         letter-spacing: 1px;
         display: inline-block;
         margin-bottom: 12px;
     }
 
-    /* Form Container */
+    /* Form Container - Clean White Card on Yellow Background */
     div[data-testid="stForm"] {
-        background-color: #1E293B !important;
-        border: 1px solid #334155 !important;
+        background-color: #FFFFFF !important;
+        border: 2px solid #0F172A !important;
         border-radius: 16px !important;
         padding: 28px !important;
-        box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 8px 24px rgba(15, 23, 42, 0.15);
     }
 
-    /* MAKE DROPDOWNS POP: Gold Border, Dark Card, White Text */
+    /* DROPDOWNS: Crisp White Container with Dark Navy Border & Text */
     div[data-baseweb="select"] > div {
-        background-color: #0F172A !important;
-        border: 2px solid #F59E0B !important; /* Money Wit Logo Gold */
+        background-color: #F8FAFC !important;
+        border: 2px solid #0F172A !important;
         border-radius: 10px !important;
         padding: 4px !important;
     }
 
     div[data-baseweb="select"] * {
-        color: #FFFFFF !important;
-        font-weight: 600 !important;
+        color: #0F172A !important;
+        font-weight: 700 !important;
     }
 
     /* Arrow icon inside dropdowns */
     div[data-baseweb="select"] svg {
-        fill: #F59E0B !important;
+        fill: #0F172A !important;
     }
 
-    /* Dropdown popup menu list */
+    /* Dropdown Popup Menu List */
     ul[role="listbox"] {
-        background-color: #1E293B !important;
-        border: 1px solid #F59E0B !important;
+        background-color: #FFFFFF !important;
+        border: 2px solid #0F172A !important;
     }
 
     ul[role="listbox"] li {
-        color: #FFFFFF !important;
-        background-color: #1E293B !important;
+        color: #0F172A !important;
+        background-color: #FFFFFF !important;
+        font-weight: 600 !important;
     }
 
     ul[role="listbox"] li:hover {
@@ -78,28 +79,26 @@ st.markdown("""
         color: #0F172A !important;
     }
 
-    /* ACTION BUTTON: Eye-catching Logo Gold with Bold Dark Text */
+    /* ACTION BUTTON: Deep Navy Button with Bold White/Yellow Text */
     div.stButton > button {
-        background-color: #F59E0B !important;
+        background-color: #0F172A !important;
         border-radius: 10px !important;
         border: none !important;
         padding: 14px 24px !important;
         width: 100% !important;
         margin-top: 10px !important;
-        box-shadow: 0px 4px 15px rgba(245, 158, 11, 0.4) !important;
-        transition: all 0.3s ease !important;
+        box-shadow: 0px 4px 12px rgba(15, 23, 42, 0.3) !important;
     }
 
     div.stButton > button * {
-        color: #0F172A !important;
+        color: #F59E0B !important;
         font-size: 16px !important;
         font-weight: 800 !important;
         letter-spacing: 0.5px !important;
     }
 
     div.stButton > button:hover {
-        background-color: #FFC107 !important;
-        transform: translateY(-2px);
+        background-color: #1E293B !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -108,7 +107,7 @@ st.markdown("""
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
 st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
-st.write("Complete this 2-minute assessment to receive an instant financial health summary and discover your custom Money Wit roadmap.")
+st.write("**Complete this 2-minute assessment to receive an instant financial health summary and discover your custom Money Wit roadmap.**")
 
 # Assessment Form
 with st.form("diagnostic_form"):
