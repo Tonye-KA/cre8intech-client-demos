@@ -8,23 +8,23 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (Fuchsia Desserts Palette - High Contrast & Luxurious)
+# Custom High-End Styling (Signature Fuchsia Pink & Clean White Background)
 st.markdown("""
     <style>
-    /* Force Page Background */
+    /* 1. FORCE Full Page Background to Clean White (Overrides .streamlit/config.toml) */
     .stApp {
-        background-color: #FDF4FF !important;
+        background-color: #FFFFFF !important;
     }
 
-    /* Headings & Typography */
+    /* 2. Headings & Typography */
     h1, h2, h3, p, span, label {
-        color: #2E1065 !important; /* Deep Plum/Charcoal */
+        color: #2E1065 !important; /* Deep Plum / Luxury Charcoal */
         font-family: 'Helvetica Neue', sans-serif;
     }
 
-    /* Cre8intech Badge Header */
+    /* 3. Cre8intech Demo Badge Header */
     .demo-badge {
-        background-color: #C026D3; /* Fuchsia Pink */
+        background-color: #C026D3 !important; /* Fuchsia Pink */
         color: #FFFFFF !important;
         padding: 6px 14px;
         border-radius: 20px;
@@ -35,16 +35,16 @@ st.markdown("""
         margin-bottom: 12px;
     }
 
-    /* Main Container Card */
+    /* 4. Form Container Card - Soft Lilac/Pink Accent Card */
     div[data-testid="stForm"], div.stBlock {
-        background-color: #FFFFFF !important;
-        border: 2px solid #F5D0FE !important;
+        background-color: #FDF4FF !important; /* Soft Blush Pink Card */
+        border: 2px solid #F5D0FE !important;  /* Elegant Fuchsia Border */
         border-radius: 16px !important;
         padding: 24px !important;
         box-shadow: 0px 8px 24px rgba(192, 38, 211, 0.08);
     }
 
-    /* Dropdowns styling */
+    /* 5. DROPDOWNS: Crisp White Box with Dark Text & Fuchsia Outline */
     div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
         border: 1.5px solid #C026D3 !important;
@@ -57,9 +57,24 @@ st.markdown("""
         font-weight: 700 !important;
     }
 
-    /* Button styling */
+    div[data-baseweb="select"] svg {
+        fill: #C026D3 !important;
+    }
+
+    /* 6. Tabs Styling */
+    button[data-baseweb="tab"] {
+        background-color: transparent !important;
+    }
+    
+    button[data-baseweb="tab"] div {
+        color: #C026D3 !important;
+        font-weight: bold !important;
+        font-size: 15px !important;
+    }
+
+    /* 7. ACTION BUTTON: Signature Fuchsia Pink with Bold White Text */
     div.stButton > button {
-        background-color: #C026D3 !important; /* Vibrant Fuchsia */
+        background-color: #C026D3 !important; /* Fuchsia Pink */
         border-radius: 8px !important;
         border: none !important;
         padding: 12px 20px !important;
@@ -85,7 +100,7 @@ st.title("🍰 Fuchsia AI Concierge")
 st.caption("Configured for **Fuchsia Desserts** (Founder: Tosan)")
 st.write("Welcome! Find your perfect dessert based on **dietary goals** or plan a **thoughtful luxury gift / event platter** in seconds.")
 
-# System Prompt
+# System Instructions
 SYSTEM_PROMPT = """
 You are the 'Fuchsia AI Concierge', a warm, sophisticated, knowledgeable virtual assistant for Fuchsia Desserts.
 Your goal is to guide customers seamlessly whether they care about dietary health or luxury gifting.
@@ -97,12 +112,12 @@ RULES:
 4. Keep output beautifully structured with bullet points and warm tone.
 """
 
-# Tabs for 2 Primary Use-Cases
+# Tabs for Use Cases
 tab1, tab2 = st.tabs(["🥗 Health & Dietary Finder", "🎁 Gift & Event Assistant"])
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
 
-# --- TAB 1: Health & Dietary Assistant ---
+# TAB 1: Health & Dietary Assistant
 with tab1:
     with st.form("health_form"):
         diet_pref = st.selectbox(
@@ -130,7 +145,7 @@ with tab1:
                 st.success("Your Custom Recommendation:")
                 st.markdown(res.choices[0].message.content)
 
-# --- TAB 2: Gift & Event Concierge ---
+# TAB 2: Gift & Event Concierge
 with tab2:
     with st.form("gift_form"):
         occasion = st.selectbox(
@@ -143,7 +158,7 @@ with tab2:
         )
         submit_gift = st.form_submit_button("Recommend Gift Package 🎁")
 
-    if submit_gift:`
+    if submit_gift:
         if not api_key:
             st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
         else:
