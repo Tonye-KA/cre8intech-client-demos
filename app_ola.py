@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Money Wit Africa Brand Palette)
+# Custom Styling (Uniform Warm Cream Dropdown Options & Money Wit Gold Theme)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
@@ -28,7 +28,7 @@ st.markdown("""
         max-width: 720px !important;
     }
 
-    /* 2. Headings & Typography */
+    /* 2. Headings & Body Text */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #0F172A !important;
@@ -90,43 +90,60 @@ st.markdown("""
         fill: #D97706 !important;
     }
 
-    /* 6. DROPDOWN POPUP MENU (FORCES ALL HIDDEN OPTIONS TO BE 100% VISIBLE) */
+    /* 6. POPUP MENU CONTAINER */
     div[data-baseweb="popover"],
     div[data-baseweb="menu"],
     ul[role="listbox"],
     div[role="listbox"] {
-        background-color: #FFFFFF !important;
+        background-color: #FFFDF5 !important;
         border: 2px solid #F59E0B !important;
         border-radius: 8px !important;
-        box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.18) !important;
+        padding: 4px !important;
+        box-shadow: 0px 10px 25px rgba(245, 158, 11, 0.2) !important;
     }
 
+    /* 7. MAKE ALL DROPDOWN OPTIONS HAVE THE WARM CREAM CARD BACKGROUND & BOLD BROWN TEXT */
     ul[role="listbox"] li,
-    ul[role="listbox"] li *,
+    ul[role="listbox"] > li,
+    li[role="option"],
+    div[role="option"],
     div[data-baseweb="menu"] div,
-    div[data-baseweb="popover"] div,
-    div[data-baseweb="popover"] span {
-        color: #0F172A !important;
-        -webkit-text-fill-color: #0F172A !important;
-        background-color: #FFFFFF !important;
+    div[data-baseweb="popover"] li {
+        background-color: #FEF3C7 !important; /* Uniform Warm Cream */
+        border: 1px solid #FDE68A !important;
+        border-radius: 6px !important;
+        margin-bottom: 4px !important;
+        color: #78350F !important; /* Bold Golden Brown */
+        -webkit-text-fill-color: #78350F !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
         font-size: 14px !important;
+        padding: 10px 14px !important;
         opacity: 1 !important;
     }
 
-    /* Hover State inside Dropdown Popup */
-    ul[role="listbox"] li:hover,
-    ul[role="listbox"] li:hover *,
-    div[data-baseweb="menu"] div:hover,
-    [aria-selected="true"],
-    [aria-selected="true"] * {
-        background-color: #FEF3C7 !important;
-        color: #92400E !important;
-        -webkit-text-fill-color: #92400E !important;
+    /* Target inner spans/divs inside every option */
+    ul[role="listbox"] li *,
+    li[role="option"] *,
+    div[role="option"] * {
+        color: #78350F !important;
+        -webkit-text-fill-color: #78350F !important;
+        font-weight: 700 !important;
     }
 
-    /* 7. BRIGHT MONEY WIT GOLD ACTION BUTTON (HIGH VISIBILITY) */
+    /* Hover & Active Highlight */
+    ul[role="listbox"] li:hover,
+    ul[role="listbox"] li:hover *,
+    li[role="option"]:hover,
+    li[role="option"]:hover *,
+    li[aria-selected="true"],
+    li[aria-selected="true"] * {
+        background-color: #FDE68A !important; /* Richer Amber on Hover */
+        color: #451A03 !important;
+        -webkit-text-fill-color: #451A03 !important;
+    }
+
+    /* 8. BRIGHT MONEY WIT GOLD BUTTON */
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="baseButton-primary"],
