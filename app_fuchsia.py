@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Full Width Even Tabs)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
@@ -61,24 +61,25 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* COMPACT DROPDOWN SELECTORS (NO UNWANTED GAP) */
+    /* COMPACT DROPDOWN SELECTORS (REMOVED UNWANTED GAP AFTER ARROW) */
     div[data-baseweb="select"] {
         background-color: #FFFFFF !important;
         border-radius: 8px !important;
         width: 100% !important;
-        max-width: 520px !important; /* Constrain width neatly */
-        margin-bottom: 4px !important;
+        margin-bottom: 6px !important;
     }
 
     div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
         border: 1.5px solid #D946EF !important;
         border-radius: 8px !important;
-        padding: 0px 10px !important;
-        height: 42px !important;
-        min-height: 42px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        height: 44px !important;
+        min-height: 44px !important;
         display: flex !important;
         align-items: center !important;
+        justify-content: space-between !important;
     }
 
     div[data-baseweb="select"] * {
@@ -89,6 +90,12 @@ st.markdown("""
 
     div[data-baseweb="select"] svg {
         fill: #D946EF !important;
+    }
+
+    /* Remove trailing invisible elements after chevron arrow */
+    div[data-baseweb="select"] div[aria-hidden="true"] ~ div {
+        padding-right: 0px !important;
+        margin-right: 0px !important;
     }
 
     /* POPUP MENU */
@@ -119,7 +126,7 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* FORCED 100% FULL-WIDTH TABS - ELIMINATES RIGHT GAP COMPLETELY */
+    /* FULL-WIDTH BALANCED TAB BAR */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child,
     .stTabs [role="tablist"] {
@@ -140,7 +147,7 @@ st.markdown("""
         justify-content: center !important;
         background-color: transparent !important;
         border: none !important;
-        padding: 10px 4px !important;
+        padding: 10px 2px !important;
         cursor: pointer !important;
     }
 
@@ -179,12 +186,10 @@ st.markdown("""
         color: #FFFFFF !important;
         border-radius: 8px !important;
         border: none !important;
-        padding: 12px 22px !important;
-        width: auto !important;
-        min-width: 240px !important;
-        max-width: 320px !important;
+        padding: 12px 24px !important;
+        width: 100% !important;
         margin-top: 10px !important;
-        box-shadow: 0px 4px 12px rgba(217, 70, 239, 0.25) !important;
+        box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.3) !important;
         transition: all 0.2s ease-in-out !important;
     }
 
@@ -233,7 +238,7 @@ Your Job:
 3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
 """
 
-# 4 Perfectly Balanced Full-Width Tabs
+# 4 Balanced Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
     "🌿 Health Benefits Finder", 
     "🎯 Health Goal Matcher", 
