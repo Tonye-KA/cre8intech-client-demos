@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (Official Money Wit Africa Golden Yellow & Deep Onyx Black Palette)
+# Custom Styling (Money Wit Africa Brand: Rich Gold & Deep Slate/Onyx)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
@@ -17,7 +17,7 @@ st.markdown("""
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        color: #111827 !important;
+        color: #0F172A !important;
     }
 
     [data-testid="stHeader"] {
@@ -27,19 +27,19 @@ st.markdown("""
     /* 2. Headings & Typography */
     h1, h2, h3 {
         font-family: 'Playfair Display', serif !important;
-        color: #111827 !important;
+        color: #0F172A !important;
         font-weight: 700 !important;
         letter-spacing: -0.5px;
     }
 
     p, span, label {
-        color: #1F2937 !important;
+        color: #1E293B !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
     /* 3. Cre8intech Demo Badge Header */
     .demo-badge {
-        background-color: #111827 !important;
+        background-color: #0F172A !important;
         color: #F59E0B !important; /* Signature Money Wit Gold */
         padding: 5px 14px;
         border-radius: 20px;
@@ -49,80 +49,62 @@ st.markdown("""
         display: inline-block;
         margin-bottom: 12px;
         text-transform: uppercase;
-        box-shadow: 0px 2px 8px rgba(17, 24, 39, 0.15);
+        box-shadow: 0px 2px 8px rgba(15, 23, 42, 0.15);
     }
 
     /* 4. Warm Yellow Card Container */
     div[data-testid="stForm"], div.stBlock {
-        background-color: #FFFDF5 !important; /* Soft warm yellow tint */
-        border: 2px solid #FCD34D !important;   /* Golden border */
+        background-color: #FFFDF5 !important;
+        border: 2px solid #FCD34D !important;
         border-radius: 16px !important;
         padding: 32px !important;
         box-shadow: 0px 8px 24px rgba(245, 158, 11, 0.08) !important;
         margin-bottom: 20px !important;
     }
 
-    /* 5. DROPDOWNS: Crisp White Container with Dark Text */
-    div[data-baseweb="select"] {
-        background-color: #FFFFFF !important;
-        border-radius: 8px !important;
-        width: 100% !important;
-        margin-bottom: 4px !important;
-    }
-
-    div[data-baseweb="select"] > div {
-        background-color: #FFFFFF !important;
-        border: 1.5px solid #F59E0B !important; /* Money Wit Yellow Border */
-        border-radius: 8px !important;
-        padding: 2px 8px !important;
-        min-height: 44px !important;
-    }
-
-    div[data-baseweb="select"] * {
-        color: #111827 !important;
-        font-weight: 600 !important;
-        font-size: 14px !important;
-    }
-
-    div[data-baseweb="select"] svg {
-        fill: #D97706 !important;
-    }
-
-    /* Dropdown Popup Options Menu */
-    ul[role="listbox"],
-    div[data-baseweb="menu"],
+    /* 5. DROPDOWN POPUP MENU (CRISP HIGH-CONTRAST VISIBLE TEXT) */
     div[data-baseweb="popover"],
+    div[data-baseweb="menu"],
+    ul[role="listbox"],
     div[role="listbox"] {
         background-color: #FFFFFF !important;
         border: 1.5px solid #F59E0B !important;
         border-radius: 8px !important;
+        box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.15) !important;
     }
 
+    /* Force all option items and text to be bold, dark, and clear */
     ul[role="listbox"] li,
+    ul[role="listbox"] li *,
     div[data-baseweb="menu"] div,
+    div[data-baseweb="menu"] span,
+    div[data-baseweb="popover"] span,
     div[data-baseweb="popover"] div {
-        color: #111827 !important;
-        background-color: #FFFFFF !important;
+        color: #0F172A !important;
+        -webkit-text-fill-color: #0F172A !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-weight: 600 !important;
-        font-size: 13.5px !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;
+        opacity: 1 !important;
     }
 
+    /* Hover State inside Dropdown */
     ul[role="listbox"] li:hover,
+    ul[role="listbox"] li:hover *,
     div[data-baseweb="menu"] div:hover,
-    div[data-baseweb="popover"] div:hover {
+    [aria-selected="true"] {
         background-color: #FEF3C7 !important;
         color: #92400E !important;
+        -webkit-text-fill-color: #92400E !important;
     }
 
-    /* 6. SIGNATURE MONEY WIT GOLDEN BUTTON WITH BOLD JET BLACK TEXT */
+    /* 6. SIGNATURE MONEY WIT GOLDEN BUTTON */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="stFormSubmitButton"] > button {
-        background-color: #F59E0B !important; /* Money Wit Signature Yellow */
+        background-color: #F59E0B !important;
         background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%) !important;
-        color: #111827 !important;
         border-radius: 8px !important;
         border: 1px solid #D97706 !important;
         padding: 14px 24px !important;
@@ -135,8 +117,8 @@ st.markdown("""
     div.stButton > button *,
     button[kind="primaryFormSubmit"] *,
     button[data-testid="stFormSubmitButton"] > button * {
-        color: #111827 !important;
-        -webkit-text-fill-color: #111827 !important;
+        color: #0F172A !important;
+        -webkit-text-fill-color: #0F172A !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-size: 15px !important;
         font-weight: 800 !important;
@@ -154,7 +136,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Badge Header & Title
+# Header Section
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
 st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
@@ -164,17 +146,32 @@ st.write("Complete this 2-minute assessment to receive an instant financial heal
 with st.form("diagnostic_form"):
     earner_type = st.selectbox(
         "1. What best describes your current career / earning stage?",
-        ["Early Career Professional", "Mid-Level / Senior Professional", "Business Owner / Entrepreneur", "High-Net-Worth Individual"]
+        [
+            "Early Career Professional", 
+            "Mid-Level / Senior Professional", 
+            "Business Owner / Entrepreneur", 
+            "High-Net-Worth Individual"
+        ]
     )
     
     primary_goal = st.selectbox(
         "2. What is your primary financial focus right now?",
-        ["Building consistent monthly savings habits", "Investing in Eurobonds & global equities", "Clearing high-interest debt & budgeting", "Scaling an investment portfolio"]
+        [
+            "Building consistent monthly savings habits", 
+            "Investing in Eurobonds & global equities", 
+            "Clearing high-interest debt & budgeting", 
+            "Scaling an investment portfolio"
+        ]
     )
     
     biggest_challenge = st.selectbox(
         "3. What is your biggest financial hurdle?",
-        ["Financial jargon is confusing", "Lack of time to analyze deals", "Inconsistency in execution", "Need a vetted community & accountability"]
+        [
+            "Financial jargon is confusing", 
+            "Lack of time to analyze deals", 
+            "Inconsistency in execution", 
+            "Need a vetted community & accountability"
+        ]
     )
     
     submitted = st.form_submit_button("Generate Financial Profile 🚀")
