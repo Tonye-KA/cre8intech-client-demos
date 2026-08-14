@@ -8,13 +8,13 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (High-Contrast Text + Legible Popover Options)
+# Custom High-End Styling
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* 1. Page Background & Padding */
-    .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+    /* Clean Body & Page Margin */
+    .stApp {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
@@ -24,30 +24,28 @@ st.markdown("""
     }
 
     .main .block-container {
-        padding-top: 2.5rem !important;
+        padding-top: 3rem !important;
+        max-width: 720px !important;
     }
 
-    /* 2. Headings & ALL Body / Caption Text */
-    h1, h2, h3, h4 {
+    /* Headings */
+    h1 {
         font-family: 'Playfair Display', serif !important;
         color: #0F172A !important;
         font-weight: 700 !important;
-        line-height: 1.2 !important;
+        font-size: 2.2rem !important;
+        line-height: 1.25 !important;
+        margin-top: 0.5rem !important;
     }
 
-    p, span, label, div[data-testid="stMarkdownContainer"] p, [data-testid="stCaptionContainer"] p {
+    /* Subtitle & Body Text */
+    p, span, label, [data-testid="stMarkdownContainer"] p {
         color: #1E293B !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-size: 15px !important;
     }
 
-    /* Form Question Labels */
-    label[data-testid="stWidgetLabel"] p {
-        color: #0F172A !important;
-        font-weight: 700 !important;
-        font-size: 14.5px !important;
-    }
-
-    /* 3. Cre8intech Demo Badge */
+    /* Cre8intech Demo Badge */
     .demo-badge {
         background-color: #0F172A !important;
         color: #F59E0B !important;
@@ -57,85 +55,44 @@ st.markdown("""
         font-weight: 800;
         letter-spacing: 1.2px;
         display: inline-block;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         text-transform: uppercase;
-        box-shadow: 0px 2px 8px rgba(15, 23, 42, 0.15);
     }
 
-    /* 4. Warm Yellow Assessment Card */
-    div[data-testid="stForm"], div.stBlock {
+    /* Card Container */
+    div[data-testid="stForm"] {
         background-color: #FFFDF5 !important;
         border: 2px solid #FCD34D !important;
         border-radius: 16px !important;
         padding: 28px !important;
         box-shadow: 0px 8px 24px rgba(245, 158, 11, 0.08) !important;
-        margin-bottom: 20px !important;
+        margin-top: 15px !important;
     }
 
-    /* 5. DROPDOWN POPUP LIST - FIXING ALL INVISIBLE/FADED OPTIONS */
-    div[data-baseweb="popover"],
-    div[data-baseweb="menu"],
-    ul[role="listbox"],
-    div[role="listbox"] {
-        background-color: #FFFFFF !important;
-        border: 2px solid #F59E0B !important;
-        border-radius: 8px !important;
-        box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.18) !important;
-    }
-
-    /* Target EVERY nested text node in the dropdown menu */
-    ul[role="listbox"] li,
-    ul[role="listbox"] li *,
-    div[data-baseweb="menu"] div,
-    div[data-baseweb="menu"] span,
-    div[data-baseweb="menu"] p,
-    li[role="option"],
-    li[role="option"] * {
-        color: #0F172A !important;
-        -webkit-text-fill-color: #0F172A !important;
-        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    /* Form Labels */
+    label[data-testid="stWidgetLabel"] p {
         font-weight: 700 !important;
-        font-size: 14px !important;
-        opacity: 1 !important;
+        color: #0F172A !important;
+        font-size: 14.5px !important;
     }
 
-    /* Hover & Selected Option State */
-    ul[role="listbox"] li:hover,
-    ul[role="listbox"] li:hover *,
-    li[role="option"]:hover,
-    li[role="option"]:hover *,
-    li[aria-selected="true"],
-    li[aria-selected="true"] * {
-        background-color: #FEF3C7 !important;
-        color: #78350F !important;
-        -webkit-text-fill-color: #78350F !important;
-    }
-
-    /* 6. Signature Money Wit Gold Action Button */
+    /* Money Wit Action Button */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
-    button[kind="secondaryFormSubmit"],
     button[data-testid="stFormSubmitButton"] > button {
-        background-color: #F59E0B !important;
         background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%) !important;
+        color: #0F172A !important;
         border-radius: 8px !important;
         border: 1px solid #D97706 !important;
         padding: 14px 28px !important;
         margin-top: 14px !important;
         box-shadow: 0px 4px 14px rgba(245, 158, 11, 0.35) !important;
-        transition: all 0.2s ease-in-out !important;
-    }
-
-    div.stButton > button *,
-    button[kind="primaryFormSubmit"] *,
-    button[data-testid="stFormSubmitButton"] > button * {
-        color: #0F172A !important;
-        -webkit-text-fill-color: #0F172A !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-size: 14px !important;
         font-weight: 800 !important;
         letter-spacing: 0.5px !important;
         text-transform: uppercase !important;
+        transition: all 0.2s ease-in-out !important;
     }
 
     div.stButton > button:hover,
@@ -151,7 +108,7 @@ st.markdown("""
 # Header Section
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
-st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
+st.markdown("**Configured for Money Wit Africa** (Founder: Oler Oladele, CFA)")
 st.write("Complete this 2-minute assessment to receive an instant financial health summary and discover your custom Money Wit roadmap.")
 
 # Assessment Form
