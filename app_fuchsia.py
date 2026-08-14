@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Compact & Clean)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Full Width Even Tabs)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
 
-    /* Full Page Canvas to Pure White */
+    /* Force Full Page Canvas to Pure White */
     html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .stApp {
         background-color: #FFFFFF !important;
         color: #1A1A1A !important;
@@ -51,17 +51,17 @@ st.markdown("""
         text-transform: uppercase;
     }
 
-    /* Compact Form Card */
+    /* Container Card */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FAFAFA !important;
         border: 1px solid #E5E7EB !important;
         border-radius: 12px !important;
-        padding: 20px !important;
+        padding: 24px !important;
         box-shadow: 0px 4px 16px rgba(217, 70, 239, 0.04) !important;
-        margin-bottom: 16px !important;
+        margin-bottom: 20px !important;
     }
 
-    /* COMPACT DROPDOWN SELECTORS (REMOVED EXTRA HEIGHT/SPACE) */
+    /* COMPACT DROPDOWN SELECTORS */
     div[data-baseweb="select"] {
         background-color: #FFFFFF !important;
         border-radius: 8px !important;
@@ -113,29 +113,33 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* NATURAL, CLEAN TAB BAR (NO SQUEEZING, NO CLIPPING) */
+    /* PERFECT 100% FULL-WIDTH TAB BAR (NO RIGHT GAP) */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         display: flex !important;
-        justify-content: flex-start !important;
+        width: 100% !important;
+        justify-content: space-between !important;
         border-bottom: 1.5px solid #F3E8FF !important;
-        gap: 16px !important;
-        padding-bottom: 4px !important;
+        gap: 4px !important;
+        padding: 0 !important;
+        margin-bottom: 16px !important;
     }
 
     button[data-baseweb="tab"],
     div[data-testid="stTabs"] button {
-        flex: 0 0 auto !important;
+        flex: 1 1 0px !important;
+        text-align: center !important;
+        justify-content: center !important;
         background-color: transparent !important;
         border: none !important;
-        padding: 6px 10px !important;
+        padding: 10px 4px !important;
         cursor: pointer !important;
     }
 
     button[data-baseweb="tab"] div p,
     div[data-testid="stTabs"] button p {
         font-family: 'Playfair Display', serif !important;
-        font-size: 14.5px !important;
+        font-size: 13.5px !important;
         font-weight: 700 !important;
         color: #6B7280 !important;
         white-space: nowrap !important;
@@ -146,7 +150,7 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* SLEEK & COMPACT PINK BUTTON */
+    /* PINK BUTTONS */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
@@ -156,7 +160,7 @@ st.markdown("""
         color: #FFFFFF !important;
         border-radius: 8px !important;
         border: none !important;
-        padding: 10px 22px !important;
+        padding: 12px 22px !important;
         width: auto !important;
         min-width: 260px !important;
         max-width: 340px !important;
@@ -210,17 +214,17 @@ Your Job:
 3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
 """
 
-# 4 Clean, Concise Tabs
+# 4 Evenly Balanced Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🌿 Product Benefits", 
-    "🎯 Goal Matcher", 
+    "🌿 Health Benefits", 
+    "🎯 Health Goal Matcher", 
     "🎉 Event Planner", 
     "🎁 Luxury Gifts"
 ])
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
 
-# --- TAB 1: Product Benefits ---
+# --- TAB 1: Health Benefits ---
 with tab1:
     with st.form("product_form"):
         st.subheader("Discover Product Health Benefits")
@@ -252,7 +256,7 @@ with tab1:
                 st.success(f"Health Benefits of {product_choice}:")
                 st.markdown(res.choices[0].message.content)
 
-# --- TAB 2: Goal Matcher ---
+# --- TAB 2: Health Goal Matcher ---
 with tab2:
     with st.form("goal_form"):
         st.subheader("Match Desserts to Your Health Goal")
