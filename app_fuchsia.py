@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Compact & Refined)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Compact & Clean)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
 
-    /* FORCE FULL PAGE CANVAS TO PURE WHITE */
+    /* Full Page Canvas to Pure White */
     html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .stApp {
         background-color: #FFFFFF !important;
         color: #1A1A1A !important;
@@ -39,19 +39,19 @@ st.markdown("""
 
     /* Cre8intech Badge Header */
     .demo-badge {
-        background-color: #D946EF !important; /* Fuchsia Pink */
+        background-color: #D946EF !important;
         color: #FFFFFF !important;
         padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 11px;
+        border-radius: 16px;
+        font-size: 10px;
         font-weight: 700;
-        letter-spacing: 1.2px;
+        letter-spacing: 1.5px;
         display: inline-block;
         margin-bottom: 10px;
         text-transform: uppercase;
     }
 
-    /* Container Card - Compact & Clean */
+    /* Compact Form Card */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FAFAFA !important;
         border: 1px solid #E5E7EB !important;
@@ -61,12 +61,17 @@ st.markdown("""
         margin-bottom: 16px !important;
     }
 
-    /* COMPACT DROPDOWN CONTAINERS */
-    div[data-baseweb="select"], 
+    /* COMPACT DROPDOWN SELECTORS (REMOVED EXTRA HEIGHT/SPACE) */
+    div[data-baseweb="select"] {
+        background-color: #FFFFFF !important;
+        border-radius: 8px !important;
+    }
+
     div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
         border: 1.5px solid #D946EF !important;
         border-radius: 8px !important;
+        padding: 2px 8px !important;
         min-height: 40px !important;
     }
 
@@ -80,7 +85,7 @@ st.markdown("""
         fill: #D946EF !important;
     }
 
-    /* DROPDOWN POPUP MENU */
+    /* POPUP MENU */
     ul[role="listbox"],
     div[data-baseweb="menu"],
     div[data-baseweb="popover"],
@@ -97,11 +102,9 @@ st.markdown("""
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
         font-weight: 600 !important;
-        font-size: 13.5px !important;
-        padding: 8px 12px !important;
+        font-size: 13px !important;
     }
 
-    /* Pink Hover Effect for Options */
     ul[role="listbox"] li:hover,
     div[data-baseweb="menu"] div:hover,
     div[data-baseweb="popover"] div:hover,
@@ -110,20 +113,23 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* CLEAN TABS BAR - NATURAL FIT */
+    /* NATURAL, CLEAN TAB BAR (NO SQUEEZING, NO CLIPPING) */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         display: flex !important;
-        border-bottom: 1.5px solid #E5E7EB !important;
-        gap: 12px !important;
-        padding-bottom: 2px !important;
+        justify-content: flex-start !important;
+        border-bottom: 1.5px solid #F3E8FF !important;
+        gap: 16px !important;
+        padding-bottom: 4px !important;
     }
 
     button[data-baseweb="tab"],
     div[data-testid="stTabs"] button {
+        flex: 0 0 auto !important;
         background-color: transparent !important;
         border: none !important;
-        padding: 8px 10px !important;
+        padding: 6px 10px !important;
+        cursor: pointer !important;
     }
 
     button[data-baseweb="tab"] div p,
@@ -132,7 +138,7 @@ st.markdown("""
         font-size: 14.5px !important;
         font-weight: 700 !important;
         color: #6B7280 !important;
-        margin: 0 !important;
+        white-space: nowrap !important;
     }
 
     button[aria-selected="true"] div p,
@@ -140,7 +146,7 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* COMPACT FUCHSIA ACTION BUTTON */
+    /* SLEEK & COMPACT PINK BUTTON */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
@@ -150,10 +156,12 @@ st.markdown("""
         color: #FFFFFF !important;
         border-radius: 8px !important;
         border: none !important;
-        padding: 10px 18px !important;
-        width: 100% !important;
+        padding: 10px 22px !important;
+        width: auto !important;
+        min-width: 260px !important;
+        max-width: 340px !important;
         margin-top: 10px !important;
-        box-shadow: 0px 3px 10px rgba(217, 70, 239, 0.25) !important;
+        box-shadow: 0px 4px 12px rgba(217, 70, 239, 0.25) !important;
         transition: all 0.2s ease-in-out !important;
     }
 
@@ -165,7 +173,7 @@ st.markdown("""
         font-family: 'Montserrat', sans-serif !important;
         font-size: 13px !important;
         font-weight: 700 !important;
-        letter-spacing: 0.4px !important;
+        letter-spacing: 0.5px !important;
         text-transform: uppercase !important;
     }
 
@@ -202,22 +210,22 @@ Your Job:
 3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
 """
 
-# 4 Standard Fitted Tabs
+# 4 Clean, Concise Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🌿 Health Benefits", 
+    "🌿 Product Benefits", 
     "🎯 Goal Matcher", 
-    "🎉 Event Catering", 
+    "🎉 Event Planner", 
     "🎁 Luxury Gifts"
 ])
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
 
-# --- TAB 1: Health Benefits ---
+# --- TAB 1: Product Benefits ---
 with tab1:
     with st.form("product_form"):
         st.subheader("Discover Product Health Benefits")
         product_choice = st.selectbox(
-            "Select a dessert to learn its health benefits:",
+            "Select a specific dessert to learn its health benefits:",
             [
                 "Signature Dark Chocolate Cakes & Gateaux",
                 "Artisanal Fresh Berry & Fruit Tarts",
@@ -227,7 +235,7 @@ with tab1:
                 "Gluten-Free & Dairy-Free Artisan Pastries"
             ]
         )
-        submit_product = st.form_submit_button("Discover Product Health Benefits ✨")
+        submit_product = st.form_submit_button("Discover Health Benefits ✨")
 
     if submit_product:
         if not api_key:
@@ -260,7 +268,7 @@ with tab2:
                 "Immune Support & Glowing Skin (Antioxidant Berries & Fruits)"
             ]
         )
-        submit_goal = st.form_submit_button("Match Desserts to Health Goal ✨")
+        submit_goal = st.form_submit_button("Match Desserts to Goal ✨")
 
     if submit_goal:
         if not api_key:
@@ -277,12 +285,12 @@ with tab2:
                 st.success("Your Recommended Dessert Match:")
                 st.markdown(res.choices[0].message.content)
 
-# --- TAB 3: Event Catering ---
+# --- TAB 3: Event Planner ---
 with tab3:
     with st.form("event_planner_form"):
         st.subheader("Plan Event & Party Catering")
         event_type = st.selectbox(
-            "1. What type of event are you hosting?",
+            "What type of event are you hosting?",
             [
                 "Wedding Reception / Bridal Dessert Table",
                 "Corporate Gala / Conference Catering",
@@ -291,10 +299,10 @@ with tab3:
             ]
         )
         guest_count = st.selectbox(
-            "2. Estimated number of guests?",
+            "Estimated number of guests?",
             ["10 - 25 Guests (Intimate Gathering)", "26 - 50 Guests (Medium Party)", "51 - 100 Guests (Large Event)", "100+ Guests (Grand Event)"]
         )
-        submit_event = st.form_submit_button("Plan My Event Dessert Menu 🎉")
+        submit_event = st.form_submit_button("Plan My Event Menu 🎉")
 
     if submit_event:
         if not api_key:
@@ -316,7 +324,7 @@ with tab4:
     with st.form("luxury_gift_form"):
         st.subheader("Curate Luxury Dessert Gifts")
         gift_occasion = st.selectbox(
-            "1. What is the gifting occasion?",
+            "What is the gifting occasion?",
             [
                 "Corporate Client / VIP Appreciation Box",
                 "Birthday / Milestone Anniversary Gift",
@@ -325,10 +333,10 @@ with tab4:
             ]
         )
         gift_size = st.selectbox(
-            "2. Select gift size preference:",
+            "Select gift size preference:",
             ["Single Luxury Gift Box (1 - 2 People)", "Family / Small Team Gift Hamper (3 - 6 People)", "Bulk Executive Orders (Multiple Recipients)"]
         )
-        submit_gift = st.form_submit_button("Curate Luxury Gift Package 🎁")
+        submit_gift = st.form_submit_button("Curate Luxury Gift 🎁")
 
     if submit_gift:
         if not api_key:
