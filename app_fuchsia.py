@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Full Width Even Tabs)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Compact & Refined)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
@@ -41,38 +41,39 @@ st.markdown("""
     .demo-badge {
         background-color: #D946EF !important; /* Fuchsia Pink */
         color: #FFFFFF !important;
-        padding: 5px 14px;
+        padding: 4px 12px;
         border-radius: 20px;
         font-size: 11px;
         font-weight: 700;
-        letter-spacing: 1.5px;
+        letter-spacing: 1.2px;
         display: inline-block;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
         text-transform: uppercase;
     }
 
-    /* Container Card */
+    /* Container Card - Compact & Clean */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FAFAFA !important;
         border: 1px solid #E5E7EB !important;
         border-radius: 12px !important;
-        padding: 24px !important;
-        box-shadow: 0px 4px 20px rgba(217, 70, 239, 0.05) !important;
-        margin-bottom: 20px !important;
+        padding: 20px !important;
+        box-shadow: 0px 4px 16px rgba(217, 70, 239, 0.04) !important;
+        margin-bottom: 16px !important;
     }
 
-    /* DROPDOWN CONTAINERS (FORCE FUCHSIA & WHITE) */
+    /* COMPACT DROPDOWN CONTAINERS */
     div[data-baseweb="select"], 
     div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
         border: 1.5px solid #D946EF !important;
         border-radius: 8px !important;
+        min-height: 40px !important;
     }
 
     div[data-baseweb="select"] * {
         color: #1A1A1A !important;
         font-weight: 600 !important;
-        font-size: 14px !important;
+        font-size: 13.5px !important;
     }
 
     div[data-baseweb="select"] svg {
@@ -96,6 +97,8 @@ st.markdown("""
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
         font-weight: 600 !important;
+        font-size: 13.5px !important;
+        padding: 8px 12px !important;
     }
 
     /* Pink Hover Effect for Options */
@@ -107,33 +110,29 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* SPREAD 4 TABS EVENLY ACROSS FULL CONTAINER WIDTH */
+    /* CLEAN TABS BAR - NATURAL FIT */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         display: flex !important;
-        justify-content: space-between !important;
-        width: 100% !important;
-        border-bottom: 1px solid #E5E7EB !important;
-        gap: 8px !important;
+        border-bottom: 1.5px solid #E5E7EB !important;
+        gap: 12px !important;
+        padding-bottom: 2px !important;
     }
 
     button[data-baseweb="tab"],
     div[data-testid="stTabs"] button {
-        flex: 1 1 0% !important;
-        text-align: center !important;
-        justify-content: center !important;
         background-color: transparent !important;
         border: none !important;
-        padding: 10px 4px !important;
+        padding: 8px 10px !important;
     }
 
     button[data-baseweb="tab"] div p,
     div[data-testid="stTabs"] button p {
         font-family: 'Playfair Display', serif !important;
-        font-size: 14px !important;
+        font-size: 14.5px !important;
         font-weight: 700 !important;
         color: #6B7280 !important;
-        white-space: nowrap !important;
+        margin: 0 !important;
     }
 
     button[aria-selected="true"] div p,
@@ -141,21 +140,20 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* FORCE ALL BUTTONS TO SIGNATURE FUCHSIA PINK */
+    /* COMPACT FUCHSIA ACTION BUTTON */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="stFormSubmitButton"] > button {
-        background-color: #D946EF !important; /* FUCHSIA PINK */
+        background-color: #D946EF !important;
         background-image: none !important;
         color: #FFFFFF !important;
         border-radius: 8px !important;
         border: none !important;
-        padding: 14px 20px !important;
+        padding: 10px 18px !important;
         width: 100% !important;
         margin-top: 10px !important;
-        margin-bottom: 10px !important;
-        box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.3) !important;
+        box-shadow: 0px 3px 10px rgba(217, 70, 239, 0.25) !important;
         transition: all 0.2s ease-in-out !important;
     }
 
@@ -165,9 +163,9 @@ st.markdown("""
     button[data-testid="stFormSubmitButton"] > button * {
         color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
-        font-size: 14px !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
-        letter-spacing: 0.5px !important;
+        letter-spacing: 0.4px !important;
         text-transform: uppercase !important;
     }
 
@@ -204,22 +202,22 @@ Your Job:
 3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
 """
 
-# 4 Evenly Spaced Tabs
+# 4 Standard Fitted Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🌿 Health Benefit Finder", 
-    "🎯 Health Goal Matcher", 
-    "🎉 Event Catering Planner", 
-    "🎁 Luxury Gift Assistant"
+    "🌿 Health Benefits", 
+    "🎯 Goal Matcher", 
+    "🎉 Event Catering", 
+    "🎁 Luxury Gifts"
 ])
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
 
-# --- TAB 1: Health Benefit Finder ---
+# --- TAB 1: Health Benefits ---
 with tab1:
     with st.form("product_form"):
         st.subheader("Discover Product Health Benefits")
         product_choice = st.selectbox(
-            "Select a specific dessert to learn its health benefits:",
+            "Select a dessert to learn its health benefits:",
             [
                 "Signature Dark Chocolate Cakes & Gateaux",
                 "Artisanal Fresh Berry & Fruit Tarts",
@@ -246,7 +244,7 @@ with tab1:
                 st.success(f"Health Benefits of {product_choice}:")
                 st.markdown(res.choices[0].message.content)
 
-# --- TAB 2: Health Goal Matcher ---
+# --- TAB 2: Goal Matcher ---
 with tab2:
     with st.form("goal_form"):
         st.subheader("Match Desserts to Your Health Goal")
@@ -279,7 +277,7 @@ with tab2:
                 st.success("Your Recommended Dessert Match:")
                 st.markdown(res.choices[0].message.content)
 
-# --- TAB 3: Event Catering Planner ---
+# --- TAB 3: Event Catering ---
 with tab3:
     with st.form("event_planner_form"):
         st.subheader("Plan Event & Party Catering")
@@ -313,7 +311,7 @@ with tab3:
                 st.success("Your Custom Event Catering Plan:")
                 st.markdown(res.choices[0].message.content)
 
-# --- TAB 4: Luxury Gift Assistant ---
+# --- TAB 4: Luxury Gifts ---
 with tab4:
     with st.form("luxury_gift_form"):
         st.subheader("Curate Luxury Dessert Gifts")
