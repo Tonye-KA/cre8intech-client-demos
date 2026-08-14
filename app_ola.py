@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (High-Contrast Text + Golden-Yellow Styled Dropdown Elements)
+# Custom Styling (High-Contrast Text + Legible Popover Options)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* 1. Page Background */
+    /* 1. Page Background & Padding */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -23,17 +23,21 @@ st.markdown("""
         background-color: transparent !important;
     }
 
-    /* 2. Headings & ALL Body / Caption Text (Dark & 100% Legible) */
-    h1, h2, h3, h4, .stHeading {
+    .main .block-container {
+        padding-top: 2.5rem !important;
+    }
+
+    /* 2. Headings & ALL Body / Caption Text */
+    h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #0F172A !important;
         font-weight: 700 !important;
+        line-height: 1.2 !important;
     }
 
     p, span, label, div[data-testid="stMarkdownContainer"] p, [data-testid="stCaptionContainer"] p {
         color: #1E293B !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-weight: 500 !important;
     }
 
     /* Form Question Labels */
@@ -46,7 +50,7 @@ st.markdown("""
     /* 3. Cre8intech Demo Badge */
     .demo-badge {
         background-color: #0F172A !important;
-        color: #F59E0B !important; /* Signature Money Wit Gold */
+        color: #F59E0B !important;
         padding: 5px 14px;
         border-radius: 20px;
         font-size: 11px;
@@ -68,55 +72,43 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. DROPDOWN BOXES (WARM GOLDEN-CREAM STYLING) */
-    div[data-baseweb="select"] > div {
-        background-color: #FEF3C7 !important; /* Warm Golden-Cream */
-        border: 1.5px solid #F59E0B !important;
-        border-radius: 8px !important;
-        padding: 2px 8px !important;
-    }
-
-    div[data-baseweb="select"] * {
-        color: #78350F !important; /* Deep Golden-Brown Text */
-        font-weight: 700 !important;
-        font-size: 14px !important;
-    }
-
-    div[data-baseweb="select"] svg {
-        fill: #78350F !important;
-    }
-
-    /* DROPDOWN POPUP MENU & ALL OPTIONS (NO DARK BACKGROUND) */
+    /* 5. DROPDOWN POPUP LIST - FIXING ALL INVISIBLE/FADED OPTIONS */
     div[data-baseweb="popover"],
     div[data-baseweb="menu"],
     ul[role="listbox"],
     div[role="listbox"] {
-        background-color: #FFFDF5 !important;
+        background-color: #FFFFFF !important;
         border: 2px solid #F59E0B !important;
         border-radius: 8px !important;
-        box-shadow: 0px 10px 25px rgba(245, 158, 11, 0.2) !important;
+        box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.18) !important;
     }
 
-    /* All Option Items styled with warm cream background and dark visible text */
+    /* Target EVERY nested text node in the dropdown menu */
     ul[role="listbox"] li,
+    ul[role="listbox"] li *,
     div[data-baseweb="menu"] div,
-    div[data-baseweb="popover"] div {
-        background-color: #FFFDF5 !important;
-        color: #78350F !important;
-        -webkit-text-fill-color: #78350F !important;
+    div[data-baseweb="menu"] span,
+    div[data-baseweb="menu"] p,
+    li[role="option"],
+    li[role="option"] * {
+        color: #0F172A !important;
+        -webkit-text-fill-color: #0F172A !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-weight: 700 !important;
         font-size: 14px !important;
-        padding: 10px 14px !important;
+        opacity: 1 !important;
     }
 
-    /* Hover & Active Highlight */
+    /* Hover & Selected Option State */
     ul[role="listbox"] li:hover,
-    ul[role="listbox"] li[aria-selected="true"],
-    div[data-baseweb="menu"] div:hover {
+    ul[role="listbox"] li:hover *,
+    li[role="option"]:hover,
+    li[role="option"]:hover *,
+    li[aria-selected="true"],
+    li[aria-selected="true"] * {
         background-color: #FEF3C7 !important;
-        color: #92400E !important;
-        -webkit-text-fill-color: #92400E !important;
+        color: #78350F !important;
+        -webkit-text-fill-color: #78350F !important;
     }
 
     /* 6. Signature Money Wit Gold Action Button */
