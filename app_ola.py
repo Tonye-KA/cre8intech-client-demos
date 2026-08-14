@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (Black Dropdown Button, Gold Accents & Cream Option List)
+# Custom Styling (Black Branded Dropdown + Gold Theme)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* 1. Page Background & Layout */
+    /* 1. Page Canvas & Spacing */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -41,7 +41,7 @@ st.markdown("""
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    /* Form Question Labels */
+    /* Question Labels */
     label[data-testid="stWidgetLabel"] p {
         color: #0F172A !important;
         font-weight: 700 !important;
@@ -74,10 +74,12 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. BLACK DROPDOWN BUTTON (DEFAULT CLOSED OPTION CONTAINER) */
-    div[data-baseweb="select"],
-    div[data-baseweb="select"] > div,
-    div[data-baseweb="select"] [role="combobox"],
+    /* 5. BLACK DROPDOWN BUTTON: TARGETS EVERY INTERNAL LAYER DIRECTLY */
+    .stSelectbox div[data-baseweb="select"],
+    .stSelectbox div[data-baseweb="select"] > div,
+    .stSelectbox div[data-baseweb="select"] > div:first-child,
+    .stSelectbox div[data-baseweb="select"] [role="combobox"],
+    .stSelectbox div[data-baseweb="select"] input,
     div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
         background-color: #0F172A !important;
         background: #0F172A !important;
@@ -86,11 +88,11 @@ st.markdown("""
         min-height: 46px !important;
     }
 
-    /* Crisp White Text Inside the Black Box */
-    div[data-baseweb="select"] *,
-    div[data-baseweb="select"] span,
-    div[data-baseweb="select"] div,
-    div[data-baseweb="select"] [role="combobox"] * {
+    /* Bold Crisp White Text Inside the Black Box */
+    .stSelectbox div[data-baseweb="select"] *,
+    .stSelectbox div[data-baseweb="select"] span,
+    .stSelectbox div[data-baseweb="select"] div,
+    .stSelectbox div[data-baseweb="select"] [role="combobox"] * {
         color: #FFFFFF !important;
         -webkit-text-fill-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -99,7 +101,7 @@ st.markdown("""
     }
 
     /* Gold Dropdown Arrow */
-    div[data-baseweb="select"] svg {
+    .stSelectbox div[data-baseweb="select"] svg {
         fill: #F59E0B !important;
     }
 
@@ -143,7 +145,7 @@ st.markdown("""
         font-weight: 700 !important;
     }
 
-    /* Hover & Active Highlight */
+    /* Hover & Selected Option State */
     ul[role="listbox"] li:hover,
     ul[role="listbox"] li:hover *,
     li[role="option"]:hover,
