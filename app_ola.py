@@ -8,13 +8,13 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling
+# Custom High-End Styling (Money Wit Africa Brand Palette)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* Clean Body & Page Margin */
-    .stApp {
+    /* 1. Page Background & Padding */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
@@ -24,28 +24,31 @@ st.markdown("""
     }
 
     .main .block-container {
-        padding-top: 3rem !important;
+        padding-top: 3.5rem !important;
         max-width: 720px !important;
     }
 
-    /* Headings */
-    h1 {
+    /* 2. Headings & Typography */
+    h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #0F172A !important;
         font-weight: 700 !important;
-        font-size: 2.2rem !important;
         line-height: 1.25 !important;
-        margin-top: 0.5rem !important;
     }
 
-    /* Subtitle & Body Text */
-    p, span, label, [data-testid="stMarkdownContainer"] p {
+    p, span, label, [data-testid="stMarkdownContainer"] p, [data-testid="stCaptionContainer"] p {
         color: #1E293B !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-size: 15px !important;
     }
 
-    /* Cre8intech Demo Badge */
+    /* Form Question Labels */
+    label[data-testid="stWidgetLabel"] p {
+        color: #0F172A !important;
+        font-weight: 700 !important;
+        font-size: 14.5px !important;
+    }
+
+    /* 3. Cre8intech Demo Badge */
     .demo-badge {
         background-color: #0F172A !important;
         color: #F59E0B !important;
@@ -55,52 +58,115 @@ st.markdown("""
         font-weight: 800;
         letter-spacing: 1.2px;
         display: inline-block;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
         text-transform: uppercase;
+        box-shadow: 0px 2px 8px rgba(15, 23, 42, 0.15);
     }
 
-    /* Card Container */
-    div[data-testid="stForm"] {
+    /* 4. Warm Yellow Assessment Card */
+    div[data-testid="stForm"], div.stBlock {
         background-color: #FFFDF5 !important;
         border: 2px solid #FCD34D !important;
         border-radius: 16px !important;
         padding: 28px !important;
         box-shadow: 0px 8px 24px rgba(245, 158, 11, 0.08) !important;
         margin-top: 15px !important;
+        margin-bottom: 20px !important;
     }
 
-    /* Form Labels */
-    label[data-testid="stWidgetLabel"] p {
-        font-weight: 700 !important;
+    /* 5. SELECTBOX INPUT CONTAINER */
+    div[data-baseweb="select"] > div {
+        background-color: #FFFFFF !important;
+        border: 1.5px solid #F59E0B !important;
+        border-radius: 8px !important;
+    }
+
+    div[data-baseweb="select"] * {
         color: #0F172A !important;
-        font-size: 14.5px !important;
+        font-weight: 600 !important;
     }
 
-    /* Money Wit Action Button */
-    div.stButton > button,
+    div[data-baseweb="select"] svg {
+        fill: #D97706 !important;
+    }
+
+    /* 6. DROPDOWN POPUP MENU (FORCES ALL HIDDEN OPTIONS TO BE 100% VISIBLE) */
+    div[data-baseweb="popover"],
+    div[data-baseweb="menu"],
+    ul[role="listbox"],
+    div[role="listbox"] {
+        background-color: #FFFFFF !important;
+        border: 2px solid #F59E0B !important;
+        border-radius: 8px !important;
+        box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.18) !important;
+    }
+
+    ul[role="listbox"] li,
+    ul[role="listbox"] li *,
+    div[data-baseweb="menu"] div,
+    div[data-baseweb="popover"] div,
+    div[data-baseweb="popover"] span {
+        color: #0F172A !important;
+        -webkit-text-fill-color: #0F172A !important;
+        background-color: #FFFFFF !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 14px !important;
+        opacity: 1 !important;
+    }
+
+    /* Hover State inside Dropdown Popup */
+    ul[role="listbox"] li:hover,
+    ul[role="listbox"] li:hover *,
+    div[data-baseweb="menu"] div:hover,
+    [aria-selected="true"],
+    [aria-selected="true"] * {
+        background-color: #FEF3C7 !important;
+        color: #92400E !important;
+        -webkit-text-fill-color: #92400E !important;
+    }
+
+    /* 7. BRIGHT MONEY WIT GOLD ACTION BUTTON (HIGH VISIBILITY) */
     button[kind="primaryFormSubmit"],
-    button[data-testid="stFormSubmitButton"] > button {
+    button[kind="secondaryFormSubmit"],
+    button[data-testid="baseButton-primary"],
+    button[data-testid="baseButton-secondary"],
+    div[data-testid="stFormSubmitButton"] button,
+    div.stButton > button {
+        background-color: #F59E0B !important;
         background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%) !important;
         color: #0F172A !important;
         border-radius: 8px !important;
         border: 1px solid #D97706 !important;
         padding: 14px 28px !important;
+        width: auto !important;
+        min-width: 260px !important;
         margin-top: 14px !important;
-        box-shadow: 0px 4px 14px rgba(245, 158, 11, 0.35) !important;
+        box-shadow: 0px 4px 14px rgba(245, 158, 11, 0.4) !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    /* Force button text to bold black */
+    button[kind="primaryFormSubmit"] *,
+    button[kind="secondaryFormSubmit"] *,
+    button[data-testid="baseButton-primary"] *,
+    button[data-testid="baseButton-secondary"] *,
+    div[data-testid="stFormSubmitButton"] button *,
+    div.stButton > button * {
+        color: #0F172A !important;
+        -webkit-text-fill-color: #0F172A !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-size: 14px !important;
         font-weight: 800 !important;
         letter-spacing: 0.5px !important;
         text-transform: uppercase !important;
-        transition: all 0.2s ease-in-out !important;
     }
 
-    div.stButton > button:hover,
     button[kind="primaryFormSubmit"]:hover,
-    button[data-testid="stFormSubmitButton"] > button:hover {
+    div[data-testid="stFormSubmitButton"] button:hover {
         background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
         transform: translateY(-1px);
-        box-shadow: 0px 6px 18px rgba(245, 158, 11, 0.45) !important;
+        box-shadow: 0px 6px 18px rgba(245, 158, 11, 0.5) !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -108,7 +174,7 @@ st.markdown("""
 # Header Section
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
-st.markdown("**Configured for Money Wit Africa** (Founder: Oler Oladele, CFA)")
+st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
 st.write("Complete this 2-minute assessment to receive an instant financial health summary and discover your custom Money Wit roadmap.")
 
 # Assessment Form
@@ -143,7 +209,7 @@ with st.form("diagnostic_form"):
         ]
     )
     
-    submitted = st.form_submit_button("Generate Financial Profile 🚀")
+    submitted = st.form_submit_button("Generate Financial Profile 🚀", type="primary")
 
 if submitted:
     api_key = st.secrets.get("OPENAI_API_KEY", "")
