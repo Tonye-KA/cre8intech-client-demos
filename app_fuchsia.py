@@ -8,22 +8,17 @@ st.set_page_config(
     layout="centered"
 )
 
-# Clean, Robust Styling
+# Clean High-End Typography & Brand Styling
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
 
-    /* Force Pure White Canvas */
-    .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+    /* Clean Body & Headings */
+    html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .stApp {
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
     }
 
-    [data-testid="stHeader"] {
-        background-color: transparent !important;
-    }
-
-    /* Headings */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #1A1A1A !important;
@@ -44,7 +39,7 @@ st.markdown("""
         text-transform: uppercase;
     }
 
-    /* Form Container Card */
+    /* Card Container */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FAFAFA !important;
         border: 1px solid #E5E7EB !important;
@@ -57,7 +52,7 @@ st.markdown("""
     /* Tabs Styling */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
-        border-bottom: 2px solid #F3E8FF !important;
+        border-bottom: 2px solid #FDF4FF !important;
         margin-bottom: 18px !important;
     }
 
@@ -72,6 +67,31 @@ st.markdown("""
     button[aria-selected="true"] p,
     div[data-testid="stTabs"] button[aria-selected="true"] p {
         color: #D946EF !important;
+    }
+
+    /* Fuchsia Pink Action Button */
+    div.stButton > button,
+    button[kind="primaryFormSubmit"],
+    button[data-testid="stFormSubmitButton"] > button {
+        background-color: #D946EF !important;
+        color: #FFFFFF !important;
+        border-radius: 8px !important;
+        border: none !important;
+        padding: 12px 24px !important;
+        margin-top: 14px !important;
+        font-weight: 700 !important;
+        font-family: 'Montserrat', sans-serif !important;
+        letter-spacing: 0.8px !important;
+        text-transform: uppercase !important;
+        box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.25) !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    div.stButton > button:hover,
+    button[kind="primaryFormSubmit"]:hover,
+    button[data-testid="stFormSubmitButton"] > button:hover {
+        background-color: #C026D3 !important;
+        transform: translateY(-1px);
     }
     </style>
 """, unsafe_allow_html=True)
