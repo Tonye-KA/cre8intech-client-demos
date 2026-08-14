@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Clean Fuchsia Pink & Pure White)
+# Custom High-End Styling
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
@@ -32,7 +32,7 @@ st.markdown("""
         letter-spacing: -0.5px;
     }
 
-    p, span, label, div {
+    p, span, label {
         color: #2D2D2D !important;
         font-family: 'Montserrat', sans-serif !important;
     }
@@ -59,59 +59,6 @@ st.markdown("""
         padding: 24px !important;
         box-shadow: 0px 4px 16px rgba(217, 70, 239, 0.04) !important;
         margin-bottom: 20px !important;
-    }
-
-    /* DROPDOWN SELECTBOX STYLING */
-    div[data-testid="stSelectbox"] {
-        width: 100% !important;
-        max-width: 520px !important;
-        margin-bottom: 12px !important;
-    }
-
-    div[data-baseweb="select"] > div {
-        background-color: #FFFFFF !important;
-        border: 1.5px solid #D946EF !important;
-        border-radius: 8px !important;
-    }
-
-    /* FORCE TEXT INSIDE SELECTBOX TO BE DARK & VISIBLE */
-    div[data-baseweb="select"] span,
-    div[data-baseweb="select"] div {
-        color: #1A1A1A !important;
-        font-weight: 600 !important;
-        font-size: 14px !important;
-    }
-
-    /* Dropdown Arrow Color */
-    div[data-baseweb="select"] svg {
-        fill: #D946EF !important;
-    }
-
-    /* DROPDOWN POPUP MENU */
-    ul[role="listbox"],
-    div[data-baseweb="menu"],
-    div[data-baseweb="popover"],
-    div[role="listbox"] {
-        background-color: #FFFFFF !important;
-        border: 1.5px solid #D946EF !important;
-        border-radius: 8px !important;
-    }
-
-    ul[role="listbox"] li,
-    div[data-baseweb="menu"] div,
-    div[data-baseweb="popover"] div {
-        color: #1A1A1A !important;
-        background-color: #FFFFFF !important;
-        font-family: 'Montserrat', sans-serif !important;
-        font-weight: 600 !important;
-        font-size: 13.5px !important;
-    }
-
-    ul[role="listbox"] li:hover,
-    div[data-baseweb="menu"] div:hover,
-    div[data-baseweb="popover"] div:hover {
-        background-color: #FDF4FF !important;
-        color: #D946EF !important;
     }
 
     /* 4-COLUMN FULL-WIDTH TABS */
@@ -156,7 +103,7 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* HIGH-CONTRAST PINK BUTTON */
+    /* HIGH-CONTRAST FUCHSIA PINK BUTTON */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
@@ -169,9 +116,8 @@ st.markdown("""
         padding: 12px 24px !important;
         width: auto !important;
         min-width: 240px !important;
-        max-width: 320px !important;
-        margin-top: 12px !important;
-        box-shadow: 0px 4px 12px rgba(217, 70, 239, 0.25) !important;
+        margin-top: 14px !important;
+        box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.3) !important;
         transition: all 0.2s ease-in-out !important;
     }
 
