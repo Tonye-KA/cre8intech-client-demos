@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink, Pure White Canvas, White Dropdowns)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White Theme)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-    /* 1. Pure White Canvas & Layout Container */
+    /* 1. Pure White Canvas & Proper Container Width */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
@@ -28,7 +28,7 @@ st.markdown("""
         max-width: 860px !important;
     }
 
-    /* 2. Headings & Typography (100% Dark & Legible) */
+    /* 2. Headings & Body Text */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #1A1A1A !important;
@@ -74,7 +74,7 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. TABS BAR - COMPACT 1-LINE FIT & REMOVING BLACK OVERFLOW */
+    /* 5. TABS BAR - COMPACT 1-LINE FIT & NO OVERFLOW */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         border-bottom: 2px solid #F3E8FF !important;
@@ -86,11 +86,9 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* Remove the dark scroll button/fade on tab overflow */
     [data-testid="stTabs"] button[aria-label="Scroll right"],
     [data-testid="stTabs"] button[aria-label="Scroll left"] {
         display: none !important;
-        background-color: transparent !important;
     }
 
     button[data-baseweb="tab"],
@@ -114,66 +112,86 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* 6. DROPDOWN SELECTBOX: CRISP PURE WHITE BACKGROUND */
-    div[data-baseweb="select"] {
-        background-color: #FFFFFF !important;
-        border-radius: 8px !important;
-        width: 100% !important;
-    }
-
+    /* 6. PURE WHITE SELECTBOX (NO BLACK BACKGROUND) */
+    div[data-baseweb="select"],
     div[data-baseweb="select"] > div,
     div[data-baseweb="select"] > div:hover,
-    div[data-baseweb="select"] > div:focus,
-    div[data-baseweb="select"] > div > div {
+    div[data-baseweb="select"] > div:focus {
         background-color: #FFFFFF !important;
         background: #FFFFFF !important;
-        border: 1.5px solid #E2E8F0 !important;
+        border: 1.5px solid #D946EF !important;
         border-radius: 8px !important;
         min-height: 44px !important;
     }
 
-    div[data-baseweb="select"] * {
-        color: #1A1A1A !important;
-        -webkit-text-fill-color: #1A1A1A !important;
+    /* Target the text inside the selected box */
+    div[data-baseweb="select"] *,
+    div[data-baseweb="select"] span,
+    div[data-baseweb="select"] div {
+        color: #1E293B !important;
+        -webkit-text-fill-color: #1E293B !important;
         font-weight: 600 !important;
         font-size: 14px !important;
     }
 
     div[data-baseweb="select"] svg {
-        fill: #64748B !important;
+        fill: #D946EF !important;
     }
 
-    /* Dropdown Popover Menu */
+    /* 7. DROPDOWN POPUP MENU (100% VISIBLE HIGH-CONTRAST OPTIONS) */
     div[data-baseweb="popover"],
     div[data-baseweb="menu"],
     ul[role="listbox"],
     div[role="listbox"] {
         background-color: #FFFFFF !important;
-        border: 1.5px solid #E2E8F0 !important;
+        background: #FFFFFF !important;
+        border: 1.5px solid #D946EF !important;
         border-radius: 8px !important;
-        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.08) !important;
+        padding: 6px !important;
+        box-shadow: 0px 10px 25px rgba(217, 70, 239, 0.15) !important;
     }
 
+    /* Force all options in the popup menu to have clear legible text & neat styling */
     ul[role="listbox"] li,
-    ul[role="listbox"] li *,
-    div[data-baseweb="menu"] div {
-        color: #1A1A1A !important;
-        -webkit-text-fill-color: #1A1A1A !important;
-        background-color: #FFFFFF !important;
+    ul[role="listbox"] > li,
+    li[role="option"],
+    div[role="option"],
+    div[data-baseweb="menu"] div,
+    div[data-baseweb="popover"] li {
+        background-color: #FAF5FF !important;
+        border: 1px solid #F3E8FF !important;
+        border-radius: 6px !important;
+        margin-bottom: 4px !important;
+        color: #1E293B !important;
+        -webkit-text-fill-color: #1E293B !important;
         font-family: 'Montserrat', sans-serif !important;
         font-weight: 600 !important;
         font-size: 13.5px !important;
-        padding: 8px 12px !important;
+        padding: 10px 14px !important;
+        opacity: 1 !important;
     }
 
+    ul[role="listbox"] li *,
+    li[role="option"] *,
+    div[role="option"] * {
+        color: #1E293B !important;
+        -webkit-text-fill-color: #1E293B !important;
+        font-weight: 600 !important;
+    }
+
+    /* Hover & Selected Option State */
     ul[role="listbox"] li:hover,
-    ul[role="listbox"] li:hover * {
+    ul[role="listbox"] li:hover *,
+    li[role="option"]:hover,
+    li[role="option"]:hover *,
+    li[aria-selected="true"],
+    li[aria-selected="true"] * {
         background-color: #FDF4FF !important;
         color: #D946EF !important;
         -webkit-text-fill-color: #D946EF !important;
     }
 
-    /* 7. SIGNATURE FUCHSIA PINK BUTTON + CRISP BOLD WHITE TEXT */
+    /* 8. SIGNATURE FUCHSIA PINK BUTTON + CRISP BOLD WHITE TEXT */
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="baseButton-primary"],
