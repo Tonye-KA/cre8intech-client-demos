@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (Signature Money Wit Navy, Gold & Warm Cream Theme)
+# Custom Styling (Black Dropdown Button, Gold Accents & Cream Option List)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* 1. Page Canvas & Layout */
+    /* 1. Page Background & Layout */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -28,10 +28,10 @@ st.markdown("""
         max-width: 720px !important;
     }
 
-    /* 2. Headings & Body Text */
+    /* 2. Headings & Typography */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
-        color: #0B132B !important;
+        color: #0F172A !important;
         font-weight: 700 !important;
         line-height: 1.25 !important;
     }
@@ -43,14 +43,14 @@ st.markdown("""
 
     /* Form Question Labels */
     label[data-testid="stWidgetLabel"] p {
-        color: #0B132B !important;
+        color: #0F172A !important;
         font-weight: 700 !important;
         font-size: 14.5px !important;
     }
 
     /* 3. Cre8intech Demo Badge */
     .demo-badge {
-        background-color: #0B132B !important;
+        background-color: #0F172A !important;
         color: #F59E0B !important;
         padding: 5px 14px;
         border-radius: 20px;
@@ -60,7 +60,7 @@ st.markdown("""
         display: inline-block;
         margin-bottom: 12px;
         text-transform: uppercase;
-        box-shadow: 0px 2px 8px rgba(11, 19, 43, 0.15);
+        box-shadow: 0px 2px 8px rgba(15, 23, 42, 0.15);
     }
 
     /* 4. Warm Yellow Assessment Card */
@@ -74,18 +74,19 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. MONEY WIT BRANDED SELECTBOX: DEEP MIDNIGHT NAVY CONTAINER WITH WHITE TEXT */
+    /* 5. BLACK DROPDOWN BUTTON (DEFAULT CLOSED OPTION CONTAINER) */
     div[data-baseweb="select"],
     div[data-baseweb="select"] > div,
-    div[data-baseweb="select"] [role="combobox"] {
-        background-color: #0B132B !important;
-        background: #0B132B !important;
+    div[data-baseweb="select"] [role="combobox"],
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+        background-color: #0F172A !important;
+        background: #0F172A !important;
         border: 1.5px solid #F59E0B !important;
         border-radius: 8px !important;
         min-height: 46px !important;
     }
 
-    /* Active selected value text */
+    /* Crisp White Text Inside the Black Box */
     div[data-baseweb="select"] *,
     div[data-baseweb="select"] span,
     div[data-baseweb="select"] div,
@@ -97,7 +98,7 @@ st.markdown("""
         font-size: 14px !important;
     }
 
-    /* Gold dropdown chevron arrow */
+    /* Gold Dropdown Arrow */
     div[data-baseweb="select"] svg {
         fill: #F59E0B !important;
     }
@@ -111,10 +112,10 @@ st.markdown("""
         border: 2px solid #F59E0B !important;
         border-radius: 8px !important;
         padding: 6px !important;
-        box-shadow: 0px 10px 25px rgba(11, 19, 43, 0.18) !important;
+        box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.18) !important;
     }
 
-    /* 7. ALL DROPDOWN OPTIONS: WARM GOLDEN CREAM BACKGROUND & BOLD DARK BROWN TEXT */
+    /* 7. ALL DROPDOWN OPTIONS: WARM GOLDEN CREAM BACKGROUND & BOLD BROWN TEXT */
     ul[role="listbox"] li,
     ul[role="listbox"] > li,
     li[role="option"],
@@ -134,7 +135,6 @@ st.markdown("""
         opacity: 1 !important;
     }
 
-    /* Target inner spans/divs inside every option */
     ul[role="listbox"] li *,
     li[role="option"] *,
     div[role="option"] * {
@@ -155,7 +155,7 @@ st.markdown("""
         -webkit-text-fill-color: #451A03 !important;
     }
 
-    /* 8. SIGNATURE MONEY WIT GOLD ACTION BUTTON */
+    /* 8. BRIGHT MONEY WIT GOLD ACTION BUTTON */
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="baseButton-primary"],
@@ -164,7 +164,7 @@ st.markdown("""
     div.stButton > button {
         background-color: #F59E0B !important;
         background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%) !important;
-        color: #0B132B !important;
+        color: #0F172A !important;
         border-radius: 8px !important;
         border: 1px solid #D97706 !important;
         padding: 14px 28px !important;
@@ -181,8 +181,8 @@ st.markdown("""
     button[data-testid="baseButton-secondary"] *,
     div[data-testid="stFormSubmitButton"] button *,
     div.stButton > button * {
-        color: #0B132B !important;
-        -webkit-text-fill-color: #0B132B !important;
+        color: #0F172A !important;
+        -webkit-text-fill-color: #0F172A !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-size: 14px !important;
         font-weight: 800 !important;
