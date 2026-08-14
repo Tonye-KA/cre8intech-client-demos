@@ -8,15 +8,14 @@ st.set_page_config(
     layout="centered"
 )
 
-# Clean, Robust CSS (No fragile inner DOM rules)
+# Clean, Non-Invasive Styling (Protects Selectbox Internals)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
 
-    /* Force Pure White Background */
-    html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .stApp {
+    /* Force Pure White Canvas */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
-        color: #1A1A1A !important;
         font-family: 'Montserrat', sans-serif !important;
     }
 
@@ -25,13 +24,13 @@ st.markdown("""
     }
 
     /* Headings */
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #1A1A1A !important;
         font-weight: 700 !important;
     }
 
-    /* Badge */
+    /* Cre8intech Demo Badge */
     .demo-badge {
         background-color: #D946EF !important;
         color: #FFFFFF !important;
@@ -45,7 +44,7 @@ st.markdown("""
         text-transform: uppercase;
     }
 
-    /* Form Container */
+    /* Clean Card Container */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FAFAFA !important;
         border: 1px solid #E5E7EB !important;
@@ -55,24 +54,11 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 4-Column Full-Width Tabs */
+    /* Tabs Styling */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
-        display: grid !important;
-        grid-template-columns: repeat(4, 1fr) !important;
-        width: 100% !important;
         border-bottom: 2px solid #F3E8FF !important;
         margin-bottom: 18px !important;
-    }
-
-    button[data-baseweb="tab"],
-    div[data-testid="stTabs"] button {
-        width: 100% !important;
-        text-align: center !important;
-        justify-content: center !important;
-        background-color: transparent !important;
-        border: none !important;
-        padding: 10px 2px !important;
     }
 
     button[data-baseweb="tab"] p,
@@ -81,7 +67,6 @@ st.markdown("""
         font-size: 13.5px !important;
         font-weight: 700 !important;
         color: #6B7280 !important;
-        white-space: nowrap !important;
     }
 
     button[aria-selected="true"] p,
@@ -89,7 +74,7 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* High-Contrast Fuchsia Pink Button */
+    /* Signature Fuchsia Pink Buttons */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
@@ -99,18 +84,20 @@ st.markdown("""
         border-radius: 8px !important;
         border: none !important;
         padding: 12px 24px !important;
-        width: auto !important;
-        min-width: 240px !important;
         margin-top: 14px !important;
-        box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.3) !important;
         font-weight: 700 !important;
+        font-family: 'Montserrat', sans-serif !important;
+        letter-spacing: 0.5px !important;
         text-transform: uppercase !important;
+        box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.3) !important;
+        transition: all 0.2s ease-in-out !important;
     }
 
     div.stButton > button:hover,
     button[kind="primaryFormSubmit"]:hover,
     button[data-testid="stFormSubmitButton"] > button:hover {
         background-color: #C026D3 !important;
+        transform: translateY(-1px);
     }
     </style>
 """, unsafe_allow_html=True)
