@@ -8,10 +8,10 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Pure White)
+# Custom High-End Styling
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
     /* Force Pure White Canvas */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
@@ -32,7 +32,7 @@ st.markdown("""
 
     /* Cre8intech Demo Badge */
     .demo-badge {
-        background-color: #D946EF !important;
+        background-color: #C026D3 !important;
         color: #FFFFFF !important;
         padding: 4px 12px;
         border-radius: 16px;
@@ -50,14 +50,14 @@ st.markdown("""
         border: 1px solid #E5E7EB !important;
         border-radius: 12px !important;
         padding: 24px !important;
-        box-shadow: 0px 4px 16px rgba(217, 70, 239, 0.04) !important;
+        box-shadow: 0px 4px 16px rgba(192, 38, 211, 0.05) !important;
         margin-bottom: 20px !important;
     }
 
     /* Tabs Styling */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
-        border-bottom: 2px solid #F3E8FF !important;
+        border-bottom: 2px solid #FDF4FF !important;
         margin-bottom: 18px !important;
     }
 
@@ -71,48 +71,43 @@ st.markdown("""
 
     button[aria-selected="true"] p,
     div[data-testid="stTabs"] button[aria-selected="true"] p {
-        color: #D946EF !important;
+        color: #C026D3 !important;
     }
 
-    /* SIGNATURE FUCHSIA PINK BUTTON */
+    /* GUARANTEED HIGH-CONTRAST VIBRANT FUCHSIA BUTTON */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="stFormSubmitButton"] > button {
-        background-color: #D946EF !important;
-        background-image: none !important;
+        background-color: #C026D3 !important;
+        background: #C026D3 !important;
+        color: #FFFFFF !important;
         border-radius: 8px !important;
         border: none !important;
-        padding: 14px 28px !important;
+        padding: 12px 28px !important;
         margin-top: 14px !important;
-        box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.3) !important;
+        box-shadow: 0px 4px 14px rgba(192, 38, 211, 0.4) !important;
         transition: all 0.2s ease-in-out !important;
     }
 
-    /* FORCE CRISP BOLD PURE WHITE TEXT OVERRIDING ALL BROWSER/STREAMLIT STYLES */
-    div.stButton > button,
+    /* Force all text inside button to be pure white */
     div.stButton > button *,
     div.stButton > button p,
     div.stButton > button span,
-    div.stButton > button div,
-    button[kind="primaryFormSubmit"],
-    button[kind="primaryFormSubmit"] *,
-    button[data-testid="stFormSubmitButton"] > button,
-    button[data-testid="stFormSubmitButton"] > button * {
+    div.stButton > button div {
         color: #FFFFFF !important;
-        -webkit-text-fill-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
         font-size: 13px !important;
-        font-weight: 700 !important;
+        font-weight: 800 !important;
         letter-spacing: 0.8px !important;
         text-transform: uppercase !important;
-        opacity: 1 !important;
     }
 
     div.stButton > button:hover,
     button[kind="primaryFormSubmit"]:hover,
     button[data-testid="stFormSubmitButton"] > button:hover {
-        background-color: #C026D3 !important;
+        background-color: #A21CAF !important;
+        background: #A21CAF !important;
         transform: translateY(-1px);
     }
     </style>
@@ -167,7 +162,7 @@ with tab1:
                 "Gluten-Free & Dairy-Free Artisan Pastries"
             ]
         )
-        submit_product = st.form_submit_button("Discover Health Benefits ✨")
+        submit_product = st.form_submit_button("DISCOVER HEALTH BENEFITS ✨")
 
     if submit_product:
         if not api_key:
@@ -200,7 +195,7 @@ with tab2:
                 "Immune Support & Glowing Skin (Antioxidant Berries & Fruits)"
             ]
         )
-        submit_goal = st.form_submit_button("Match Desserts to Goal ✨")
+        submit_goal = st.form_submit_button("MATCH DESSERTS TO GOAL ✨")
 
     if submit_goal:
         if not api_key:
@@ -234,7 +229,7 @@ with tab3:
             "Estimated number of guests?",
             ["10 - 25 Guests (Intimate Gathering)", "26 - 50 Guests (Medium Party)", "51 - 100 Guests (Large Event)", "100+ Guests (Grand Event)"]
         )
-        submit_event = st.form_submit_button("Plan My Event Menu 🎉")
+        submit_event = st.form_submit_button("PLAN MY EVENT MENU 🎉")
 
     if submit_event:
         if not api_key:
@@ -268,7 +263,7 @@ with tab4:
             "Select gift size preference:",
             ["Single Luxury Gift Box (1 - 2 People)", "Family / Small Team Gift Hamper (3 - 6 People)", "Bulk Executive Orders (Multiple Recipients)"]
         )
-        submit_gift = st.form_submit_button("Curate Luxury Gift 🎁")
+        submit_gift = st.form_submit_button("CURATE LUXURY GIFT 🎁")
 
     if submit_gift:
         if not api_key:
