@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Clean Contrast)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-    /* 1. Page Background & Padding */
+    /* 1. Force Pure White Canvas & Proper Margins */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
@@ -23,12 +23,13 @@ st.markdown("""
         background-color: transparent !important;
     }
 
+    /* Container width to fit all 4 tabs seamlessly without spillover */
     .main .block-container {
-        padding-top: 3rem !important;
-        max-width: 760px !important;
+        padding-top: 2.5rem !important;
+        max-width: 820px !important;
     }
 
-    /* 2. Headings & ALL Text (100% Dark & Legible) */
+    /* 2. Headings & ALL Body / Subtitle Text */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #1A1A1A !important;
@@ -42,11 +43,11 @@ st.markdown("""
         font-weight: 500 !important;
     }
 
-    /* Form Labels */
+    /* Form Question Labels */
     label[data-testid="stWidgetLabel"] p {
         color: #1A1A1A !important;
         font-weight: 700 !important;
-        font-size: 14.5px !important;
+        font-size: 14px !important;
     }
 
     /* 3. Cre8intech Demo Badge */
@@ -74,19 +75,31 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. Tabs Styling */
+    /* 5. TABS ROW - PERFECT FIT ACROSS ONE SINGLE LINE */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
-        border-bottom: 2px solid #FDF4FF !important;
+        border-bottom: 2px solid #F3E8FF !important;
         margin-bottom: 18px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        gap: 4px !important;
+    }
+
+    button[data-baseweb="tab"],
+    div[data-testid="stTabs"] button {
+        padding: 8px 10px !important;
+        margin: 0 !important;
+        border-bottom: 2px solid transparent !important;
     }
 
     button[data-baseweb="tab"] p,
     div[data-testid="stTabs"] button p {
         font-family: 'Playfair Display', serif !important;
-        font-size: 13.5px !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
         color: #475569 !important;
+        white-space: nowrap !important;
     }
 
     button[aria-selected="true"] p,
@@ -94,20 +107,30 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* 6. Selectbox Styling */
+    /* 6. PURE WHITE DROPDOWN BOX (NO DARK BACKGROUND) */
+    div[data-baseweb="select"] {
+        background-color: #FFFFFF !important;
+        border-radius: 8px !important;
+        width: 100% !important;
+    }
+
     div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
-        border: 1.5px solid #D946EF !important;
+        border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
+        padding: 2px 8px !important;
+        min-height: 44px !important;
     }
 
     div[data-baseweb="select"] * {
         color: #1A1A1A !important;
+        -webkit-text-fill-color: #1A1A1A !important;
         font-weight: 600 !important;
+        font-size: 14px !important;
     }
 
     div[data-baseweb="select"] svg {
-        fill: #D946EF !important;
+        fill: #64748B !important;
     }
 
     /* Dropdown Popover Menu */
@@ -116,8 +139,9 @@ st.markdown("""
     ul[role="listbox"],
     div[role="listbox"] {
         background-color: #FFFFFF !important;
-        border: 1.5px solid #D946EF !important;
+        border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.08) !important;
     }
 
     ul[role="listbox"] li,
@@ -125,9 +149,11 @@ st.markdown("""
     div[data-baseweb="menu"] div {
         color: #1A1A1A !important;
         -webkit-text-fill-color: #1A1A1A !important;
+        background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
         font-weight: 600 !important;
         font-size: 13.5px !important;
+        padding: 8px 12px !important;
     }
 
     ul[role="listbox"] li:hover,
@@ -186,7 +212,7 @@ st.title("🍰 Fuchsia Health Concierge")
 st.markdown("**Configured for Fuchsia Desserts** (Founder: Tosan)")
 st.write("Welcome! I am **Fuchsia**, your health concierge. Discover the **health benefits** of our desserts or plan custom **event catering & luxury gifts**.")
 
-# System Instructions
+# System Prompt
 SYSTEM_PROMPT = """
 You are 'Fuchsia', the friendly and knowledgeable Health Concierge for Fuchsia Desserts (Founder: Tosan).
 Introduce yourself warmly as 'Fuchsia'. Speak in a candid, encouraging, expert tone. Avoid heavy medical or technical jargon.
@@ -201,15 +227,15 @@ Every single dessert product at Fuchsia Desserts connects to a real health and i
 Your Job:
 1. Educate the user on the specific health benefits of the product OR health goal they selected in plain, friendly terms.
 2. Recommend specific, delicious Fuchsia Desserts items that fit.
-3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
+3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting wholesome health benefits.
 """
 
-# 4 Balanced Tabs
+# 4 Tabs (Clean and Compact for 1-Line Fit)
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🌿 Health Benefits Finder", 
-    "🎯 Health Goal Matcher", 
-    "🎉 Event Catering Planner", 
-    "🎁 Luxury Gifting Assistant"
+    "🌿 Health Benefits", 
+    "🎯 Goal Matcher", 
+    "🎉 Catering Planner", 
+    "🎁 Luxury Gifting"
 ])
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
