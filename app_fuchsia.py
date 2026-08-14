@@ -8,24 +8,48 @@ st.set_page_config(
     layout="centered"
 )
 
-# Clean High-End Typography & Brand Styling
+# Custom High-End Styling (Signature Fuchsia Pink & Clean Contrast)
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-    /* Clean Body & Headings */
-    html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .stApp {
+    /* 1. Page Background & Padding */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
     }
 
+    [data-testid="stHeader"] {
+        background-color: transparent !important;
+    }
+
+    .main .block-container {
+        padding-top: 3rem !important;
+        max-width: 760px !important;
+    }
+
+    /* 2. Headings & ALL Text (100% Dark & Legible) */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #1A1A1A !important;
         font-weight: 700 !important;
+        line-height: 1.25 !important;
     }
 
-    /* Cre8intech Demo Badge */
+    p, span, label, [data-testid="stMarkdownContainer"] p, [data-testid="stCaptionContainer"] p {
+        color: #1E293B !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 500 !important;
+    }
+
+    /* Form Labels */
+    label[data-testid="stWidgetLabel"] p {
+        color: #1A1A1A !important;
+        font-weight: 700 !important;
+        font-size: 14.5px !important;
+    }
+
+    /* 3. Cre8intech Demo Badge */
     .demo-badge {
         background-color: #D946EF !important;
         color: #FFFFFF !important;
@@ -39,17 +63,18 @@ st.markdown("""
         text-transform: uppercase;
     }
 
-    /* Card Container */
+    /* 4. Form Container Card */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FAFAFA !important;
         border: 1px solid #E5E7EB !important;
-        border-radius: 12px !important;
-        padding: 24px !important;
-        box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.04) !important;
+        border-radius: 14px !important;
+        padding: 26px !important;
+        box-shadow: 0px 4px 16px rgba(217, 70, 239, 0.05) !important;
+        margin-top: 15px !important;
         margin-bottom: 20px !important;
     }
 
-    /* Tabs Styling */
+    /* 5. Tabs Styling */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         border-bottom: 2px solid #FDF4FF !important;
@@ -61,7 +86,7 @@ st.markdown("""
         font-family: 'Playfair Display', serif !important;
         font-size: 13.5px !important;
         font-weight: 700 !important;
-        color: #6B7280 !important;
+        color: #475569 !important;
     }
 
     button[aria-selected="true"] p,
@@ -69,29 +94,88 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* Fuchsia Pink Action Button */
-    div.stButton > button,
+    /* 6. Selectbox Styling */
+    div[data-baseweb="select"] > div {
+        background-color: #FFFFFF !important;
+        border: 1.5px solid #D946EF !important;
+        border-radius: 8px !important;
+    }
+
+    div[data-baseweb="select"] * {
+        color: #1A1A1A !important;
+        font-weight: 600 !important;
+    }
+
+    div[data-baseweb="select"] svg {
+        fill: #D946EF !important;
+    }
+
+    /* Dropdown Popover Menu */
+    div[data-baseweb="popover"],
+    div[data-baseweb="menu"],
+    ul[role="listbox"],
+    div[role="listbox"] {
+        background-color: #FFFFFF !important;
+        border: 1.5px solid #D946EF !important;
+        border-radius: 8px !important;
+    }
+
+    ul[role="listbox"] li,
+    ul[role="listbox"] li *,
+    div[data-baseweb="menu"] div {
+        color: #1A1A1A !important;
+        -webkit-text-fill-color: #1A1A1A !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 600 !important;
+        font-size: 13.5px !important;
+    }
+
+    ul[role="listbox"] li:hover,
+    ul[role="listbox"] li:hover * {
+        background-color: #FDF4FF !important;
+        color: #D946EF !important;
+        -webkit-text-fill-color: #D946EF !important;
+    }
+
+    /* 7. SIGNATURE FUCHSIA PINK BUTTON + WHITE TEXT */
     button[kind="primaryFormSubmit"],
-    button[data-testid="stFormSubmitButton"] > button {
+    button[kind="secondaryFormSubmit"],
+    button[data-testid="baseButton-primary"],
+    button[data-testid="baseButton-secondary"],
+    div[data-testid="stFormSubmitButton"] button,
+    div.stButton > button {
         background-color: #D946EF !important;
+        background: #D946EF !important;
         color: #FFFFFF !important;
         border-radius: 8px !important;
         border: none !important;
-        padding: 12px 24px !important;
+        padding: 13px 26px !important;
         margin-top: 14px !important;
-        font-weight: 700 !important;
-        font-family: 'Montserrat', sans-serif !important;
-        letter-spacing: 0.8px !important;
-        text-transform: uppercase !important;
-        box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.25) !important;
+        box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.3) !important;
         transition: all 0.2s ease-in-out !important;
     }
 
-    div.stButton > button:hover,
+    button[kind="primaryFormSubmit"] *,
+    button[kind="secondaryFormSubmit"] *,
+    button[data-testid="baseButton-primary"] *,
+    button[data-testid="baseButton-secondary"] *,
+    div[data-testid="stFormSubmitButton"] button *,
+    div.stButton > button * {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 13px !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.6px !important;
+        text-transform: uppercase !important;
+    }
+
     button[kind="primaryFormSubmit"]:hover,
-    button[data-testid="stFormSubmitButton"] > button:hover {
+    div[data-testid="stFormSubmitButton"] button:hover {
         background-color: #C026D3 !important;
+        background: #C026D3 !important;
         transform: translateY(-1px);
+        box-shadow: 0px 6px 16px rgba(217, 70, 239, 0.4) !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -99,10 +183,10 @@ st.markdown("""
 # Header Section
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("🍰 Fuchsia Health Concierge")
-st.caption("Configured for **Fuchsia Desserts** (Founder: Tosan)")
+st.markdown("**Configured for Fuchsia Desserts** (Founder: Tosan)")
 st.write("Welcome! I am **Fuchsia**, your health concierge. Discover the **health benefits** of our desserts or plan custom **event catering & luxury gifts**.")
 
-# System Prompt
+# System Instructions
 SYSTEM_PROMPT = """
 You are 'Fuchsia', the friendly and knowledgeable Health Concierge for Fuchsia Desserts (Founder: Tosan).
 Introduce yourself warmly as 'Fuchsia'. Speak in a candid, encouraging, expert tone. Avoid heavy medical or technical jargon.
@@ -117,10 +201,10 @@ Every single dessert product at Fuchsia Desserts connects to a real health and i
 Your Job:
 1. Educate the user on the specific health benefits of the product OR health goal they selected in plain, friendly terms.
 2. Recommend specific, delicious Fuchsia Desserts items that fit.
-3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting wholesome health benefits.
+3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
 """
 
-# 4 Tabs
+# 4 Balanced Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
     "🌿 Health Benefits Finder", 
     "🎯 Health Goal Matcher", 
@@ -145,7 +229,7 @@ with tab1:
                 "Gluten-Free & Dairy-Free Artisan Pastries"
             ]
         )
-        submit_product = st.form_submit_button("Discover Health Benefits ✨")
+        submit_product = st.form_submit_button("Discover Health Benefits ✨", type="primary")
 
     if submit_product:
         if not api_key:
@@ -178,7 +262,7 @@ with tab2:
                 "Immune Support & Glowing Skin (Antioxidant Berries & Fruits)"
             ]
         )
-        submit_goal = st.form_submit_button("Match Desserts to Goal ✨")
+        submit_goal = st.form_submit_button("Match Desserts to Goal ✨", type="primary")
 
     if submit_goal:
         if not api_key:
@@ -212,7 +296,7 @@ with tab3:
             "Estimated number of guests?",
             ["10 - 25 Guests (Intimate Gathering)", "26 - 50 Guests (Medium Party)", "51 - 100 Guests (Large Event)", "100+ Guests (Grand Event)"]
         )
-        submit_event = st.form_submit_button("Plan My Event Menu 🎉")
+        submit_event = st.form_submit_button("Plan My Event Menu 🎉", type="primary")
 
     if submit_event:
         if not api_key:
@@ -246,7 +330,7 @@ with tab4:
             "Select gift size preference:",
             ["Single Luxury Gift Box (1 - 2 People)", "Family / Small Team Gift Hamper (3 - 6 People)", "Bulk Executive Orders (Multiple Recipients)"]
         )
-        submit_gift = st.form_submit_button("Curate Luxury Gift 🎁")
+        submit_gift = st.form_submit_button("Curate Luxury Gift 🎁", type="primary")
 
     if submit_gift:
         if not api_key:
