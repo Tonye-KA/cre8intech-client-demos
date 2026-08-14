@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Pure White)
+# Custom High-End Styling (Pure White Canvas, Crisp White Dropdowns, Fuchsia Pink Accents)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-    /* 1. Force Pure White Canvas & Proper Margins */
+    /* 1. Pure White Canvas & Proper Container Width */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
@@ -23,13 +23,12 @@ st.markdown("""
         background-color: transparent !important;
     }
 
-    /* Container width to fit all 4 tabs seamlessly without spillover */
     .main .block-container {
         padding-top: 2.5rem !important;
-        max-width: 820px !important;
+        max-width: 860px !important;
     }
 
-    /* 2. Headings & ALL Body / Subtitle Text */
+    /* 2. Headings & Typography */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #1A1A1A !important;
@@ -75,7 +74,7 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. TABS ROW - PERFECT FIT ACROSS ONE SINGLE LINE */
+    /* 5. TABS ROW - CLEAN SINGLE ROW FIT */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         border-bottom: 2px solid #F3E8FF !important;
@@ -83,7 +82,7 @@ st.markdown("""
         display: flex !important;
         justify-content: space-between !important;
         width: 100% !important;
-        gap: 4px !important;
+        gap: 6px !important;
     }
 
     button[data-baseweb="tab"],
@@ -96,7 +95,7 @@ st.markdown("""
     button[data-baseweb="tab"] p,
     div[data-testid="stTabs"] button p {
         font-family: 'Playfair Display', serif !important;
-        font-size: 13px !important;
+        font-size: 13.5px !important;
         font-weight: 700 !important;
         color: #475569 !important;
         white-space: nowrap !important;
@@ -107,15 +106,18 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* 6. PURE WHITE DROPDOWN BOX (NO DARK BACKGROUND) */
+    /* 6. CRISP PURE WHITE DROPDOWN BOX */
     div[data-baseweb="select"] {
         background-color: #FFFFFF !important;
         border-radius: 8px !important;
         width: 100% !important;
     }
 
-    div[data-baseweb="select"] > div {
+    div[data-baseweb="select"] > div,
+    div[data-baseweb="select"] > div:hover,
+    div[data-baseweb="select"] > div:focus {
         background-color: #FFFFFF !important;
+        background: #FFFFFF !important;
         border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
         padding: 2px 8px !important;
@@ -141,7 +143,7 @@ st.markdown("""
         background-color: #FFFFFF !important;
         border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
-        box-shadow: 0px 8px 20px rgba(0,0,0,0.08) !important;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.08) !important;
     }
 
     ul[role="listbox"] li,
@@ -163,7 +165,7 @@ st.markdown("""
         -webkit-text-fill-color: #D946EF !important;
     }
 
-    /* 7. SIGNATURE FUCHSIA PINK BUTTON + WHITE TEXT */
+    /* 7. SIGNATURE FUCHSIA PINK BUTTON + BOLD WHITE TEXT */
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="baseButton-primary"],
@@ -230,12 +232,12 @@ Your Job:
 3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting wholesome health benefits.
 """
 
-# 4 Tabs (Clean and Compact for 1-Line Fit)
+# 4 Exact Tabs (Clean and Compact for 1-Line Fit)
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🌿 Health Benefits", 
-    "🎯 Goal Matcher", 
-    "🎉 Catering Planner", 
-    "🎁 Luxury Gifting"
+    "🌿 Health Benefits Finder", 
+    "🎯 Health Goal Matcher", 
+    "🎉 Event Catering Planner", 
+    "🎁 Luxury Gifting Assistant"
 ])
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
