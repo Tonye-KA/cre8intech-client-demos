@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink, Pure White Canvas, White Dropdowns)
+# Custom High-End Styling (Signature Fuchsia Pink & Clean White Theme)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-    /* 1. Pure White Canvas & Container Width */
+    /* 1. Page Background & Width */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
@@ -74,7 +74,7 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. TABS BAR - COMPACT 1-LINE FIT & NO OVERFLOW */
+    /* 5. TABS BAR - COMPACT 1-LINE FIT */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         border-bottom: 2px solid #F3E8FF !important;
@@ -112,48 +112,35 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* 6. PERMANENT CRISP WHITE BACKGROUND ON THE DROPDOWN BOX */
-    .stSelectbox,
-    div[data-testid="stSelectbox"],
-    div[data-testid="stSelectbox"] > div,
-    div[data-baseweb="select"],
-    div[data-baseweb="select"] > div,
-    div[data-baseweb="select"] > div:first-child,
-    div[data-baseweb="select"] [role="combobox"],
-    div[data-baseweb="select"] input,
-    div[data-baseweb="select"] > div > div {
+    /* 6. SELECTBOX HARD OVERRIDE: FORCES PURE WHITE BACKGROUND */
+    [data-baseweb="select"],
+    [data-baseweb="select"] > div,
+    [data-baseweb="select"] [role="combobox"],
+    [data-baseweb="select"] input {
         background-color: #FFFFFF !important;
         background: #FFFFFF !important;
-        border-color: #E2E8F0 !important;
+        border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
     }
 
-    /* Target inner text inside the closed dropdown */
-    div[data-testid="stSelectbox"] *,
-    div[data-baseweb="select"] *,
-    div[data-baseweb="select"] span,
-    div[data-baseweb="select"] div,
-    div[data-baseweb="select"] [role="combobox"] * {
+    [data-baseweb="select"] *,
+    [data-baseweb="select"] span,
+    [data-baseweb="select"] div {
         color: #1A1A1A !important;
         -webkit-text-fill-color: #1A1A1A !important;
-        font-family: 'Montserrat', sans-serif !important;
         font-weight: 600 !important;
         font-size: 14px !important;
     }
 
-    /* Arrow icon inside dropdown */
-    div[data-testid="stSelectbox"] svg,
-    div[data-baseweb="select"] svg {
+    [data-baseweb="select"] svg {
         fill: #64748B !important;
     }
 
-    /* 7. DROPDOWN POPUP MENU */
-    div[data-baseweb="popover"],
-    div[data-baseweb="menu"],
-    ul[role="listbox"],
-    div[role="listbox"] {
+    /* 7. POPUP LIST OPTIONS */
+    [data-baseweb="popover"],
+    [data-baseweb="menu"],
+    ul[role="listbox"] {
         background-color: #FFFFFF !important;
-        background: #FFFFFF !important;
         border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
         padding: 6px !important;
@@ -161,9 +148,7 @@ st.markdown("""
     }
 
     ul[role="listbox"] li,
-    ul[role="listbox"] > li,
-    li[role="option"],
-    div[role="option"] {
+    li[role="option"] {
         background-color: #FAF5FF !important;
         border: 1px solid #F3E8FF !important;
         border-radius: 6px !important;
@@ -174,29 +159,17 @@ st.markdown("""
         font-weight: 600 !important;
         font-size: 13.5px !important;
         padding: 10px 14px !important;
-        opacity: 1 !important;
     }
 
-    ul[role="listbox"] li *,
-    li[role="option"] * {
-        color: #1E293B !important;
-        -webkit-text-fill-color: #1E293B !important;
-        font-weight: 600 !important;
-    }
-
-    /* Hover & Selected Option State */
     ul[role="listbox"] li:hover,
-    ul[role="listbox"] li:hover *,
     li[role="option"]:hover,
-    li[role="option"]:hover *,
-    li[aria-selected="true"],
-    li[aria-selected="true"] * {
+    li[aria-selected="true"] {
         background-color: #FDF4FF !important;
         color: #D946EF !important;
         -webkit-text-fill-color: #D946EF !important;
     }
 
-    /* 8. SIGNATURE FUCHSIA PINK BUTTON + CRISP BOLD WHITE TEXT */
+    /* 8. SIGNATURE FUCHSIA PINK BUTTON */
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="baseButton-primary"],
@@ -273,7 +246,7 @@ tab1, tab2, tab3, tab4 = st.tabs([
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
 
-# --- TAB 1: Health Benefits Finder ---
+# --- TAB 1: Health Benefits ---
 with tab1:
     with st.form("product_form"):
         st.subheader("Discover Product Health Benefits")
