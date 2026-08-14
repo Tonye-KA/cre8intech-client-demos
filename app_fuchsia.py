@@ -61,18 +61,24 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* COMPACT DROPDOWN SELECTORS */
+    /* COMPACT DROPDOWN SELECTORS (NO UNWANTED GAP) */
     div[data-baseweb="select"] {
         background-color: #FFFFFF !important;
         border-radius: 8px !important;
+        width: 100% !important;
+        max-width: 520px !important; /* Constrain width neatly */
+        margin-bottom: 4px !important;
     }
 
     div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
         border: 1.5px solid #D946EF !important;
         border-radius: 8px !important;
-        padding: 2px 8px !important;
-        min-height: 40px !important;
+        padding: 0px 10px !important;
+        height: 42px !important;
+        min-height: 42px !important;
+        display: flex !important;
+        align-items: center !important;
     }
 
     div[data-baseweb="select"] * {
@@ -113,21 +119,23 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* PERFECT 100% FULL-WIDTH TAB BAR (NO RIGHT GAP) */
+    /* FORCED 100% FULL-WIDTH TABS - ELIMINATES RIGHT GAP COMPLETELY */
     div[data-baseweb="tab-list"],
-    div[data-testid="stTabs"] > div:first-child {
+    div[data-testid="stTabs"] > div:first-child,
+    .stTabs [role="tablist"] {
         display: flex !important;
         width: 100% !important;
-        justify-content: space-between !important;
-        border-bottom: 1.5px solid #F3E8FF !important;
-        gap: 4px !important;
-        padding: 0 !important;
-        margin-bottom: 16px !important;
+        border-bottom: 2px solid #F3E8FF !important;
+        gap: 0px !important;
+        padding: 0px !important;
+        margin-bottom: 18px !important;
     }
 
     button[data-baseweb="tab"],
-    div[data-testid="stTabs"] button {
-        flex: 1 1 0px !important;
+    div[data-testid="stTabs"] button,
+    .stTabs [role="tab"] {
+        flex: 1 1 0% !important;
+        width: 100% !important;
         text-align: center !important;
         justify-content: center !important;
         background-color: transparent !important;
@@ -136,17 +144,28 @@ st.markdown("""
         cursor: pointer !important;
     }
 
-    button[data-baseweb="tab"] div p,
-    div[data-testid="stTabs"] button p {
+    button[data-baseweb="tab"] div,
+    div[data-testid="stTabs"] button div,
+    .stTabs [role="tab"] div {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+
+    button[data-baseweb="tab"] p,
+    div[data-testid="stTabs"] button p,
+    .stTabs [role="tab"] p {
         font-family: 'Playfair Display', serif !important;
-        font-size: 13.5px !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
         color: #6B7280 !important;
         white-space: nowrap !important;
+        text-align: center !important;
     }
 
-    button[aria-selected="true"] div p,
-    div[data-testid="stTabs"] button[aria-selected="true"] p {
+    button[aria-selected="true"] p,
+    div[data-testid="stTabs"] button[aria-selected="true"] p,
+    .stTabs [role="tab"][aria-selected="true"] p {
         color: #D946EF !important;
     }
 
@@ -162,8 +181,8 @@ st.markdown("""
         border: none !important;
         padding: 12px 22px !important;
         width: auto !important;
-        min-width: 260px !important;
-        max-width: 340px !important;
+        min-width: 240px !important;
+        max-width: 320px !important;
         margin-top: 10px !important;
         box-shadow: 0px 4px 12px rgba(217, 70, 239, 0.25) !important;
         transition: all 0.2s ease-in-out !important;
@@ -214,17 +233,17 @@ Your Job:
 3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
 """
 
-# 4 Evenly Balanced Tabs
+# 4 Perfectly Balanced Full-Width Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
-    "🌿 Health Benefits", 
+    "🌿 Health Benefits Finder", 
     "🎯 Health Goal Matcher", 
-    "🎉 Event Planner", 
-    "🎁 Luxury Gifts"
+    "🎉 Event Catering Planner", 
+    "🎁 Luxury Gifting Assistant"
 ])
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
 
-# --- TAB 1: Health Benefits ---
+# --- TAB 1: Health Benefits Finder ---
 with tab1:
     with st.form("product_form"):
         st.subheader("Discover Product Health Benefits")
@@ -289,7 +308,7 @@ with tab2:
                 st.success("Your Recommended Dessert Match:")
                 st.markdown(res.choices[0].message.content)
 
-# --- TAB 3: Event Planner ---
+# --- TAB 3: Event Catering Planner ---
 with tab3:
     with st.form("event_planner_form"):
         st.subheader("Plan Event & Party Catering")
@@ -323,7 +342,7 @@ with tab3:
                 st.success("Your Custom Event Catering Plan:")
                 st.markdown(res.choices[0].message.content)
 
-# --- TAB 4: Luxury Gifts ---
+# --- TAB 4: Luxury Gifting Assistant ---
 with tab4:
     with st.form("luxury_gift_form"):
         st.subheader("Curate Luxury Dessert Gifts")
