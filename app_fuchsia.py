@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling
+# Clean, Robust CSS (No fragile inner DOM rules)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
 
-    /* Force Full Page Canvas to Pure White */
+    /* Force Pure White Background */
     html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .stApp {
         background-color: #FFFFFF !important;
         color: #1A1A1A !important;
@@ -29,15 +29,9 @@ st.markdown("""
         font-family: 'Playfair Display', serif !important;
         color: #1A1A1A !important;
         font-weight: 700 !important;
-        letter-spacing: -0.5px;
     }
 
-    p, span, label {
-        color: #2D2D2D !important;
-        font-family: 'Montserrat', sans-serif !important;
-    }
-
-    /* Cre8intech Badge Header */
+    /* Badge */
     .demo-badge {
         background-color: #D946EF !important;
         color: #FFFFFF !important;
@@ -51,7 +45,7 @@ st.markdown("""
         text-transform: uppercase;
     }
 
-    /* Form Container Card */
+    /* Form Container */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FAFAFA !important;
         border: 1px solid #E5E7EB !important;
@@ -61,55 +55,46 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 4-COLUMN FULL-WIDTH TABS */
+    /* 4-Column Full-Width Tabs */
     div[data-baseweb="tab-list"],
-    div[data-testid="stTabs"] > div:first-child,
-    .stTabs [role="tablist"] {
+    div[data-testid="stTabs"] > div:first-child {
         display: grid !important;
         grid-template-columns: repeat(4, 1fr) !important;
         width: 100% !important;
         border-bottom: 2px solid #F3E8FF !important;
-        gap: 0px !important;
-        padding: 0px !important;
         margin-bottom: 18px !important;
     }
 
     button[data-baseweb="tab"],
-    div[data-testid="stTabs"] button,
-    .stTabs [role="tab"] {
+    div[data-testid="stTabs"] button {
         width: 100% !important;
         text-align: center !important;
         justify-content: center !important;
         background-color: transparent !important;
         border: none !important;
         padding: 10px 2px !important;
-        cursor: pointer !important;
     }
 
     button[data-baseweb="tab"] p,
-    div[data-testid="stTabs"] button p,
-    .stTabs [role="tab"] p {
+    div[data-testid="stTabs"] button p {
         font-family: 'Playfair Display', serif !important;
         font-size: 13.5px !important;
         font-weight: 700 !important;
         color: #6B7280 !important;
         white-space: nowrap !important;
-        text-align: center !important;
     }
 
     button[aria-selected="true"] p,
-    div[data-testid="stTabs"] button[aria-selected="true"] p,
-    .stTabs [role="tab"][aria-selected="true"] p {
+    div[data-testid="stTabs"] button[aria-selected="true"] p {
         color: #D946EF !important;
     }
 
-    /* HIGH-CONTRAST FUCHSIA PINK BUTTON */
+    /* High-Contrast Fuchsia Pink Button */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="stFormSubmitButton"] > button {
         background-color: #D946EF !important;
-        background-image: none !important;
         color: #FFFFFF !important;
         border-radius: 8px !important;
         border: none !important;
@@ -118,18 +103,7 @@ st.markdown("""
         min-width: 240px !important;
         margin-top: 14px !important;
         box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.3) !important;
-        transition: all 0.2s ease-in-out !important;
-    }
-
-    div.stButton > button *,
-    button[kind="primaryFormSubmit"] *,
-    button[kind="secondaryFormSubmit"] *,
-    button[data-testid="stFormSubmitButton"] > button * {
-        color: #FFFFFF !important;
-        font-family: 'Montserrat', sans-serif !important;
-        font-size: 13px !important;
         font-weight: 700 !important;
-        letter-spacing: 0.5px !important;
         text-transform: uppercase !important;
     }
 
@@ -137,7 +111,6 @@ st.markdown("""
     button[kind="primaryFormSubmit"]:hover,
     button[data-testid="stFormSubmitButton"] > button:hover {
         background-color: #C026D3 !important;
-        transform: translateY(-1px);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -148,7 +121,7 @@ st.title("🍰 Fuchsia Health Concierge")
 st.caption("Configured for **Fuchsia Desserts** (Founder: Tosan)")
 st.write("Welcome! I am **Fuchsia**, your health concierge. Discover the **health benefits** of our desserts or plan custom **event catering & luxury gifts**.")
 
-# System Instructions
+# System Prompt
 SYSTEM_PROMPT = """
 You are 'Fuchsia', the friendly and knowledgeable Health Concierge for Fuchsia Desserts (Founder: Tosan).
 Introduce yourself warmly as 'Fuchsia'. Speak in a candid, encouraging, expert tone. Avoid heavy medical or technical jargon.
@@ -163,10 +136,10 @@ Every single dessert product at Fuchsia Desserts connects to a real health and i
 Your Job:
 1. Educate the user on the specific health benefits of the product OR health goal they selected in plain, friendly terms.
 2. Recommend specific, delicious Fuchsia Desserts items that fit.
-3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
+3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting wholesome health benefits.
 """
 
-# 4 Perfectly Balanced Full-Width Tabs
+# 4 Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
     "🌿 Health Benefits Finder", 
     "🎯 Health Goal Matcher", 
