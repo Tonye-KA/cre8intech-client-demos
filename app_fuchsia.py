@@ -74,13 +74,13 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* SIGNATURE FUCHSIA PINK BUTTON + CRISP BOLD WHITE TEXT */
+    /* SIGNATURE FUCHSIA PINK BUTTON */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="stFormSubmitButton"] > button {
         background-color: #D946EF !important;
-        color: #FFFFFF !important;
+        background-image: none !important;
         border-radius: 8px !important;
         border: none !important;
         padding: 14px 28px !important;
@@ -89,19 +89,24 @@ st.markdown("""
         transition: all 0.2s ease-in-out !important;
     }
 
-    /* Force all text/labels inside button to pure white */
+    /* FORCE CRISP BOLD PURE WHITE TEXT OVERRIDING ALL BROWSER/STREAMLIT STYLES */
+    div.stButton > button,
     div.stButton > button *,
     div.stButton > button p,
     div.stButton > button span,
     div.stButton > button div,
+    button[kind="primaryFormSubmit"],
     button[kind="primaryFormSubmit"] *,
+    button[data-testid="stFormSubmitButton"] > button,
     button[data-testid="stFormSubmitButton"] > button * {
         color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
         font-size: 13px !important;
         font-weight: 700 !important;
         letter-spacing: 0.8px !important;
         text-transform: uppercase !important;
+        opacity: 1 !important;
     }
 
     div.stButton > button:hover,
