@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Compact Dropdowns & Clean Spacing)
+# Custom High-End Styling (Clean Fuchsia Pink & Pure White)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
@@ -51,7 +51,7 @@ st.markdown("""
         text-transform: uppercase;
     }
 
-    /* Container Card */
+    /* Form Container Card */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FAFAFA !important;
         border: 1px solid #E5E7EB !important;
@@ -61,42 +61,33 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* COMPACT DROPDOWN SELECTBOXES - REMOVES UNNECESSARY EXTRA LENGTH */
+    /* DROPDOWN SELECTBOX STYLING */
     div[data-testid="stSelectbox"] {
         width: 100% !important;
-        max-width: 480px !important;
+        max-width: 520px !important;
         margin-bottom: 12px !important;
-    }
-
-    div[data-baseweb="select"] {
-        background-color: #FFFFFF !important;
-        border-radius: 8px !important;
-        width: 100% !important;
     }
 
     div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
         border: 1.5px solid #D946EF !important;
         border-radius: 8px !important;
-        padding: 0px 12px !important;
-        height: 42px !important;
-        min-height: 42px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
     }
 
-    div[data-baseweb="select"] * {
+    /* FORCE TEXT INSIDE SELECTBOX TO BE DARK & VISIBLE */
+    div[data-baseweb="select"] span,
+    div[data-baseweb="select"] div {
         color: #1A1A1A !important;
         font-weight: 600 !important;
-        font-size: 13.5px !important;
+        font-size: 14px !important;
     }
 
+    /* Dropdown Arrow Color */
     div[data-baseweb="select"] svg {
         fill: #D946EF !important;
     }
 
-    /* POPUP MENU */
+    /* DROPDOWN POPUP MENU */
     ul[role="listbox"],
     div[data-baseweb="menu"],
     div[data-baseweb="popover"],
@@ -113,18 +104,17 @@ st.markdown("""
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
         font-weight: 600 !important;
-        font-size: 13px !important;
+        font-size: 13.5px !important;
     }
 
     ul[role="listbox"] li:hover,
     div[data-baseweb="menu"] div:hover,
-    div[data-baseweb="popover"] div:hover,
-    [aria-selected="true"] {
+    div[data-baseweb="popover"] div:hover {
         background-color: #FDF4FF !important;
         color: #D946EF !important;
     }
 
-    /* PERFECT 4-COLUMN FULL-WIDTH TABS */
+    /* 4-COLUMN FULL-WIDTH TABS */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child,
     .stTabs [role="tablist"] {
@@ -153,7 +143,7 @@ st.markdown("""
     div[data-testid="stTabs"] button p,
     .stTabs [role="tab"] p {
         font-family: 'Playfair Display', serif !important;
-        font-size: 13px !important;
+        font-size: 13.5px !important;
         font-weight: 700 !important;
         color: #6B7280 !important;
         white-space: nowrap !important;
@@ -166,7 +156,7 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* COMPACT PINK BUTTONS */
+    /* HIGH-CONTRAST PINK BUTTON */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
@@ -176,11 +166,11 @@ st.markdown("""
         color: #FFFFFF !important;
         border-radius: 8px !important;
         border: none !important;
-        padding: 12px 22px !important;
+        padding: 12px 24px !important;
         width: auto !important;
         min-width: 240px !important;
         max-width: 320px !important;
-        margin-top: 10px !important;
+        margin-top: 12px !important;
         box-shadow: 0px 4px 12px rgba(217, 70, 239, 0.25) !important;
         transition: all 0.2s ease-in-out !important;
     }
@@ -230,7 +220,7 @@ Your Job:
 3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
 """
 
-# 4 Evenly Balanced Tabs
+# 4 Perfectly Balanced Full-Width Tabs
 tab1, tab2, tab3, tab4 = st.tabs([
     "🌿 Health Benefits Finder", 
     "🎯 Health Goal Matcher", 
