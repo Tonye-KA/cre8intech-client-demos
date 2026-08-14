@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Zero Yellow, Even Tabs)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White - Full Width Even Tabs)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
@@ -107,36 +107,41 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* EVENLY SPACED TABS (FILL FULL CONTAINER WIDTH) */
-    div[data-baseweb="tab-list"] {
+    /* SPREAD 4 TABS EVENLY ACROSS FULL CONTAINER WIDTH */
+    div[data-baseweb="tab-list"],
+    div[data-testid="stTabs"] > div:first-child {
         display: flex !important;
         justify-content: space-between !important;
         width: 100% !important;
         border-bottom: 1px solid #E5E7EB !important;
+        gap: 8px !important;
     }
 
-    button[data-baseweb="tab"] {
-        flex: 1 1 0px !important;
+    button[data-baseweb="tab"],
+    div[data-testid="stTabs"] button {
+        flex: 1 1 0% !important;
         text-align: center !important;
         justify-content: center !important;
         background-color: transparent !important;
         border: none !important;
-        padding-bottom: 12px !important;
+        padding: 10px 4px !important;
     }
 
-    button[data-baseweb="tab"] div p {
+    button[data-baseweb="tab"] div p,
+    div[data-testid="stTabs"] button p {
         font-family: 'Playfair Display', serif !important;
-        font-size: 16px !important;
+        font-size: 14px !important;
         font-weight: 700 !important;
         color: #6B7280 !important;
         white-space: nowrap !important;
     }
 
-    button[aria-selected="true"] div p {
+    button[aria-selected="true"] div p,
+    div[data-testid="stTabs"] button[aria-selected="true"] p {
         color: #D946EF !important;
     }
 
-    /* FORCE ALL BUTTONS & FORM SUBMIT BUTTONS TO FUCHSIA PINK (OVERRIDE ALL YELLOW) */
+    /* FORCE ALL BUTTONS TO SIGNATURE FUCHSIA PINK */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
@@ -199,144 +204,145 @@ Your Job:
 3. For events and gifts, curate tailored dessert packages, quantities, and presentation ideas while highlighting the wholesome health benefits.
 """
 
-# 2 Merged Tabs
-tab1, tab2 = st.tabs(["🌿 Health Benefit Finder", "🎉 Event & Gift Concierge"])
+# 4 Evenly Spaced Tabs
+tab1, tab2, tab3, tab4 = st.tabs([
+    "🌿 Health Benefit Finder", 
+    "🎯 Health Goal Matcher", 
+    "🎉 Event Catering Planner", 
+    "🎁 Luxury Gift Assistant"
+])
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
 
-# --- TAB 1: Health Benefits and Product Matcher ---
+# --- TAB 1: Health Benefit Finder ---
 with tab1:
-    with st.container():
-        st.subheader("Health Benefits and Product Matcher")
-        
-        # Question 1 + Button 1
-        with st.form("product_form"):
-            product_choice = st.selectbox(
-                "1. Discover the health benefits of a specific product:",
-                [
-                    "Signature Dark Chocolate Cakes & Gateaux",
-                    "Artisanal Fresh Berry & Fruit Tarts",
-                    "Gourmet Parfaits & Layered Mousse Cups",
-                    "Nut & Seed Energy Bites & Protein Treats",
-                    "Low-Sugar & Keto-Friendly Dessert Box",
-                    "Gluten-Free & Dairy-Free Artisan Pastries"
-                ]
-            )
-            submit_product = st.form_submit_button("Discover Product Health Benefits ✨")
+    with st.form("product_form"):
+        st.subheader("Discover Product Health Benefits")
+        product_choice = st.selectbox(
+            "Select a specific dessert to learn its health benefits:",
+            [
+                "Signature Dark Chocolate Cakes & Gateaux",
+                "Artisanal Fresh Berry & Fruit Tarts",
+                "Gourmet Parfaits & Layered Mousse Cups",
+                "Nut & Seed Energy Bites & Protein Treats",
+                "Low-Sugar & Keto-Friendly Dessert Box",
+                "Gluten-Free & Dairy-Free Artisan Pastries"
+            ]
+        )
+        submit_product = st.form_submit_button("Discover Product Health Benefits ✨")
 
-        if submit_product:
-            if not api_key:
-                st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
-            else:
-                client = openai.OpenAI(api_key=api_key)
-                prompt = f"Introduce yourself as Fuchsia, the Health Concierge. Educate the customer specifically on the wholesome health & ingredient benefits of Fuchsia Desserts' item: '{product_choice}'. Explain clearly how eating this treat supports their wellbeing in friendly, encouraging English."
-                
-                with st.spinner("Fuchsia is analyzing product benefits..."):
-                    res = client.chat.completions.create(
-                        model="gpt-4o-mini",
-                        messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
-                    )
-                    st.success(f"Health Benefits of {product_choice}:")
-                    st.markdown(res.choices[0].message.content)
+    if submit_product:
+        if not api_key:
+            st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
+        else:
+            client = openai.OpenAI(api_key=api_key)
+            prompt = f"Introduce yourself as Fuchsia, the Health Concierge. Educate the customer specifically on the wholesome health & ingredient benefits of Fuchsia Desserts' item: '{product_choice}'. Explain clearly how eating this treat supports their wellbeing in friendly, encouraging English."
+            
+            with st.spinner("Fuchsia is analyzing product benefits..."):
+                res = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
+                )
+                st.success(f"Health Benefits of {product_choice}:")
+                st.markdown(res.choices[0].message.content)
 
-        # Question 2 + Button 2
-        with st.form("goal_form"):
-            health_focus = st.selectbox(
-                "2. Or select your specific health goal to find matching desserts:",
-                [
-                    "Healthy Heart & Good Circulation (Rich Dark Cocoa & Flavonoids)",
-                    "Clean & Sustained Energy (Nuts, Seeds & Healthy Fats)",
-                    "Low Sugar & Guilt-Free Sweet Craving (Balanced Blood Sugar)",
-                    "Easy Digestion & Light Stomach (Gluten-Free / Dairy-Free)",
-                    "Strong Bones & Overall Body Vitality (Clean Wholesome Minerals)",
-                    "Mood Boost & Stress Relief (Natural Endorphins & Magnesium)",
-                    "Immune Support & Glowing Skin (Antioxidant Berries & Fruits)"
-                ]
-            )
-            submit_goal = st.form_submit_button("Match Desserts to Health Goal ✨")
-
-        if submit_goal:
-            if not api_key:
-                st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
-            else:
-                client = openai.OpenAI(api_key=api_key)
-                prompt = f"Introduce yourself as Fuchsia, the Health Concierge. Recommend 2-3 delicious Fuchsia Desserts that match this specific health goal: '{health_focus}'. Explain clearly why these treats support that goal in warm, candid terms."
-                
-                with st.spinner("Fuchsia is matching desserts to your goal..."):
-                    res = client.chat.completions.create(
-                        model="gpt-4o-mini",
-                        messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
-                    )
-                    st.success("Your Recommended Dessert Match:")
-                    st.markdown(res.choices[0].message.content)
-
-# --- TAB 2: Combined Event Catering & Luxury Gift Concierge ---
+# --- TAB 2: Health Goal Matcher ---
 with tab2:
-    with st.container():
-        st.subheader("Event Catering & Luxury Gift Concierge")
-        
-        # Section A: Event Catering Questions + Dedicated Button
-        with st.form("event_planner_form"):
-            st.markdown("#### 🎈 Plan Event & Party Catering")
-            event_type = st.selectbox(
-                "1. What type of event are you hosting?",
-                [
-                    "Wedding Reception / Bridal Dessert Table",
-                    "Corporate Gala / Conference Catering",
-                    "Private Dinner Party / Intimate Gathering",
-                    "Birthday / Milestone Celebration"
-                ]
-            )
-            guest_count = st.selectbox(
-                "2. Estimated number of guests?",
-                ["10 - 25 Guests (Intimate Gathering)", "26 - 50 Guests (Medium Party)", "51 - 100 Guests (Large Event)", "100+ Guests (Grand Event)"]
-            )
-            submit_event = st.form_submit_button("Plan My Event Dessert Menu 🎉")
+    with st.form("goal_form"):
+        st.subheader("Match Desserts to Your Health Goal")
+        health_focus = st.selectbox(
+            "Select your health goal to find matching desserts:",
+            [
+                "Healthy Heart & Good Circulation (Rich Dark Cocoa & Flavonoids)",
+                "Clean & Sustained Energy (Nuts, Seeds & Healthy Fats)",
+                "Low Sugar & Guilt-Free Sweet Craving (Balanced Blood Sugar)",
+                "Easy Digestion & Light Stomach (Gluten-Free / Dairy-Free)",
+                "Strong Bones & Overall Body Vitality (Clean Wholesome Minerals)",
+                "Mood Boost & Stress Relief (Natural Endorphins & Magnesium)",
+                "Immune Support & Glowing Skin (Antioxidant Berries & Fruits)"
+            ]
+        )
+        submit_goal = st.form_submit_button("Match Desserts to Health Goal ✨")
 
-        if submit_event:
-            if not api_key:
-                st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
-            else:
-                client = openai.OpenAI(api_key=api_key)
-                prompt = f"Introduce yourself as Fuchsia. Create a friendly event dessert catering plan for Fuchsia Desserts: Event Type = {event_type}, Guest Count = {guest_count}. Detail menu choices, platter quantities, and explain the health benefits of the treats so guests enjoy guilt-free luxury."
-                
-                with st.spinner("Fuchsia is curating your event plan..."):
-                    res = client.chat.completions.create(
-                        model="gpt-4o-mini",
-                        messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
-                    )
-                    st.success("Your Custom Event Catering Plan:")
-                    st.markdown(res.choices[0].message.content)
+    if submit_goal:
+        if not api_key:
+            st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
+        else:
+            client = openai.OpenAI(api_key=api_key)
+            prompt = f"Introduce yourself as Fuchsia, the Health Concierge. Recommend 2-3 delicious Fuchsia Desserts that match this specific health goal: '{health_focus}'. Explain clearly why these treats support that goal in warm, candid terms."
+            
+            with st.spinner("Fuchsia is matching desserts to your goal..."):
+                res = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
+                )
+                st.success("Your Recommended Dessert Match:")
+                st.markdown(res.choices[0].message.content)
 
-        # Section B: Luxury Gifting Questions + Dedicated Button
-        with st.form("luxury_gift_form"):
-            st.markdown("#### 🎁 Curate Luxury Dessert Gifts")
-            gift_occasion = st.selectbox(
-                "1. What is the gifting occasion?",
-                [
-                    "Corporate Client / VIP Appreciation Box",
-                    "Birthday / Milestone Anniversary Gift",
-                    "Executive Thank You Hamper",
-                    "Get Well Soon / Mindful Wellness Gift"
-                ]
-            )
-            gift_size = st.selectbox(
-                "2. Select gift size preference:",
-                ["Single Luxury Gift Box (1 - 2 People)", "Family / Small Team Gift Hamper (3 - 6 People)", "Bulk Executive Orders (Multiple Recipients)"]
-            )
-            submit_gift = st.form_submit_button("Curate Luxury Gift Package 🎁")
+# --- TAB 3: Event Catering Planner ---
+with tab3:
+    with st.form("event_planner_form"):
+        st.subheader("Plan Event & Party Catering")
+        event_type = st.selectbox(
+            "1. What type of event are you hosting?",
+            [
+                "Wedding Reception / Bridal Dessert Table",
+                "Corporate Gala / Conference Catering",
+                "Private Dinner Party / Intimate Gathering",
+                "Birthday / Milestone Celebration"
+            ]
+        )
+        guest_count = st.selectbox(
+            "2. Estimated number of guests?",
+            ["10 - 25 Guests (Intimate Gathering)", "26 - 50 Guests (Medium Party)", "51 - 100 Guests (Large Event)", "100+ Guests (Grand Event)"]
+        )
+        submit_event = st.form_submit_button("Plan My Event Dessert Menu 🎉")
 
-        if submit_gift:
-            if not api_key:
-                st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
-            else:
-                client = openai.OpenAI(api_key=api_key)
-                prompt = f"Introduce yourself as Fuchsia. Curate a luxury dessert gift box for Fuchsia Desserts: Occasion = {gift_occasion}, Size = {gift_size}. Provide product selections, packaging style, and presentation details."
-                
-                with st.spinner("Fuchsia is curating your gift box..."):
-                    res = client.chat.completions.create(
-                        model="gpt-4o-mini",
-                        messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
-                    )
-                    st.success("Your Curated Gift Package:")
-                    st.markdown(res.choices[0].message.content)
+    if submit_event:
+        if not api_key:
+            st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
+        else:
+            client = openai.OpenAI(api_key=api_key)
+            prompt = f"Introduce yourself as Fuchsia. Create a friendly event dessert catering plan for Fuchsia Desserts: Event Type = {event_type}, Guest Count = {guest_count}. Detail menu choices, platter quantities, and explain the health benefits of the treats so guests enjoy guilt-free luxury."
+            
+            with st.spinner("Fuchsia is curating your event plan..."):
+                res = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
+                )
+                st.success("Your Custom Event Catering Plan:")
+                st.markdown(res.choices[0].message.content)
+
+# --- TAB 4: Luxury Gift Assistant ---
+with tab4:
+    with st.form("luxury_gift_form"):
+        st.subheader("Curate Luxury Dessert Gifts")
+        gift_occasion = st.selectbox(
+            "1. What is the gifting occasion?",
+            [
+                "Corporate Client / VIP Appreciation Box",
+                "Birthday / Milestone Anniversary Gift",
+                "Executive Thank You Hamper",
+                "Get Well Soon / Mindful Wellness Gift"
+            ]
+        )
+        gift_size = st.selectbox(
+            "2. Select gift size preference:",
+            ["Single Luxury Gift Box (1 - 2 People)", "Family / Small Team Gift Hamper (3 - 6 People)", "Bulk Executive Orders (Multiple Recipients)"]
+        )
+        submit_gift = st.form_submit_button("Curate Luxury Gift Package 🎁")
+
+    if submit_gift:
+        if not api_key:
+            st.error("Please configure OPENAI_API_KEY in Streamlit secrets.")
+        else:
+            client = openai.OpenAI(api_key=api_key)
+            prompt = f"Introduce yourself as Fuchsia. Curate a luxury dessert gift box for Fuchsia Desserts: Occasion = {gift_occasion}, Size = {gift_size}. Provide product selections, packaging style, and presentation details."
+            
+            with st.spinner("Fuchsia is curating your gift box..."):
+                res = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
+                )
+                st.success("Your Curated Gift Package:")
+                st.markdown(res.choices[0].message.content)
