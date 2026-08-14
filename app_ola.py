@@ -8,16 +8,15 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (Money Wit Africa Brand: Rich Gold & Deep Slate/Onyx)
+# Custom Styling (Money Wit Africa Brand: Rich Gold & Deep Onyx Black)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* 1. Page Background */
+    /* 1. Page Canvas */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        color: #0F172A !important;
     }
 
     [data-testid="stHeader"] {
@@ -25,22 +24,16 @@ st.markdown("""
     }
 
     /* 2. Headings & Typography */
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #0F172A !important;
         font-weight: 700 !important;
-        letter-spacing: -0.5px;
     }
 
-    p, span, label {
-        color: #1E293B !important;
-        font-family: 'Plus Jakarta Sans', sans-serif !important;
-    }
-
-    /* 3. Cre8intech Demo Badge Header */
+    /* 3. Cre8intech Demo Badge */
     .demo-badge {
         background-color: #0F172A !important;
-        color: #F59E0B !important; /* Signature Money Wit Gold */
+        color: #F59E0B !important;
         padding: 5px 14px;
         border-radius: 20px;
         font-size: 11px;
@@ -52,53 +45,17 @@ st.markdown("""
         box-shadow: 0px 2px 8px rgba(15, 23, 42, 0.15);
     }
 
-    /* 4. Warm Yellow Card Container */
+    /* 4. Warm Yellow Assessment Card */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FFFDF5 !important;
         border: 2px solid #FCD34D !important;
         border-radius: 16px !important;
-        padding: 32px !important;
+        padding: 28px !important;
         box-shadow: 0px 8px 24px rgba(245, 158, 11, 0.08) !important;
         margin-bottom: 20px !important;
     }
 
-    /* 5. DROPDOWN POPUP MENU (CRISP HIGH-CONTRAST VISIBLE TEXT) */
-    div[data-baseweb="popover"],
-    div[data-baseweb="menu"],
-    ul[role="listbox"],
-    div[role="listbox"] {
-        background-color: #FFFFFF !important;
-        border: 1.5px solid #F59E0B !important;
-        border-radius: 8px !important;
-        box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.15) !important;
-    }
-
-    /* Force all option items and text to be bold, dark, and clear */
-    ul[role="listbox"] li,
-    ul[role="listbox"] li *,
-    div[data-baseweb="menu"] div,
-    div[data-baseweb="menu"] span,
-    div[data-baseweb="popover"] span,
-    div[data-baseweb="popover"] div {
-        color: #0F172A !important;
-        -webkit-text-fill-color: #0F172A !important;
-        font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-weight: 700 !important;
-        font-size: 14px !important;
-        opacity: 1 !important;
-    }
-
-    /* Hover State inside Dropdown */
-    ul[role="listbox"] li:hover,
-    ul[role="listbox"] li:hover *,
-    div[data-baseweb="menu"] div:hover,
-    [aria-selected="true"] {
-        background-color: #FEF3C7 !important;
-        color: #92400E !important;
-        -webkit-text-fill-color: #92400E !important;
-    }
-
-    /* 6. SIGNATURE MONEY WIT GOLDEN BUTTON */
+    /* 5. Money Wit Gold Action Button */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
@@ -107,9 +64,8 @@ st.markdown("""
         background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%) !important;
         border-radius: 8px !important;
         border: 1px solid #D97706 !important;
-        padding: 14px 24px !important;
-        width: 100% !important;
-        margin-top: 12px !important;
+        padding: 14px 28px !important;
+        margin-top: 14px !important;
         box-shadow: 0px 4px 14px rgba(245, 158, 11, 0.35) !important;
         transition: all 0.2s ease-in-out !important;
     }
@@ -120,7 +76,7 @@ st.markdown("""
         color: #0F172A !important;
         -webkit-text-fill-color: #0F172A !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        font-size: 15px !important;
+        font-size: 14px !important;
         font-weight: 800 !important;
         letter-spacing: 0.5px !important;
         text-transform: uppercase !important;
