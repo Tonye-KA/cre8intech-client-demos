@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (Money Wit Africa Brand: Rich Gold & Deep Onyx Black)
+# Custom Styling (High-Contrast Text + Golden-Yellow Styled Dropdown Elements)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* 1. Page Canvas */
+    /* 1. Page Background */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -23,17 +23,30 @@ st.markdown("""
         background-color: transparent !important;
     }
 
-    /* 2. Headings & Typography */
-    h1, h2, h3, h4 {
+    /* 2. Headings & ALL Body / Caption Text (Dark & 100% Legible) */
+    h1, h2, h3, h4, .stHeading {
         font-family: 'Playfair Display', serif !important;
         color: #0F172A !important;
         font-weight: 700 !important;
     }
 
+    p, span, label, div[data-testid="stMarkdownContainer"] p, [data-testid="stCaptionContainer"] p {
+        color: #1E293B !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-weight: 500 !important;
+    }
+
+    /* Form Question Labels */
+    label[data-testid="stWidgetLabel"] p {
+        color: #0F172A !important;
+        font-weight: 700 !important;
+        font-size: 14.5px !important;
+    }
+
     /* 3. Cre8intech Demo Badge */
     .demo-badge {
         background-color: #0F172A !important;
-        color: #F59E0B !important;
+        color: #F59E0B !important; /* Signature Money Wit Gold */
         padding: 5px 14px;
         border-radius: 20px;
         font-size: 11px;
@@ -55,7 +68,58 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. Money Wit Gold Action Button */
+    /* 5. DROPDOWN BOXES (WARM GOLDEN-CREAM STYLING) */
+    div[data-baseweb="select"] > div {
+        background-color: #FEF3C7 !important; /* Warm Golden-Cream */
+        border: 1.5px solid #F59E0B !important;
+        border-radius: 8px !important;
+        padding: 2px 8px !important;
+    }
+
+    div[data-baseweb="select"] * {
+        color: #78350F !important; /* Deep Golden-Brown Text */
+        font-weight: 700 !important;
+        font-size: 14px !important;
+    }
+
+    div[data-baseweb="select"] svg {
+        fill: #78350F !important;
+    }
+
+    /* DROPDOWN POPUP MENU & ALL OPTIONS (NO DARK BACKGROUND) */
+    div[data-baseweb="popover"],
+    div[data-baseweb="menu"],
+    ul[role="listbox"],
+    div[role="listbox"] {
+        background-color: #FFFDF5 !important;
+        border: 2px solid #F59E0B !important;
+        border-radius: 8px !important;
+        box-shadow: 0px 10px 25px rgba(245, 158, 11, 0.2) !important;
+    }
+
+    /* All Option Items styled with warm cream background and dark visible text */
+    ul[role="listbox"] li,
+    div[data-baseweb="menu"] div,
+    div[data-baseweb="popover"] div {
+        background-color: #FFFDF5 !important;
+        color: #78350F !important;
+        -webkit-text-fill-color: #78350F !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-weight: 700 !important;
+        font-size: 14px !important;
+        padding: 10px 14px !important;
+    }
+
+    /* Hover & Active Highlight */
+    ul[role="listbox"] li:hover,
+    ul[role="listbox"] li[aria-selected="true"],
+    div[data-baseweb="menu"] div:hover {
+        background-color: #FEF3C7 !important;
+        color: #92400E !important;
+        -webkit-text-fill-color: #92400E !important;
+    }
+
+    /* 6. Signature Money Wit Gold Action Button */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
