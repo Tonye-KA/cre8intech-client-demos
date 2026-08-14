@@ -8,16 +8,16 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Money Wit Africa Emerald & Wealth Gold Palette)
+# Custom Styling (Official Money Wit Africa Golden Yellow & Deep Onyx Black Palette)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* 1. Page Background to Clean Modern White */
+    /* 1. Page Background */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
-        color: #0F172A !important;
+        color: #111827 !important;
     }
 
     [data-testid="stHeader"] {
@@ -27,20 +27,20 @@ st.markdown("""
     /* 2. Headings & Typography */
     h1, h2, h3 {
         font-family: 'Playfair Display', serif !important;
-        color: #064E3B !important; /* Deep Money Wit Emerald */
+        color: #111827 !important;
         font-weight: 700 !important;
         letter-spacing: -0.5px;
     }
 
     p, span, label {
-        color: #1E293B !important;
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        color: #1F2937 !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
     /* 3. Cre8intech Demo Badge Header */
     .demo-badge {
-        background-color: #064E3B !important;
-        color: #FCD34D !important; /* Gold Accent */
+        background-color: #111827 !important;
+        color: #F59E0B !important; /* Signature Money Wit Gold */
         padding: 5px 14px;
         border-radius: 20px;
         font-size: 11px;
@@ -49,20 +49,20 @@ st.markdown("""
         display: inline-block;
         margin-bottom: 12px;
         text-transform: uppercase;
-        box-shadow: 0px 2px 8px rgba(6, 78, 59, 0.2);
+        box-shadow: 0px 2px 8px rgba(17, 24, 39, 0.15);
     }
 
-    /* 4. Elegant Soft Emerald-Tinted Card Container */
+    /* 4. Warm Yellow Card Container */
     div[data-testid="stForm"], div.stBlock {
-        background-color: #F0FDF4 !important; /* Soft Luxury Wealth Tint */
-        border: 1.5px solid #A7F3D0 !important;  /* Refined Mint-Emerald Border */
+        background-color: #FFFDF5 !important; /* Soft warm yellow tint */
+        border: 2px solid #FCD34D !important;   /* Golden border */
         border-radius: 16px !important;
         padding: 32px !important;
-        box-shadow: 0px 8px 24px rgba(6, 78, 59, 0.06) !important;
+        box-shadow: 0px 8px 24px rgba(245, 158, 11, 0.08) !important;
         margin-bottom: 20px !important;
     }
 
-    /* 5. DROPDOWNS: Crisp White Container with Dark Slate Text */
+    /* 5. DROPDOWNS: Crisp White Container with Dark Text */
     div[data-baseweb="select"] {
         background-color: #FFFFFF !important;
         border-radius: 8px !important;
@@ -72,20 +72,20 @@ st.markdown("""
 
     div[data-baseweb="select"] > div {
         background-color: #FFFFFF !important;
-        border: 1.5px solid #059669 !important; /* Emerald Border */
+        border: 1.5px solid #F59E0B !important; /* Money Wit Yellow Border */
         border-radius: 8px !important;
         padding: 2px 8px !important;
         min-height: 44px !important;
     }
 
     div[data-baseweb="select"] * {
-        color: #0F172A !important;
+        color: #111827 !important;
         font-weight: 600 !important;
         font-size: 14px !important;
     }
 
     div[data-baseweb="select"] svg {
-        fill: #047857 !important;
+        fill: #D97706 !important;
     }
 
     /* Dropdown Popup Options Menu */
@@ -94,14 +94,14 @@ st.markdown("""
     div[data-baseweb="popover"],
     div[role="listbox"] {
         background-color: #FFFFFF !important;
-        border: 1.5px solid #059669 !important;
+        border: 1.5px solid #F59E0B !important;
         border-radius: 8px !important;
     }
 
     ul[role="listbox"] li,
     div[data-baseweb="menu"] div,
     div[data-baseweb="popover"] div {
-        color: #0F172A !important;
+        color: #111827 !important;
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-weight: 600 !important;
@@ -111,31 +111,32 @@ st.markdown("""
     ul[role="listbox"] li:hover,
     div[data-baseweb="menu"] div:hover,
     div[data-baseweb="popover"] div:hover {
-        background-color: #ECFDF5 !important;
-        color: #047857 !important;
+        background-color: #FEF3C7 !important;
+        color: #92400E !important;
     }
 
-    /* 6. ACTION BUTTON: Money Wit Emerald with High-Contrast White Text */
+    /* 6. SIGNATURE MONEY WIT GOLDEN BUTTON WITH BOLD JET BLACK TEXT */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="stFormSubmitButton"] > button {
-        background-color: #047857 !important; /* Wealth Emerald */
-        background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
-        color: #FFFFFF !important;
+        background-color: #F59E0B !important; /* Money Wit Signature Yellow */
+        background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%) !important;
+        color: #111827 !important;
         border-radius: 8px !important;
-        border: none !important;
+        border: 1px solid #D97706 !important;
         padding: 14px 24px !important;
         width: 100% !important;
         margin-top: 12px !important;
-        box-shadow: 0px 4px 14px rgba(4, 120, 87, 0.3) !important;
+        box-shadow: 0px 4px 14px rgba(245, 158, 11, 0.35) !important;
         transition: all 0.2s ease-in-out !important;
     }
 
     div.stButton > button *,
     button[kind="primaryFormSubmit"] *,
     button[data-testid="stFormSubmitButton"] > button * {
-        color: #FFFFFF !important;
+        color: #111827 !important;
+        -webkit-text-fill-color: #111827 !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-size: 15px !important;
         font-weight: 800 !important;
@@ -146,9 +147,9 @@ st.markdown("""
     div.stButton > button:hover,
     button[kind="primaryFormSubmit"]:hover,
     button[data-testid="stFormSubmitButton"] > button:hover {
-        background: linear-gradient(135deg, #047857 0%, #064E3B 100%) !important;
+        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
         transform: translateY(-1px);
-        box-shadow: 0px 6px 18px rgba(4, 120, 87, 0.4) !important;
+        box-shadow: 0px 6px 18px rgba(245, 158, 11, 0.45) !important;
     }
     </style>
 """, unsafe_allow_html=True)
