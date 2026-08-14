@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Pure White Theme)
+# Custom High-End Styling (Signature Fuchsia Pink & Crisp White Dropdown Theme)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
-    /* 1. Pure White Canvas & Proper Container Width */
+    /* 1. Pure White Canvas & Container Width */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Montserrat', sans-serif !important;
@@ -28,7 +28,7 @@ st.markdown("""
         max-width: 860px !important;
     }
 
-    /* 2. Headings & Body Text */
+    /* 2. Headings & Typography */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #1A1A1A !important;
@@ -74,7 +74,7 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. TABS BAR - COMPACT 1-LINE FIT & NO OVERFLOW */
+    /* 5. TABS BAR - CLEAN 1-LINE FIT & NO OVERFLOW */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         border-bottom: 2px solid #F3E8FF !important;
@@ -112,52 +112,53 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* 6. PURE WHITE SELECTBOX (NO BLACK BACKGROUND) */
+    /* 6. PURE CRISP WHITE DROPDOWN SELECT BOX (ELIMINATES THE BLACK BOX) */
+    .stSelectbox div[data-baseweb="select"],
     div[data-baseweb="select"],
     div[data-baseweb="select"] > div,
+    div[data-baseweb="select"] [role="combobox"],
     div[data-baseweb="select"] > div:hover,
-    div[data-baseweb="select"] > div:focus {
+    div[data-baseweb="select"] > div:focus,
+    div[data-baseweb="select"] > div:active {
         background-color: #FFFFFF !important;
         background: #FFFFFF !important;
-        border: 1.5px solid #D946EF !important;
+        border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
         min-height: 44px !important;
     }
 
-    /* Target the text inside the selected box */
+    /* Active selected value text */
     div[data-baseweb="select"] *,
     div[data-baseweb="select"] span,
-    div[data-baseweb="select"] div {
-        color: #1E293B !important;
-        -webkit-text-fill-color: #1E293B !important;
+    div[data-baseweb="select"] div,
+    div[data-baseweb="select"] [role="combobox"] * {
+        color: #1A1A1A !important;
+        -webkit-text-fill-color: #1A1A1A !important;
         font-weight: 600 !important;
         font-size: 14px !important;
     }
 
+    /* Dropdown Arrow icon */
     div[data-baseweb="select"] svg {
-        fill: #D946EF !important;
+        fill: #64748B !important;
     }
 
-    /* 7. DROPDOWN POPUP MENU (100% VISIBLE HIGH-CONTRAST OPTIONS) */
+    /* 7. DROPDOWN POPUP MENU */
     div[data-baseweb="popover"],
     div[data-baseweb="menu"],
     ul[role="listbox"],
     div[role="listbox"] {
         background-color: #FFFFFF !important;
-        background: #FFFFFF !important;
-        border: 1.5px solid #D946EF !important;
+        border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
         padding: 6px !important;
-        box-shadow: 0px 10px 25px rgba(217, 70, 239, 0.15) !important;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.08) !important;
     }
 
-    /* Force all options in the popup menu to have clear legible text & neat styling */
     ul[role="listbox"] li,
     ul[role="listbox"] > li,
     li[role="option"],
-    div[role="option"],
-    div[data-baseweb="menu"] div,
-    div[data-baseweb="popover"] li {
+    div[role="option"] {
         background-color: #FAF5FF !important;
         border: 1px solid #F3E8FF !important;
         border-radius: 6px !important;
@@ -172,8 +173,7 @@ st.markdown("""
     }
 
     ul[role="listbox"] li *,
-    li[role="option"] *,
-    div[role="option"] * {
+    li[role="option"] * {
         color: #1E293B !important;
         -webkit-text-fill-color: #1E293B !important;
         font-weight: 600 !important;
