@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Clean, Non-Invasive Styling (Protects Selectbox Internals)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap');
@@ -74,7 +74,7 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* Signature Fuchsia Pink Buttons */
+    /* SIGNATURE FUCHSIA PINK BUTTON + CRISP BOLD WHITE TEXT */
     div.stButton > button,
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
@@ -83,14 +83,25 @@ st.markdown("""
         color: #FFFFFF !important;
         border-radius: 8px !important;
         border: none !important;
-        padding: 12px 24px !important;
+        padding: 14px 28px !important;
         margin-top: 14px !important;
-        font-weight: 700 !important;
-        font-family: 'Montserrat', sans-serif !important;
-        letter-spacing: 0.5px !important;
-        text-transform: uppercase !important;
         box-shadow: 0px 4px 14px rgba(217, 70, 239, 0.3) !important;
         transition: all 0.2s ease-in-out !important;
+    }
+
+    /* Force all text/labels inside button to pure white */
+    div.stButton > button *,
+    div.stButton > button p,
+    div.stButton > button span,
+    div.stButton > button div,
+    button[kind="primaryFormSubmit"] *,
+    button[data-testid="stFormSubmitButton"] > button * {
+        color: #FFFFFF !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.8px !important;
+        text-transform: uppercase !important;
     }
 
     div.stButton > button:hover,
