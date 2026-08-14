@@ -8,12 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom Styling (Uniform Warm Cream Dropdown Options & Money Wit Gold Theme)
+# Custom Styling (Signature Money Wit Navy, Gold & Warm Cream Theme)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* 1. Page Background & Padding */
+    /* 1. Page Canvas & Layout */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -31,7 +31,7 @@ st.markdown("""
     /* 2. Headings & Body Text */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
-        color: #0F172A !important;
+        color: #0B132B !important;
         font-weight: 700 !important;
         line-height: 1.25 !important;
     }
@@ -43,14 +43,14 @@ st.markdown("""
 
     /* Form Question Labels */
     label[data-testid="stWidgetLabel"] p {
-        color: #0F172A !important;
+        color: #0B132B !important;
         font-weight: 700 !important;
         font-size: 14.5px !important;
     }
 
     /* 3. Cre8intech Demo Badge */
     .demo-badge {
-        background-color: #0F172A !important;
+        background-color: #0B132B !important;
         color: #F59E0B !important;
         padding: 5px 14px;
         border-radius: 20px;
@@ -60,7 +60,7 @@ st.markdown("""
         display: inline-block;
         margin-bottom: 12px;
         text-transform: uppercase;
-        box-shadow: 0px 2px 8px rgba(15, 23, 42, 0.15);
+        box-shadow: 0px 2px 8px rgba(11, 19, 43, 0.15);
     }
 
     /* 4. Warm Yellow Assessment Card */
@@ -74,20 +74,32 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. SELECTBOX INPUT CONTAINER */
-    div[data-baseweb="select"] > div {
-        background-color: #FFFFFF !important;
+    /* 5. MONEY WIT BRANDED SELECTBOX: DEEP MIDNIGHT NAVY CONTAINER WITH WHITE TEXT */
+    div[data-baseweb="select"],
+    div[data-baseweb="select"] > div,
+    div[data-baseweb="select"] [role="combobox"] {
+        background-color: #0B132B !important;
+        background: #0B132B !important;
         border: 1.5px solid #F59E0B !important;
         border-radius: 8px !important;
+        min-height: 46px !important;
     }
 
-    div[data-baseweb="select"] * {
-        color: #0F172A !important;
+    /* Active selected value text */
+    div[data-baseweb="select"] *,
+    div[data-baseweb="select"] span,
+    div[data-baseweb="select"] div,
+    div[data-baseweb="select"] [role="combobox"] * {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-weight: 600 !important;
+        font-size: 14px !important;
     }
 
+    /* Gold dropdown chevron arrow */
     div[data-baseweb="select"] svg {
-        fill: #D97706 !important;
+        fill: #F59E0B !important;
     }
 
     /* 6. POPUP MENU CONTAINER */
@@ -98,22 +110,22 @@ st.markdown("""
         background-color: #FFFDF5 !important;
         border: 2px solid #F59E0B !important;
         border-radius: 8px !important;
-        padding: 4px !important;
-        box-shadow: 0px 10px 25px rgba(245, 158, 11, 0.2) !important;
+        padding: 6px !important;
+        box-shadow: 0px 10px 25px rgba(11, 19, 43, 0.18) !important;
     }
 
-    /* 7. MAKE ALL DROPDOWN OPTIONS HAVE THE WARM CREAM CARD BACKGROUND & BOLD BROWN TEXT */
+    /* 7. ALL DROPDOWN OPTIONS: WARM GOLDEN CREAM BACKGROUND & BOLD DARK BROWN TEXT */
     ul[role="listbox"] li,
     ul[role="listbox"] > li,
     li[role="option"],
     div[role="option"],
     div[data-baseweb="menu"] div,
     div[data-baseweb="popover"] li {
-        background-color: #FEF3C7 !important; /* Uniform Warm Cream */
+        background-color: #FEF3C7 !important;
         border: 1px solid #FDE68A !important;
         border-radius: 6px !important;
         margin-bottom: 4px !important;
-        color: #78350F !important; /* Bold Golden Brown */
+        color: #78350F !important;
         -webkit-text-fill-color: #78350F !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-weight: 700 !important;
@@ -138,12 +150,12 @@ st.markdown("""
     li[role="option"]:hover *,
     li[aria-selected="true"],
     li[aria-selected="true"] * {
-        background-color: #FDE68A !important; /* Richer Amber on Hover */
+        background-color: #FDE68A !important;
         color: #451A03 !important;
         -webkit-text-fill-color: #451A03 !important;
     }
 
-    /* 8. BRIGHT MONEY WIT GOLD BUTTON */
+    /* 8. SIGNATURE MONEY WIT GOLD ACTION BUTTON */
     button[kind="primaryFormSubmit"],
     button[kind="secondaryFormSubmit"],
     button[data-testid="baseButton-primary"],
@@ -152,7 +164,7 @@ st.markdown("""
     div.stButton > button {
         background-color: #F59E0B !important;
         background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%) !important;
-        color: #0F172A !important;
+        color: #0B132B !important;
         border-radius: 8px !important;
         border: 1px solid #D97706 !important;
         padding: 14px 28px !important;
@@ -163,15 +175,14 @@ st.markdown("""
         transition: all 0.2s ease-in-out !important;
     }
 
-    /* Force button text to bold black */
     button[kind="primaryFormSubmit"] *,
     button[kind="secondaryFormSubmit"] *,
     button[data-testid="baseButton-primary"] *,
     button[data-testid="baseButton-secondary"] *,
     div[data-testid="stFormSubmitButton"] button *,
     div.stButton > button * {
-        color: #0F172A !important;
-        -webkit-text-fill-color: #0F172A !important;
+        color: #0B132B !important;
+        -webkit-text-fill-color: #0B132B !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-size: 14px !important;
         font-weight: 800 !important;
