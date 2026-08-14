@@ -8,7 +8,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Custom High-End Styling (Signature Fuchsia Pink & Crisp White Dropdown Theme)
+# Custom High-End Styling (Signature Fuchsia Pink & Pure White Canvas)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap');
@@ -74,7 +74,7 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. TABS BAR - CLEAN 1-LINE FIT & NO OVERFLOW */
+    /* 5. TABS BAR - COMPACT 1-LINE FIT & NO OVERFLOW */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         border-bottom: 2px solid #F3E8FF !important;
@@ -112,33 +112,36 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* 6. PURE CRISP WHITE DROPDOWN SELECT BOX (ELIMINATES THE BLACK BOX) */
-    .stSelectbox div[data-baseweb="select"],
+    /* 6. COMPLETE SELECTBOX OVERHAUL: FORCES PURE WHITE BACKGROUND & DARK TEXT */
+    div[data-testid="stSelectbox"],
+    div[data-testid="stSelectbox"] > div,
+    div[data-testid="stSelectbox"] div[data-baseweb="select"],
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div,
     div[data-baseweb="select"],
     div[data-baseweb="select"] > div,
-    div[data-baseweb="select"] [role="combobox"],
-    div[data-baseweb="select"] > div:hover,
-    div[data-baseweb="select"] > div:focus,
-    div[data-baseweb="select"] > div:active {
+    div[data-baseweb="select"] [role="combobox"] {
         background-color: #FFFFFF !important;
         background: #FFFFFF !important;
         border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
         min-height: 44px !important;
+        color: #1A1A1A !important;
     }
 
-    /* Active selected value text */
+    /* Force all text inside the selectbox to pure dark slate */
+    div[data-testid="stSelectbox"] *,
     div[data-baseweb="select"] *,
     div[data-baseweb="select"] span,
-    div[data-baseweb="select"] div,
-    div[data-baseweb="select"] [role="combobox"] * {
+    div[data-baseweb="select"] div {
         color: #1A1A1A !important;
         -webkit-text-fill-color: #1A1A1A !important;
+        font-family: 'Montserrat', sans-serif !important;
         font-weight: 600 !important;
         font-size: 14px !important;
     }
 
-    /* Dropdown Arrow icon */
+    /* Arrow icon inside selectbox */
+    div[data-testid="stSelectbox"] svg,
     div[data-baseweb="select"] svg {
         fill: #64748B !important;
     }
@@ -149,6 +152,7 @@ st.markdown("""
     ul[role="listbox"],
     div[role="listbox"] {
         background-color: #FFFFFF !important;
+        background: #FFFFFF !important;
         border: 1.5px solid #E2E8F0 !important;
         border-radius: 8px !important;
         padding: 6px !important;
