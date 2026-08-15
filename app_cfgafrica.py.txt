@@ -1,0 +1,290 @@
+import streamlit as st
+import openai
+
+# Page Setup
+st.set_page_config(
+    page_title="CFG Intelligence Portal | CFG Africa", 
+    page_icon="🏛️", 
+    layout="centered"
+)
+
+# Custom Institutional Financial Styling (CFG Brand Colors: Deep Navy, Precision Teal, Gold)
+st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
+    /* 1. Page Canvas */
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+        background-color: #FFFFFF !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    [data-testid="stHeader"] {
+        background-color: transparent !important;
+    }
+
+    .main .block-container {
+        padding-top: 2.5rem !important;
+        max-width: 780px !important;
+    }
+
+    /* 2. Typography */
+    h1, h2, h3, h4 {
+        font-family: 'Playfair Display', serif !important;
+        color: #0B132B !important;
+        font-weight: 700 !important;
+        line-height: 1.25 !important;
+    }
+
+    p, span, label, [data-testid="stMarkdownContainer"] p, [data-testid="stCaptionContainer"] p {
+        color: #1E293B !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+    }
+
+    label[data-testid="stWidgetLabel"] p {
+        color: #0B132B !important;
+        font-weight: 700 !important;
+        font-size: 14.5px !important;
+    }
+
+    /* 3. Cre8intech Badge */
+    .demo-badge {
+        background-color: #0B132B !important;
+        color: #14B8A6 !important;
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.2px;
+        display: inline-block;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        box-shadow: 0px 2px 8px rgba(11, 19, 43, 0.15);
+    }
+
+    /* 4. Form Cards */
+    div[data-testid="stForm"], div.stBlock {
+        background-color: #F8FAFC !important;
+        border: 1.5px solid #CBD5E1 !important;
+        border-radius: 14px !important;
+        padding: 24px !important;
+        box-shadow: 0px 8px 24px rgba(15, 23, 42, 0.06) !important;
+        margin-top: 15px !important;
+        margin-bottom: 20px !important;
+    }
+
+    /* 5. Navigation Tabs */
+    div[data-baseweb="tab-list"],
+    div[data-testid="stTabs"] > div:first-child {
+        border-bottom: 2px solid #E2E8F0 !important;
+        margin-bottom: 20px !important;
+    }
+
+    button[data-baseweb="tab"] p,
+    div[data-testid="stTabs"] button p {
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-size: 14.5px !important;
+        font-weight: 700 !important;
+        color: #475569 !important;
+    }
+
+    button[aria-selected="true"] p,
+    div[data-testid="stTabs"] button[aria-selected="true"] p {
+        color: #0F766E !important;
+    }
+
+    /* 6. Selectbox & Input Container */
+    div[data-baseweb="select"],
+    div[data-baseweb="select"] > div {
+        background-color: #FFFFFF !important;
+        border: 1.5px solid #CBD5E1 !important;
+        border-radius: 8px !important;
+    }
+
+    div[data-baseweb="select"] * {
+        color: #0B132B !important;
+        font-weight: 600 !important;
+    }
+
+    /* 7. Action Button */
+    button[kind="primaryFormSubmit"],
+    button[data-testid="baseButton-primary"],
+    div[data-testid="stFormSubmitButton"] button {
+        background: linear-gradient(135deg, #0F766E 0%, #0B132B 100%) !important;
+        color: #FFFFFF !important;
+        border-radius: 8px !important;
+        border: none !important;
+        padding: 14px 28px !important;
+        width: 100% !important;
+        margin-top: 12px !important;
+        box-shadow: 0px 4px 14px rgba(15, 118, 110, 0.3) !important;
+        transition: all 0.2s ease-in-out !important;
+    }
+
+    button[kind="primaryFormSubmit"] *,
+    div[data-testid="stFormSubmitButton"] button * {
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 800 !important;
+        letter-spacing: 0.5px !important;
+        text-transform: uppercase !important;
+    }
+
+    button[kind="primaryFormSubmit"]:hover,
+    div[data-testid="stFormSubmitButton"] button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0px 6px 18px rgba(15, 118, 110, 0.45) !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Header Section
+st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
+st.title("🏛️ CFG Capital & Wealth Intelligence")
+st.caption("Configured for **CFG Africa** (Managing Director: Babajide Lawani)")
+
+api_key = st.secrets.get("OPENAI_API_KEY", "")
+
+# Two Unified Portals: Client-Facing Navigator vs Internal RM Deal-Closer
+tab1, tab2 = st.tabs([
+    "🌐 Public Investor Navigator", 
+    "💼 RM Deal-Closer & Battle Card Desk"
+])
+
+# ==============================================================================
+# TAB 1: CLIENT-FACING INVESTOR NAVIGATOR
+# ==============================================================================
+with tab1:
+    st.subheader("Investor Product Matcher")
+    st.write("Public onboarding tool designed for `cfgafrica.com` or WhatsApp to match prospects with CFG products.")
+    
+    with st.form("public_navigator_form"):
+        user_type = st.selectbox(
+            "1. What best describes your investor profile?",
+            [
+                "Working Professional / Salary Earner (Seeking inflation protection & steady growth)",
+                "Diaspora / Remote Earner (Managing multi-currency income in USD / GBP / EUR)",
+                "Faith-Conscious / Ethical Investor (Requiring strict Sharia / Halal compliance)",
+                "Business Owner / High-Net-Worth Individual (Focusing on capital preservation & succession)",
+                "Corporate / Institutional Treasurer (Managing short-to-medium liquidity)"
+            ]
+        )
+
+        core_goal = st.selectbox(
+            "2. What is your primary investment objective?",
+            [
+                "Stable monthly/quarterly passive income (Shielded from market volatility)",
+                "Foreign currency hedge & wealth preservation (USD / GBP placements)",
+                "Ethical & interest-free (Riba-free) capital appreciation",
+                "Long-term generational wealth transfer & private trust setup",
+                "Liquid corporate treasury reserve (90 - 180 days roll-over)"
+            ]
+        )
+
+        capital_horizon = st.selectbox(
+            "3. Preferred investment horizon & risk tolerance:",
+            [
+                "Short-Term Liquidity (30 - 90 Days) with Low Risk",
+                "Medium-Term Growth (6 - 12 Months) with Moderate Risk",
+                "Long-Term Compounding (1 - 5 Years) with Capital Preservation",
+                "Generational / Structured Estate (Multi-Year Trust Mandate)"
+            ]
+        )
+
+        submit_public = st.form_submit_button("Generate CFG Investment Plan 🚀")
+
+    if submit_public:
+        if not api_key:
+            st.error("Please add OPENAI_API_KEY in Streamlit Secrets.")
+        else:
+            client = openai.OpenAI(api_key=api_key)
+            system_prompt_public = """
+            You are the CFG Wealth Navigator for CFG Africa. Match the user with CFG's products:
+            - CFG AM Naira Fixed Income Fund (SEC-regulated mutual fund)
+            - Multi-Currency Tenured Placements (USD, GBP, EUR, NGN)
+            - Non-Interest / Halal Ethical Portfolios (Sharia/Ijarah-based)
+            - Fixed Rate Notes & Depository Notes
+            - CFG Private Wealth, Family Office & Estate Planning Trusts
+            
+            OUTPUT:
+            1. Strategy Summary (1-2 lines)
+            2. Primary Recommended CFG Product
+            3. Complementary Product for Diversification
+            4. Suggested Allocation %
+            5. Clear CTA to complete onboarding with CFG.
+            """
+            prompt = f"Profile: {user_type} | Goal: {core_goal} | Horizon: {capital_horizon}"
+            with st.spinner("Structuring portfolio allocation..."):
+                res = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "system", "content": system_prompt_public}, {"role": "user", "content": prompt}]
+                )
+                st.success("Investment Recommendation Generated:")
+                st.markdown(res.choices[0].message.content)
+
+# ==============================================================================
+# TAB 2: INTERNAL RM DEAL-CLOSER & BATTLE CARD DESK
+# ==============================================================================
+with tab2:
+    st.subheader("Internal Relationship Manager Deal Copilot")
+    st.write("Internal command center for CFG Relationship Managers to structure proposals and address client objections.")
+
+    with st.form("rm_copilot_form"):
+        col1, col2 = st.columns(2)
+        with col1:
+            client_name = st.text_input("Client / Entity Name:", value="Dr. Adeleke / Prime Logistics Ltd")
+            capital_volume = st.text_input("Estimated Investment Volume:", value="₦75,000,000 + $30,000 USD")
+        with col2:
+            target_product = st.selectbox(
+                "Primary CFG Vehicle in Discussion:",
+                [
+                    "CFG AM Naira Fixed Income Fund (SEC Regulated)",
+                    "CFG Multi-Currency Tenured Placement (USD/GBP)",
+                    "Commercial Paper (CP) Working Capital Issuance",
+                    "Sharia-Compliant / Halal Ijarah Note",
+                    "CFG Private Trust & Family Office Mandate"
+                ]
+            )
+            deal_stage = st.selectbox(
+                "Current Deal Stage:",
+                ["Introductory Call / Discovery", "Addressing Client Objection / Competitor Comparison", "Closing & Follow-Up Email"]
+            )
+
+        client_objection = st.selectbox(
+            "Select Live Client Challenge / Objection to Overcome:",
+            [
+                "Objection: 'Why should I invest in CFG AM Fund instead of buying direct Treasury Bills on my banking app?'",
+                "Objection: 'Why keep funds in USD placements with CFG instead of a regular Domiciliary Account?'",
+                "Objection: 'How do I know this investment is 100% Halal / Sharia compliant?'",
+                "Objection: 'Your corporate commercial paper yield is good, but is my principal capital secure?'",
+                "Custom Client Objection (Type below)"
+            ]
+        )
+
+        custom_notes = st.text_area("Additional Meeting Notes or Custom Client Context (Optional):", height=68)
+        submit_rm = st.form_submit_button("Generate Deal-Closer Battle Card & Proposal ⚡")
+
+    if submit_rm:
+        if not api_key:
+            st.error("Please add OPENAI_API_KEY in Streamlit Secrets.")
+        else:
+            client = openai.OpenAI(api_key=api_key)
+            system_prompt_rm = """
+            You are the Internal Deal-Closer & Battle Card Copilot for CFG Africa Relationship Managers (Managing Director: Babajide Lawani).
+            Your goal is to equip the RM to close high-value mandates by providing compliance-approved talking points and ready-to-send communications.
+
+            OUTPUT FORMAT:
+            1. 🥊 **RM Battle Card (Objection Handling):** Provide 3 bulleted arguments addressing the client's concern. Emphasize CFG's SEC compliance, liquidity, active asset management, and capital preservation advantages over commercial banks.
+            2. 📊 **Blended Deal Allocation Structuring:** Formulate an asset allocation balancing yield and currency stability based on the client's volume.
+            3. ✉️ **Ready-to-Send Client Proposal Draft:** A complete, professional email and WhatsApp follow-up formatted for corporate delivery.
+            """
+            prompt = f"Client: {client_name} | Volume: {capital_volume} | Vehicle: {target_product} | Stage: {deal_stage} | Objection: {client_objection} | Notes: {custom_notes}"
+            with st.spinner("Generating Deal-Closer Battle Card..."):
+                res = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "system", "content": system_prompt_rm}, {"role": "user", "content": prompt}]
+                )
+                st.success("Deal-Closer Battle Card Ready:")
+                st.markdown(res.choices[0].message.content)
