@@ -9,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom Corporate CSS (Fixed Expander & Clean Action Styling)
+# Custom Corporate CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
@@ -164,8 +164,6 @@ st.markdown("""
     }
 
     .box-memo { border: 1.5px solid #38BDF8; }
-    .box-whatsapp { border: 1.5px solid #22C55E; }
-    .box-email { border: 1.5px solid #F59E0B; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -263,16 +261,16 @@ with tab1:
         st.markdown(st.session_state["diag_output"])
         st.markdown('</div>', unsafe_allow_html=True)
 
-        if st.button("Confirm Mandate & Log to CFG Telemetry Pipeline ✅"):
+        if st.button("Log Deal to CFG Management Tracker ✅"):
             st.session_state["diag_logged"] = True
-            st.success(" Mandate Logged to CFG Analytics Pipeline (Deal Count +1).")
+            st.success(" Mandate Logged to CFG Management Tracker (Pipeline Activity Updated).")
 
 # ==============================================================================
 # MODULE 2: RM NEGOTIATE & BATTLE CARD DESK
 # ==============================================================================
 with tab2:
     st.subheader("Live Deal-Closer & Sales Enablement Desk")
-    st.write("Overcome objections live, review generated proposals, and log deal activity.")
+    st.write("Overcome objections live, structure deal packages, and unlock instant client dispatch channels.")
 
     with st.form("rm_battle_form"):
         col1, col2 = st.columns(2)
@@ -301,7 +299,7 @@ with tab2:
             )
             deal_context = st.text_input("Context (e.g. Competitor mentioned):", value="Client is comparing with a commercial bank fixed deposit offering 17%")
 
-        submit_battle = st.form_submit_button("Generate Battle Card & Communications ⚡")
+        submit_battle = st.form_submit_button("Generate Battle Card & Deal Package ⚡")
 
     if submit_battle:
         if not api_key:
@@ -316,7 +314,7 @@ with tab2:
 
             OUTPUT:
             - Exactly 3 sharp, compliance-vetted institutional counter-arguments addressing the objection.
-            - Internal Deal Governance Summary.
+            - Internal Deal Summary: 2-line strategic deal note.
             """
 
             prompt_whatsapp = f"""
@@ -338,7 +336,7 @@ with tab2:
             Include Subject line, executive greeting, strategic rationale, regulatory safeguards, and account onboarding instructions.
             """
 
-            with st.spinner("Structuring Deal & Generating Communications..."):
+            with st.spinner("Structuring Deal Strategy..."):
                 res1 = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[{"role": "user", "content": prompt_battle_card}]
@@ -366,27 +364,16 @@ with tab2:
         st.markdown(st.session_state["battle_card"])
         st.markdown('</div>', unsafe_allow_html=True)
 
-        # Section 2: Full Previews for Careful Review
-        st.markdown("### 📱 2. Client WhatsApp Briefing (Review Before Dispatch)")
-        st.markdown('<div class="output-box box-whatsapp">', unsafe_allow_html=True)
-        st.markdown(st.session_state["whatsapp_text"])
-        st.markdown('</div>', unsafe_allow_html=True)
-
-        st.markdown("### ✉️ 3. Formal Corporate Email Proposal (Review Before Dispatch)")
-        st.markdown('<div class="output-box box-email">', unsafe_allow_html=True)
-        st.markdown(st.session_state["email_text"])
-        st.markdown('</div>', unsafe_allow_html=True)
-
-        # Section 3: Telemetry Confirmation Trigger
+        # Section 2: Step 2 Logging & Dispatch Trigger
         st.markdown("---")
-        st.markdown("### 🔒 Step 2: Confirm Deal Review & Unlock Dispatch Channels")
+        st.markdown("### 🔒 Step 2: Log Deal Review & Unlock Dispatch Channels")
         
         if not st.session_state.get("battle_logged"):
-            if st.button("Confirm Deal Review & Log Activity to CFG Pipeline 📥"):
+            if st.button("Log Deal Review & Unlock Dispatch Channels 📥"):
                 st.session_state["battle_logged"] = True
                 st.rerun()
         else:
-            st.success(" Deal Confirmed & Logged to Telemetry. Instant Dispatch Channels Unlocked Below:")
+            st.success(" Deal Logged. Instant Dispatch Channels Unlocked Below:")
             
             client_name_safe = st.session_state.get("target_entity", "Client")
             encoded_wa = urllib.parse.quote(st.session_state["whatsapp_text"])
@@ -400,18 +387,21 @@ with tab2:
                     f'<a href="https://wa.me/?text={encoded_wa}" target="_blank" class="action-btn-whatsapp">📲 Open in WhatsApp</a>', 
                     unsafe_allow_html=True
                 )
+                st.caption("Pre-populates executive WhatsApp briefing.")
 
             with btn_col2:
                 st.markdown(
                     f'<a href="mailto:?subject={encoded_subject}&body={encoded_email_body}" class="action-btn-email">✉️ Open in Email App</a>', 
                     unsafe_allow_html=True
                 )
+                st.caption("Pre-populates corporate email proposal.")
 
             with btn_col3:
                 st.download_button(
-                    label="📄 Export Mandate PDF",
+                    label="📄 Export Mandate Document",
                     data=st.session_state["email_text"],
                     file_name=f"CFG_Mandate_{client_name_safe.replace(' ', '_')}.txt",
                     mime="text/plain",
                     use_container_width=True
                 )
+                st.caption("Downloads text for official letterhead.")
