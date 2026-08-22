@@ -128,12 +128,25 @@ st.markdown("""
         box-shadow: 0px 4px 16px rgba(15, 118, 110, 0.4) !important;
     }
 
-    .output-card {
+    /* Output Section Containers */
+    .output-box {
         background-color: #0F172A;
-        border: 1px solid #0284C7;
         border-radius: 10px;
-        padding: 24px;
-        margin-top: 20px;
+        padding: 22px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .box-memo {
+        border: 1.5px solid #38BDF8;
+    }
+
+    .box-whatsapp {
+        border: 1.5px solid #22C55E;
+    }
+
+    .box-email {
+        border: 1.5px solid #F59E0B;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -213,28 +226,27 @@ with tab1:
             - Tax/Yield Target: {tax_objective}
             - RM Notes: {advisor_notes}
 
-            DELIVER A BOARDROOM-READY MANDATE REPORT:
-            1. 💼 **Executive Mandate Strategy:** 2-line strategic thesis.
+            DELIVER A BOARDROOM-READY MANDATE REPORT DIVIDED INTO 3 CLEAR SECTIONS:
+            1. 💼 **Executive Mandate Thesis:** Concise 2-line strategic allocation summary.
             2. 🏛️ **Structured Portfolio Allocation Breakdown:**
-               - Exact % and nominal amounts allocated across CFG AM Naira Fixed Income Fund, Multi-Currency Placements, Commercial Papers, and Halal Sukuk Notes.
-            3. 📈 **Yield & WHT Optimization Rationale:** Explain why this structure beats direct banking deposits / T-Bills from a tax and duration management perspective.
-            4. 📋 **Investment Committee Summary Tear-Sheet:** A concise bulleted brief the RM can file internally or share with the client.
+               - Exact % and nominal amounts across CFG AM Naira Fixed Income Fund, Multi-Currency Placements, Commercial Papers, and Halal Sukuk Notes.
+            3. 📋 **Investment Committee Internal Tear-Sheet:** Clean bulleted brief the RM can submit directly to management or log in the CRM.
             """
             with st.spinner("Calculating Institutional Mandate..."):
                 res = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[{"role": "user", "content": prompt_diag}]
                 )
-                st.markdown('<div class="output-card">', unsafe_allow_html=True)
+                st.markdown('<div class="output-box box-memo">', unsafe_allow_html=True)
                 st.markdown(res.choices[0].message.content)
                 st.markdown('</div>', unsafe_allow_html=True)
 
 # ==============================================================================
-# MODULE 2: RM NEGOTIATE & BATTLE CARD DESK
+# MODULE 2: RM NEGOTIATE & BATTLE CARD DESK (3 COMMUNICATION LAYERS)
 # ==============================================================================
 with tab2:
-    st.subheader("Live Deal-Closer & Objection Battle Desk")
-    st.write("Equip RMs with instant, compliance-approved arguments and 1-click client proposal generation.")
+    st.subheader("Live Deal-Closer & Multi-Channel Negotiation Desk")
+    st.write("Generates instant objection battle cards and client-ready outputs across 3 distinct communication layers.")
 
     with st.form("rm_battle_form"):
         col1, col2 = st.columns(2)
@@ -263,26 +275,79 @@ with tab2:
             )
             deal_context = st.text_input("Context (e.g. Competitor mentioned):", value="Client is comparing with a commercial bank fixed deposit offering 17%")
 
-        submit_battle = st.form_submit_button("Generate Battle Card & Executive Follow-Up ⚡")
+        submit_battle = st.form_submit_button("Generate Battle Card & Multi-Layer Proposals ⚡")
 
     if submit_battle:
         if not api_key:
             st.error("Please add OPENAI_API_KEY to Streamlit Secrets.")
         else:
             client = openai.OpenAI(api_key=api_key)
-            prompt_battle = f"""
+            
+            prompt_layer1 = f"""
             You are the Senior Sales Enablement Copilot at CFG Africa (MD: Babajide Lawani).
+            Generate the RM Battle Card & Internal Tear-Sheet for:
             Client: {target_entity} | Product: {active_product} | Objection: {objection_type} | Context: {deal_context}
 
             OUTPUT:
-            1. 🥊 **RM Battle Card:** 3 sharp, compliance-vetted institutional counter-arguments addressing this objection. Emphasize SEC liquidity, duration management, and after-tax alpha.
-            2. ✉️ **Ready-to-Send Client Proposal Draft:** An executive-formatted email & WhatsApp brief ready to send to the client immediately.
+            - Exactly 3 sharp, compliance-vetted institutional counter-arguments addressing the objection (highlighting SEC liquidity, active duration management, and tax alpha).
+            - A quick Internal Deal Log Tear-Sheet for CRM records.
             """
-            with st.spinner("Generating Battle Card Response..."):
-                res = client.chat.completions.create(
+
+            prompt_layer2 = f"""
+            You are drafting a client-facing WhatsApp briefing for a Relationship Manager at CFG Africa.
+            Client: {target_entity} | Product: {active_product} | Context: {deal_context}
+
+            OUTPUT:
+            A clean, executive WhatsApp message using professional bullet points.
+            Include a warm opening, structured allocation highlight, next steps, and official sign-off:
+            ───────────────────────────────
+            🏛️ CFG Africa | Wealth Management & Advisory
+            Regulated by the Securities & Exchange Commission (SEC)
+            Website: https://cfgafrica.com
+            ───────────────────────────────
+            """
+
+            prompt_layer3 = f"""
+            You are drafting a formal Boardroom-Ready Corporate Email Proposal from CFG Africa to:
+            Client: {target_entity} | Product: {active_product} | Context: {deal_context}
+
+            OUTPUT:
+            A complete corporate email with Subject line, executive greeting, strategic rationale, regulatory safeguards, and account onboarding instructions.
+            """
+
+            with st.spinner("Generating Multi-Layer Deal Package..."):
+                # Layer 1 Call
+                res1 = client.chat.completions.create(
                     model="gpt-4o-mini",
-                    messages=[{"role": "user", "content": prompt_battle}]
+                    messages=[{"role": "user", "content": prompt_layer1}]
                 )
-                st.markdown('<div class="output-card">', unsafe_allow_html=True)
-                st.markdown(res.choices[0].message.content)
+                # Layer 2 Call
+                res2 = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "user", "content": prompt_layer2}]
+                )
+                # Layer 3 Call
+                res3 = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "user", "content": prompt_layer3}]
+                )
+
+                st.success("Multi-Layer Deal Package Successfully Generated:")
+
+                # Display Layer 1: Internal Battle Card & Memo
+                st.markdown("### 🥊 Layer 1: RM Battle Card & Internal Client Memo")
+                st.markdown('<div class="output-box box-memo">', unsafe_allow_html=True)
+                st.markdown(res1.choices[0].message.content)
+                st.markdown('</div>', unsafe_allow_html=True)
+
+                # Display Layer 2: WhatsApp Executive Briefing
+                st.markdown("### 📱 Layer 2: Executive WhatsApp Briefing (Client Mobile)")
+                st.markdown('<div class="output-box box-whatsapp">', unsafe_allow_html=True)
+                st.markdown(res2.choices[0].message.content)
+                st.markdown('</div>', unsafe_allow_html=True)
+
+                # Display Layer 3: Formal Email Proposal
+                st.markdown("### ✉️ Layer 3: Boardroom-Ready Proposal (Corporate Email)")
+                st.markdown('<div class="output-box box-email">', unsafe_allow_html=True)
+                st.markdown(res3.choices[0].message.content)
                 st.markdown('</div>', unsafe_allow_html=True)
