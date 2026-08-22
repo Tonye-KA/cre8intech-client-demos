@@ -1,6 +1,7 @@
 import streamlit as st
 import openai
 import urllib.parse
+import pandas as pd
 from datetime import datetime
 
 # Page Configuration
@@ -10,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom Corporate CSS (CFG Executive Navy & Gold Theme)
+# Custom Corporate CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
@@ -168,6 +169,25 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Shared Log State
+if "activity_logs" not in st.session_state:
+    st.session_state["activity_logs"] = [
+        {
+            "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
+            "Module": "Module 1: Mandate Structuring",
+            "Client / Mandate": "Tier-1 Corporate Treasury",
+            "Capital Volume": "₦150,000,000 + $75,000 USD",
+            "Action Status": "Mandate Strategy Calculated & Filed"
+        },
+        {
+            "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
+            "Module": "Module 2: Negotiation Desk",
+            "Client / Mandate": "Alhaji Garba (Crestline Ventures)",
+            "Capital Volume": "CFG AM Naira Fixed Income Fund",
+            "Action Status": "Objection Handled & WhatsApp Briefing Dispatched"
+        }
+    ]
+
 # Header
 st.markdown('<span class="suite-badge">CRE8INTECH ENTERPRISE SUITE</span>', unsafe_allow_html=True)
 st.title("🏛️ CFG Unified RM Wealth & Deal Suite")
@@ -255,6 +275,8 @@ with tab1:
                 )
                 st.session_state["diag_output"] = res.choices[0].message.content
                 st.session_state["diag_calculated"] = True
+                st.session_state["current_mandate_class"] = client_profile
+                st.session_state["current_mandate_cap"] = f"{naira_capital} + {fx_capital}"
 
     if st.session_state.get("diag_calculated"):
         st.markdown("### 📋 Structured Portfolio Mandate & Tear-Sheet")
@@ -263,7 +285,14 @@ with tab1:
         st.markdown('</div>', unsafe_allow_html=True)
 
         if st.button("Log Mandate to Management Deal Tracker ✅"):
-            st.success(" Mandate Successfully Logged to CFG Deal Pipeline.")
+            st.session_state["activity_logs"].insert(0, {
+                "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
+                "Module": "Module 1: Mandate Structuring",
+                "Client / Mandate": st.session_state.get("current_mandate_class", "Institutional Client"),
+                "Capital Volume": st.session_state.get("current_mandate_cap", "₦150M"),
+                "Action Status": "Mandate Strategy Logged to Central Pipeline"
+            })
+            st.success(" Mandate Successfully Logged to CFG Activity Log.")
 
 # ==============================================================================
 # MODULE 2: NEGOTIATE & BATTLE DESK
@@ -352,6 +381,7 @@ with tab2:
                 )
 
                 st.session_state["target_entity"] = target_entity
+                st.session_state["active_product"] = active_product
                 st.session_state["battle_card"] = res1.choices[0].message.content
                 st.session_state["whatsapp_text"] = res2.choices[0].message.content
                 st.session_state["email_text"] = res3.choices[0].message.content
@@ -359,22 +389,27 @@ with tab2:
                 st.session_state["battle_logged"] = False
 
     if st.session_state.get("battle_generated"):
-        # Section 1: Objection Battle Resolution & Internal Note
         st.markdown("### 🥊 1. Objection Battle Resolution & Mandate Note")
         st.markdown('<div class="output-box box-memo">', unsafe_allow_html=True)
         st.markdown(st.session_state["battle_card"])
         st.markdown('</div>', unsafe_allow_html=True)
 
-        # Section 2: Logging & Instant Dispatch
         st.markdown("---")
         st.markdown("### 🔒 Step 2: Log Deal Review & Unlock Dispatch Channels")
         
         if not st.session_state.get("battle_logged"):
             if st.button("Log Deal Review & Unlock Dispatch Channels 📥"):
                 st.session_state["battle_logged"] = True
+                st.session_state["activity_logs"].insert(0, {
+                    "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
+                    "Module": "Module 2: Negotiation Desk",
+                    "Client / Mandate": st.session_state.get("target_entity", "Client"),
+                    "Capital Volume": st.session_state.get("active_product", "CFG Placement"),
+                    "Action Status": "Objection Handled & Proposal Ready"
+                })
                 st.rerun()
         else:
-            st.success(" Deal Logged. Instant Dispatch Channels Unlocked Below:")
+            st.success(" Deal Logged to Activity Tracker. Instant Dispatch Channels Unlocked Below:")
             
             client_name_safe = st.session_state.get("target_entity", "Client")
             encoded_wa = urllib.parse.quote(st.session_state["whatsapp_text"])
@@ -406,3 +441,15 @@ with tab2:
                     use_container_width=True
                 )
                 st.caption("Downloads text for official letterhead.")
+
+# ==============================================================================
+# UNIFIED ACTIVITY & MANAGEMENT LOG (BOTTOM EXPANDER)
+# ==============================================================================
+st.markdown("---")
+with st.expander("📊 Executive Activity Log & Pipeline Telemetry (Management View)", expanded=False):
+    st.write("Real-time logging of institutional mandates diagnosed and deal actions dispatched across the advisory desk.")
+    if st.session_state["activity_logs"]:
+        df_logs = pd.DataFrame(st.session_state["activity_logs"])
+        st.dataframe(df_logs, use_container_width=True, hide_index=True)
+    else:
+        st.info("No activity logged yet.")
