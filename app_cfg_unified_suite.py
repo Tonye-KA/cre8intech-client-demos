@@ -1,5 +1,6 @@
 import streamlit as st
 import openai
+import urllib.parse
 
 # Page Configuration
 st.set_page_config(
@@ -8,7 +9,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom Corporate CSS (CFG Navy, Precision Slate & Emerald Teal)
+# Custom Corporate CSS
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
@@ -97,20 +98,6 @@ st.markdown("""
         box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5) !important;
     }
 
-    /* Inputs */
-    div[data-baseweb="input"] > div,
-    div[data-baseweb="select"] > div,
-    div[data-baseweb="textarea"] > div {
-        background-color: #080D1A !important;
-        border: 1px solid #334155 !important;
-        border-radius: 8px !important;
-        color: #FFFFFF !important;
-    }
-
-    div[data-baseweb="select"] * {
-        color: #FFFFFF !important;
-    }
-
     /* Action Buttons */
     button[kind="primaryFormSubmit"],
     div[data-testid="stFormSubmitButton"] button {
@@ -128,26 +115,41 @@ st.markdown("""
         box-shadow: 0px 4px 16px rgba(15, 118, 110, 0.4) !important;
     }
 
-    /* Output Section Containers */
+    .action-btn-whatsapp {
+        display: inline-block;
+        background-color: #25D366;
+        color: #FFFFFF !important;
+        font-weight: 700;
+        padding: 12px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    .action-btn-email {
+        display: inline-block;
+        background-color: #0284C7;
+        color: #FFFFFF !important;
+        font-weight: 700;
+        padding: 12px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        text-align: center;
+        width: 100%;
+    }
+
     .output-box {
         background-color: #0F172A;
         border-radius: 10px;
         padding: 22px;
-        margin-top: 16px;
-        margin-bottom: 16px;
+        margin-top: 12px;
+        margin-bottom: 20px;
     }
 
-    .box-memo {
-        border: 1.5px solid #38BDF8;
-    }
-
-    .box-whatsapp {
-        border: 1.5px solid #22C55E;
-    }
-
-    .box-email {
-        border: 1.5px solid #F59E0B;
-    }
+    .box-memo { border: 1.5px solid #38BDF8; }
+    .box-whatsapp { border: 1.5px solid #22C55E; }
+    .box-email { border: 1.5px solid #F59E0B; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -158,18 +160,17 @@ st.caption("Institutional Portfolio Diagnostic, Multi-Currency Structuring & Liv
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
 
-# Two Interlinked RM Workflows
 tab1, tab2 = st.tabs([
     "📊 Module 1: Institutional RM Mandate Diagnostician", 
     "🥊 Module 2: RM Negotiate & Battle Card Desk"
 ])
 
 # ==============================================================================
-# MODULE 1: INSTITUTIONAL RM MANDATE DIAGNOSTICIAN
+# MODULE 1: MANDATE DIAGNOSTICIAN
 # ==============================================================================
 with tab1:
     st.subheader("Institutional Portfolio Diagnostician & Mandate Builder")
-    st.write("Advanced structuring tool for Wealth Advisors during high-ticket corporate and HNWI mandate onboarding.")
+    st.write("Advanced structuring tool for Wealth Advisors during corporate and HNWI mandate onboarding.")
 
     with st.form("rm_diagnostician_form"):
         col1, col2 = st.columns(2)
@@ -208,7 +209,7 @@ with tab1:
             )
 
         advisor_notes = st.text_area("Specific RM Advisory Notes / Benchmark Mandates:", placeholder="e.g. Client benchmarked against Stanbic IBTC Money Market and wants higher USD yields...", height=70)
-        submit_diag = st.form_submit_button("Generate Institutional Mandate Strategy 📊")
+        submit_diag = st.form_submit_button("Step 1: Calculate & Log Mandate Memo 📊")
 
     if submit_diag:
         if not api_key:
@@ -226,27 +227,33 @@ with tab1:
             - Tax/Yield Target: {tax_objective}
             - RM Notes: {advisor_notes}
 
-            DELIVER A BOARDROOM-READY MANDATE REPORT DIVIDED INTO 3 CLEAR SECTIONS:
-            1. 💼 **Executive Mandate Thesis:** Concise 2-line strategic allocation summary.
-            2. 🏛️ **Structured Portfolio Allocation Breakdown:**
-               - Exact % and nominal amounts across CFG AM Naira Fixed Income Fund, Multi-Currency Placements, Commercial Papers, and Halal Sukuk Notes.
-            3. 📋 **Investment Committee Internal Tear-Sheet:** Clean bulleted brief the RM can submit directly to management or log in the CRM.
+            DELIVER A BOARDROOM-READY MANDATE REPORT:
+            1. 💼 Executive Mandate Strategy: 2-line strategic thesis.
+            2. 🏛️ Structured Portfolio Allocation Breakdown (CFG Funds, FX Placements, CPs, Halal Sukuk).
+            3. 📈 Yield & WHT Optimization Rationale.
+            4. 📋 Investment Committee Internal Tear-Sheet.
             """
-            with st.spinner("Calculating Institutional Mandate..."):
+            with st.spinner("Calculating Mandate & Logging Deal Telemetry..."):
                 res = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[{"role": "user", "content": prompt_diag}]
                 )
-                st.markdown('<div class="output-box box-memo">', unsafe_allow_html=True)
-                st.markdown(res.choices[0].message.content)
-                st.markdown('</div>', unsafe_allow_html=True)
+                st.session_state["diag_output"] = res.choices[0].message.content
+                st.session_state["diag_logged"] = True
+
+    if st.session_state.get("diag_logged"):
+        st.success(" Deal Mandate Successfully Structured & Logged to CFG Telemetry Pipeline.")
+        st.markdown("### 📋 Internal Investment Committee Mandate Memo")
+        st.markdown('<div class="output-box box-memo">', unsafe_allow_html=True)
+        st.markdown(st.session_state["diag_output"])
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ==============================================================================
-# MODULE 2: RM NEGOTIATE & BATTLE CARD DESK (3 COMMUNICATION LAYERS)
+# MODULE 2: RM NEGOTIATE & BATTLE CARD DESK
 # ==============================================================================
 with tab2:
-    st.subheader("Live Deal-Closer & Multi-Channel Negotiation Desk")
-    st.write("Generates instant objection battle cards and client-ready outputs across 3 distinct communication layers.")
+    st.subheader("Live Deal-Closer & Sales Enablement Desk")
+    st.write("Overcome objections live and generate client-ready briefings for 1-click dispatch.")
 
     with st.form("rm_battle_form"):
         col1, col2 = st.columns(2)
@@ -275,7 +282,7 @@ with tab2:
             )
             deal_context = st.text_input("Context (e.g. Competitor mentioned):", value="Client is comparing with a commercial bank fixed deposit offering 17%")
 
-        submit_battle = st.form_submit_button("Generate Battle Card & Multi-Layer Proposals ⚡")
+        submit_battle = st.form_submit_button("Generate Battle Card & Communications ⚡")
 
     if submit_battle:
         if not api_key:
@@ -283,71 +290,100 @@ with tab2:
         else:
             client = openai.OpenAI(api_key=api_key)
             
-            prompt_layer1 = f"""
+            prompt_battle_card = f"""
             You are the Senior Sales Enablement Copilot at CFG Africa (MD: Babajide Lawani).
-            Generate the RM Battle Card & Internal Tear-Sheet for:
+            Generate the RM Battle Card for:
             Client: {target_entity} | Product: {active_product} | Objection: {objection_type} | Context: {deal_context}
 
             OUTPUT:
-            - Exactly 3 sharp, compliance-vetted institutional counter-arguments addressing the objection (highlighting SEC liquidity, active duration management, and tax alpha).
-            - A quick Internal Deal Log Tear-Sheet for CRM records.
+            - Exactly 3 sharp, compliance-vetted institutional counter-arguments addressing the objection.
+            - Brief Internal Deal Governance Summary.
             """
 
-            prompt_layer2 = f"""
-            You are drafting a client-facing WhatsApp briefing for a Relationship Manager at CFG Africa.
+            prompt_whatsapp = f"""
+            Draft an executive WhatsApp message from CFG Africa RM to:
             Client: {target_entity} | Product: {active_product} | Context: {deal_context}
 
-            OUTPUT:
-            A clean, executive WhatsApp message using professional bullet points.
-            Include a warm opening, structured allocation highlight, next steps, and official sign-off:
-            ───────────────────────────────
+            Keep it concise with professional bullet points, next steps, and sign-off:
             🏛️ CFG Africa | Wealth Management & Advisory
             Regulated by the Securities & Exchange Commission (SEC)
-            Website: https://cfgafrica.com
-            ───────────────────────────────
+            https://cfgafrica.com
             """
 
-            prompt_layer3 = f"""
-            You are drafting a formal Boardroom-Ready Corporate Email Proposal from CFG Africa to:
+            prompt_email = f"""
+            Draft a formal Boardroom-Ready Corporate Email Proposal from CFG Africa to:
             Client: {target_entity} | Product: {active_product} | Context: {deal_context}
 
-            OUTPUT:
-            A complete corporate email with Subject line, executive greeting, strategic rationale, regulatory safeguards, and account onboarding instructions.
+            Include Subject line, executive greeting, strategic rationale, regulatory safeguards, and account onboarding instructions.
             """
 
-            with st.spinner("Generating Multi-Layer Deal Package..."):
-                # Layer 1 Call
+            with st.spinner("Structuring Deal & Generating Action Channels..."):
                 res1 = client.chat.completions.create(
                     model="gpt-4o-mini",
-                    messages=[{"role": "user", "content": prompt_layer1}]
+                    messages=[{"role": "user", "content": prompt_battle_card}]
                 )
-                # Layer 2 Call
                 res2 = client.chat.completions.create(
                     model="gpt-4o-mini",
-                    messages=[{"role": "user", "content": prompt_layer2}]
+                    messages=[{"role": "user", "content": prompt_whatsapp}]
                 )
-                # Layer 3 Call
                 res3 = client.chat.completions.create(
                     model="gpt-4o-mini",
-                    messages=[{"role": "user", "content": prompt_layer3}]
+                    messages=[{"role": "user", "content": prompt_email}]
                 )
 
-                st.success("Multi-Layer Deal Package Successfully Generated:")
+                st.session_state["battle_card"] = res1.choices[0].message.content
+                st.session_state["whatsapp_text"] = res2.choices[0].message.content
+                st.session_state["email_text"] = res3.choices[0].message.content
+                st.session_state["battle_done"] = True
 
-                # Display Layer 1: Internal Battle Card & Memo
-                st.markdown("### 🥊 Layer 1: RM Battle Card & Internal Client Memo")
-                st.markdown('<div class="output-box box-memo">', unsafe_allow_html=True)
-                st.markdown(res1.choices[0].message.content)
-                st.markdown('</div>', unsafe_allow_html=True)
+    if st.session_state.get("battle_done"):
+        # Section 1: Internal Battle Card
+        st.markdown("### 🥊 1. RM Objection Battle Card & Internal Memo")
+        st.markdown('<div class="output-box box-memo">', unsafe_allow_html=True)
+        st.markdown(st.session_state["battle_card"])
+        st.markdown('</div>', unsafe_allow_html=True)
 
-                # Display Layer 2: WhatsApp Executive Briefing
-                st.markdown("### 📱 Layer 2: Executive WhatsApp Briefing (Client Mobile)")
-                st.markdown('<div class="output-box box-whatsapp">', unsafe_allow_html=True)
-                st.markdown(res2.choices[0].message.content)
-                st.markdown('</div>', unsafe_allow_html=True)
+        # Section 2: Interactive Dispatch Buttons
+        st.markdown("### 🚀 2. Instant Client Dispatch Actions")
+        
+        encoded_wa = urllib.parse.quote(st.session_state["whatsapp_text"])
+        encoded_email_body = urllib.parse.quote(st.session_state["email_text"])
+        encoded_subject = urllib.parse.quote(f"CFG Africa Investment Mandate Proposal - {target_entity}")
 
-                # Display Layer 3: Formal Email Proposal
-                st.markdown("### ✉️ Layer 3: Boardroom-Ready Proposal (Corporate Email)")
-                st.markdown('<div class="output-box box-email">', unsafe_allow_html=True)
-                st.markdown(res3.choices[0].message.content)
-                st.markdown('</div>', unsafe_allow_html=True)
+        btn_col1, btn_col2, btn_col3 = st.columns(3)
+
+        with btn_col1:
+            st.markdown(
+                f'<a href="https://wa.me/?text={encoded_wa}" target="_blank" class="action-btn-whatsapp">📲 Open in WhatsApp</a>', 
+                unsafe_allow_html=True
+            )
+            st.caption("Opens WhatsApp with pre-populated message.")
+
+        with btn_col2:
+            st.markdown(
+                f'<a href="mailto:?subject={encoded_subject}&body={encoded_email_body}" class="action-btn-email">✉️ Open in Email App</a>', 
+                unsafe_allow_html=True
+            )
+            st.caption("Opens corporate email client ready to send.")
+
+        with btn_col3:
+            st.download_button(
+                label="📄 Export Mandate PDF",
+                data=st.session_state["email_text"],
+                file_name=f"CFG_Mandate_{target_entity.replace(' ', '_')}.txt",
+                mime="text/plain",
+                use_container_width=True
+            )
+            st.caption("Exports document for CFG letterhead filing.")
+
+        # Section 3: Text Preview Boxes
+        with st.expander("👁️ View Formatted Message Previews", expanded=False):
+            st.markdown("**Client WhatsApp Briefing Preview:**")
+            st.markdown('<div class="output-box box-whatsapp">', unsafe_allow_html=True)
+            st.markdown(st.session_state["whatsapp_text"])
+            st.markdown('</div>', unsafe_allow_html=True)
+
+            st.markdown("**Corporate Email Proposal Preview:**")
+            st.markdown('<div class="output-box box-email">', unsafe_allow_html=True)
+            st.markdown(st.session_state["email_text"])
+            st.markdown('</div>', unsafe_allow_html=True)
