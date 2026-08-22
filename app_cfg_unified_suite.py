@@ -11,7 +11,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom Corporate CSS
+# Custom Corporate CSS (Fixed clean layout, no bottom glitches)
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
@@ -166,38 +166,54 @@ st.markdown("""
     }
 
     .box-memo { border: 1.5px solid #38BDF8; }
+    .box-followup { border: 1.5px solid #F59E0B; }
     </style>
 """, unsafe_allow_html=True)
 
-# Shared Log State
-if "activity_logs" not in st.session_state:
-    st.session_state["activity_logs"] = [
+# Shared Pipeline State
+if "deals_pipeline" not in st.session_state:
+    st.session_state["deals_pipeline"] = [
         {
-            "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
-            "Module": "Module 1: Mandate Structuring",
-            "Client / Mandate": "Tier-1 Corporate Treasury",
-            "Capital Volume": "₦150,000,000 + $75,000 USD",
-            "Action Status": "Mandate Strategy Calculated & Filed"
+            "Timestamp": "2026-08-22 10:30",
+            "Client / Entity": "Alhaji Garba (Crestline Ventures)",
+            "Module Source": "Module 2: Negotiation Desk",
+            "Product Mandate": "CFG AM Naira Fixed Income Fund",
+            "Capital Size": "₦150,000,000",
+            "Stage": "Negotiation",
+            "Days Inactive": 7
         },
         {
-            "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
-            "Module": "Module 2: Negotiation Desk",
-            "Client / Mandate": "Alhaji Garba (Crestline Ventures)",
-            "Capital Volume": "CFG AM Naira Fixed Income Fund",
-            "Action Status": "Objection Handled & WhatsApp Briefing Dispatched"
+            "Timestamp": "2026-08-21 14:15",
+            "Client / Entity": "Dr. Florence Adeleke (MedEquip)",
+            "Module Source": "Module 1: Mandate Structuring",
+            "Product Mandate": "CFG Multi-Currency Placement (USD)",
+            "Capital Size": "$75,000 USD",
+            "Stage": "Proposal Dispatched",
+            "Days Inactive": 14
+        },
+        {
+            "Timestamp": "2026-08-19 11:00",
+            "Client / Entity": "Tariq Global Waqf",
+            "Module Source": "Module 1: Mandate Structuring",
+            "Product Mandate": "Halal Sukuk & Ijarah Portfolio",
+            "Capital Size": "₦300,000,000",
+            "Stage": "Mandate Approved",
+            "Days Inactive": 3
         }
     ]
 
 # Header
 st.markdown('<span class="suite-badge">CRE8INTECH ENTERPRISE SUITE</span>', unsafe_allow_html=True)
 st.title("🏛️ CFG Unified RM Wealth & Deal Suite")
-st.caption("Institutional Portfolio Structuring, Objection Resolution & Sales Enablement")
+st.caption("Institutional Portfolio Structuring, Objection Resolution & Follow-Up Strategy Desk")
 
 api_key = st.secrets.get("OPENAI_API_KEY", "")
 
-tab1, tab2 = st.tabs([
-    "📊 Module 1: Institutional RM Mandate Diagnostician", 
-    "🥊 Module 2: RM Negotiate & Battle Desk"
+# 3 Focused Modules
+tab1, tab2, tab3 = st.tabs([
+    "📊 Module 1: Institutional Portfolio Diagnostician", 
+    "🥊 Module 2: RM Negotiate & Battle Desk",
+    "📈 Module 3: Deal Tracker & Follow-Up Strategy Desk"
 ])
 
 # ==============================================================================
@@ -275,8 +291,8 @@ with tab1:
                 )
                 st.session_state["diag_output"] = res.choices[0].message.content
                 st.session_state["diag_calculated"] = True
-                st.session_state["current_mandate_class"] = client_profile
-                st.session_state["current_mandate_cap"] = f"{naira_capital} + {fx_capital}"
+                st.session_state["current_m1_client"] = client_profile
+                st.session_state["current_m1_cap"] = f"{naira_capital} + {fx_capital}"
 
     if st.session_state.get("diag_calculated"):
         st.markdown("### 📋 Structured Portfolio Mandate & Tear-Sheet")
@@ -284,15 +300,17 @@ with tab1:
         st.markdown(st.session_state["diag_output"])
         st.markdown('</div>', unsafe_allow_html=True)
 
-        if st.button("Log Mandate to Management Deal Tracker ✅"):
-            st.session_state["activity_logs"].insert(0, {
+        if st.button("Log Mandate to Deal Tracker ✅"):
+            st.session_state["deals_pipeline"].insert(0, {
                 "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
-                "Module": "Module 1: Mandate Structuring",
-                "Client / Mandate": st.session_state.get("current_mandate_class", "Institutional Client"),
-                "Capital Volume": st.session_state.get("current_mandate_cap", "₦150M"),
-                "Action Status": "Mandate Strategy Logged to Central Pipeline"
+                "Client / Entity": st.session_state.get("current_m1_client", "Corporate Client"),
+                "Module Source": "Module 1: Mandate Structuring",
+                "Product Mandate": "Blended Portfolio Allocation",
+                "Capital Size": st.session_state.get("current_m1_cap", "₦150M"),
+                "Stage": "Mandate Diagnosed",
+                "Days Inactive": 0
             })
-            st.success(" Mandate Successfully Logged to CFG Activity Log.")
+            st.success(" Mandate Logged. Available in Module 3 (Deal Tracker).")
 
 # ==============================================================================
 # MODULE 2: NEGOTIATE & BATTLE DESK
@@ -338,13 +356,12 @@ with tab2:
             
             prompt_battle_card = f"""
             You are the Senior Sales Enablement Officer at CFG Africa (MD: Babajide Lawani).
-            Generate the Battle Resolution Desk response for:
             Client: {target_entity} | Product: {active_product} | Objection: {objection_type} | Context: {deal_context}
 
             OUTPUT FORMAT:
             1. 🥊 **Objection Resolution & Strategic Angles:** Exactly 3 sharp, compliance-aligned counter-arguments addressing the objection.
             2. 💼 **Internal Deal Summary:** 2-line strategic deal note.
-            3. 🎯 **Recommended Next Action:** Clear, actionable next step for the RM.
+            3. 🎯 **Recommended Next Action:** Practical next step for the RM.
             """
 
             prompt_whatsapp = f"""
@@ -380,8 +397,8 @@ with tab2:
                     messages=[{"role": "user", "content": prompt_email}]
                 )
 
-                st.session_state["target_entity"] = target_entity
-                st.session_state["active_product"] = active_product
+                st.session_state["m2_target"] = target_entity
+                st.session_state["m2_product"] = active_product
                 st.session_state["battle_card"] = res1.choices[0].message.content
                 st.session_state["whatsapp_text"] = res2.choices[0].message.content
                 st.session_state["email_text"] = res3.choices[0].message.content
@@ -400,18 +417,20 @@ with tab2:
         if not st.session_state.get("battle_logged"):
             if st.button("Log Deal Review & Unlock Dispatch Channels 📥"):
                 st.session_state["battle_logged"] = True
-                st.session_state["activity_logs"].insert(0, {
+                st.session_state["deals_pipeline"].insert(0, {
                     "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
-                    "Module": "Module 2: Negotiation Desk",
-                    "Client / Mandate": st.session_state.get("target_entity", "Client"),
-                    "Capital Volume": st.session_state.get("active_product", "CFG Placement"),
-                    "Action Status": "Objection Handled & Proposal Ready"
+                    "Client / Entity": st.session_state.get("m2_target", "Target Client"),
+                    "Module Source": "Module 2: Negotiation Desk",
+                    "Product Mandate": st.session_state.get("m2_product", "CFG Placement"),
+                    "Capital Size": "₦150,000,000",
+                    "Stage": "Proposal Dispatched",
+                    "Days Inactive": 0
                 })
                 st.rerun()
         else:
-            st.success(" Deal Logged to Activity Tracker. Instant Dispatch Channels Unlocked Below:")
+            st.success(" Deal Logged to Tracker. Instant Dispatch Channels Unlocked Below:")
             
-            client_name_safe = st.session_state.get("target_entity", "Client")
+            client_name_safe = st.session_state.get("m2_target", "Client")
             encoded_wa = urllib.parse.quote(st.session_state["whatsapp_text"])
             encoded_email_body = urllib.parse.quote(st.session_state["email_text"])
             encoded_subject = urllib.parse.quote(f"CFG Africa Investment Mandate Proposal - {client_name_safe}")
@@ -423,14 +442,12 @@ with tab2:
                     f'<a href="https://wa.me/?text={encoded_wa}" target="_blank" class="action-btn-whatsapp">📲 Open in WhatsApp</a>', 
                     unsafe_allow_html=True
                 )
-                st.caption("Pre-populates executive WhatsApp briefing.")
 
             with btn_col2:
                 st.markdown(
                     f'<a href="mailto:?subject={encoded_subject}&body={encoded_email_body}" class="action-btn-email">✉️ Open in Email App</a>', 
                     unsafe_allow_html=True
                 )
-                st.caption("Pre-populates corporate email proposal.")
 
             with btn_col3:
                 st.download_button(
@@ -440,16 +457,82 @@ with tab2:
                     mime="text/plain",
                     use_container_width=True
                 )
-                st.caption("Downloads text for official letterhead.")
 
 # ==============================================================================
-# UNIFIED ACTIVITY & MANAGEMENT LOG (BOTTOM EXPANDER)
+# MODULE 3: DEAL TRACKER & FOLLOW-UP STRATEGY DESK
 # ==============================================================================
-st.markdown("---")
-with st.expander("📊 Executive Activity Log & Pipeline Telemetry (Management View)", expanded=False):
-    st.write("Real-time logging of institutional mandates diagnosed and deal actions dispatched across the advisory desk.")
-    if st.session_state["activity_logs"]:
-        df_logs = pd.DataFrame(st.session_state["activity_logs"])
-        st.dataframe(df_logs, use_container_width=True, hide_index=True)
-    else:
-        st.info("No activity logged yet.")
+with tab3:
+    st.subheader("CFG Wealth Advisory Deal Tracker & Follow-Up Strategy Desk")
+    st.write("Review all logged mandates and generate tailored re-engagement strategies for stalling or pending deals.")
+
+    # Section 1: Active Deal Pipeline Table
+    st.markdown("### 📋 Logged Opportunities Pipeline")
+    df_pipeline = pd.DataFrame(st.session_state["deals_pipeline"])
+    st.dataframe(df_pipeline, use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+
+    # Section 2: Interactive Follow-Up Strategy Generator
+    st.subheader("🎯 Generate Tailored Re-Engagement Follow-Up")
+    st.write("Generate a strategic follow-up message based on deal stall duration and client response context.")
+
+    client_options = [d["Client / Entity"] for d in st.session_state["deals_pipeline"]]
+    
+    with st.form("followup_generator_form"):
+        col_f1, col_f2 = st.columns(2)
+        with col_f1:
+            selected_client = st.selectbox("Select Pending Client Deal:", client_options)
+            inactivity_period = st.selectbox(
+                "Time Elapsed Since Last Contact:",
+                [
+                    "3 to 5 Days (Gentle Prompt / Additional Insight)",
+                    "1 to 2 Weeks (Value-Add Yield Update / Market Shift)",
+                    "3+ Weeks (Executive Re-Engagement / Alternative Structure)"
+                ]
+            )
+        with col_f2:
+            client_status = st.selectbox(
+                "Current Client Response Status:",
+                [
+                    "No Response / Deal Inactive after initial proposal",
+                    "Client requested more time to consult Investment Committee/Board",
+                    "Client comparing with competing commercial bank rate",
+                    "Client awaiting dividend/liquidity inflow before committing"
+                ]
+            )
+            strategy_angle = st.text_input("Specific Angle to Emphasize:", value="Highlight current SEC money market fund yield benchmark and compounding advantage.")
+
+        submit_followup = st.form_submit_button("Generate Follow-Up Strategy & Messages ⚡")
+
+    if submit_followup:
+        if not api_key:
+            st.error("Please add OPENAI_API_KEY to Streamlit Secrets.")
+        else:
+            client = openai.OpenAI(api_key=api_key)
+            prompt_followup = f"""
+            You are the Senior Wealth Advisor Copilot at CFG Africa (MD: Babajide Lawani).
+            
+            CLIENT DEAL: {selected_client}
+            TIME ELAPSED: {inactivity_period}
+            CURRENT STATUS: {client_status}
+            STRATEGIC FOCUS: {strategy_angle}
+
+            DELIVER A HIGH-CONVERSION RE-ENGAGEMENT PACKAGE:
+            1. 🎯 **Strategic Follow-Up Angle:** Concise tactical guidance for the RM (why this approach works without sounding pushy).
+            2. 📱 **Ready-to-Send WhatsApp Follow-Up:** Clean, polite, high-impact bulleted message. Include CFG Africa sign-off.
+            3. ✉️ **Formal Follow-Up Email Body:** Boardroom-ready re-engagement note with relevant market/yield context.
+            """
+            with st.spinner("Generating Follow-Up Strategy..."):
+                res_f = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "user", "content": prompt_followup}]
+                )
+                st.session_state["followup_res"] = res_f.choices[0].message.content
+                st.session_state["followup_client"] = selected_client
+                st.session_state["followup_done"] = True
+
+    if st.session_state.get("followup_done"):
+        st.markdown(f"### 🚀 Follow-Up Action Plan for **{st.session_state.get('followup_client')}**")
+        st.markdown('<div class="output-box box-followup">', unsafe_allow_html=True)
+        st.markdown(st.session_state["followup_res"])
+        st.markdown('</div>', unsafe_allow_html=True)
