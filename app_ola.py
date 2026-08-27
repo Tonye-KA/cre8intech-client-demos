@@ -200,7 +200,7 @@ st.markdown("""
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
 st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
-st.write("Complete this 2-minute diagnostic to receive your personalized Wealth Archetype and targeted Money Wit action plan.")
+st.write("Complete this 2-minute assessment to receive a customized action plan mapped to the Money Wit ecosystem.")
 
 # Assessment Form
 with st.form("diagnostic_form"):
@@ -213,30 +213,30 @@ with st.form("diagnostic_form"):
     earner_type = st.selectbox(
         "What best describes your current career / earning stage?",
         [
-            "Early Career Professional (Building initial income & saving habits)", 
-            "Mid-Level / Senior Professional (Growing cash surplus & looking to scale)", 
-            "Business Owner / Entrepreneur (Optimizing business & personal cashflow)", 
-            "High-Net-Worth Individual (Preserving capital & accessing global assets)"
+            "Early Career Professional (Building foundation & monthly saving habits)", 
+            "Mid-Level / Senior Professional (Surplus cash looking for high-yield passive returns)", 
+            "Business Owner / Entrepreneur (Managing business cashflow & personal wealth)", 
+            "High-Net-Worth Individual (Preserving capital, hedging inflation & dollar assets)"
         ]
     )
     
     primary_goal = st.selectbox(
         "What is your primary financial focus right now?",
         [
-            "Building consistent monthly savings & emergency cash buffer", 
-            "Investing in Eurobonds, FGN Sukuk & global dollar assets", 
-            "Clearing high-interest debt & creating a sustainable budget", 
-            "Scaling and diversifying a multi-asset investment portfolio"
+            "Building a 6-Month Emergency Buffer & Strict Monthly Budget", 
+            "Investing in Eurobonds, FGN Sukuk & Global Dollar Fixed Income", 
+            "Clearing High-Interest Debts & Structuring Cashflow Habits", 
+            "Scaling a Multi-Asset Investment Portfolio & Accessing Private Deals"
         ]
     )
     
     biggest_challenge = st.selectbox(
         "What is your biggest financial hurdle?",
         [
-            "Financial jargon and complex investment terminology", 
-            "Lack of time to analyze deals and evaluate legitimate assets", 
-            "Inconsistency in execution, budgeting discipline, and accountability", 
-            "Need for a vetted private wealth circle and mastermind community"
+            "Confused by financial jargon and complex market terminology", 
+            "Lack of time to research and analyze vetted investment deals", 
+            "Inconsistency in execution, impulse spending, and lack of budgeting structure", 
+            "Need for a high-caliber private wealth network and live accountability"
         ]
     )
     
@@ -245,9 +245,9 @@ with st.form("diagnostic_form"):
 # Process Diagnostic
 if submitted:
     if not user_name.strip():
-        st.error("Please provide your full name before generating your plan.")
+        st.error("Please provide your full name.")
     elif not user_email.strip() or "@" not in user_email:
-        st.error("Please provide a valid email address so we can deliver your plan.")
+        st.error("Please provide a valid email address.")
     else:
         api_key = st.secrets.get("OPENAI_API_KEY", "")
         if not api_key:
@@ -256,47 +256,68 @@ if submitted:
             client = openai.OpenAI(api_key=api_key)
             
             prompt = f"""
-            You are the Chief Financial Advisory AI Engine for Money Wit Africa (founded by Oler Oladele, CFA).
-            Diagnose this specific user and provide tailored recommendations:
-            - Client Name: {user_name}
+            You are the Senior Wealth Advisory Engine for Money Wit Africa (founded by Oler Oladele, CFA).
+            Diagnose this specific user and select the EXACT MATCHING product, masterclass, and YouTube masterclass from the verified catalog below.
+
+            USER PROFILE:
+            - Name: {user_name}
             - Earning Stage: {earner_type}
             - Primary Goal: {primary_goal}
             - Primary Hurdle: {biggest_challenge}
 
-            MONEY WIT DIRECT PRODUCT CATALOG & LINKS:
-            1. 'The Money Wit Club' (Link: https://themoneywit.africa/community/) -> Vetted private wealth community for professionals & HNWIs to access Eurobonds, high-yield deal rooms, and live accountability.
-            2. 'The Money Wit School: Cashflow & Budgeting Mastery' (Link: https://themoneywit.africa/) -> For building strict monthly savings habits, debt elimination plans, and sustainable cash management systems.
-            3. 'The Money Wit School: Fixed Income & Eurobonds Masterclass' (Link: https://themoneywit.africa/) -> For understanding government securities, Eurobonds, and global dollar assets without financial jargon.
-            4. 'Money Wit Intensive Wealth Bootcamp' (Link: https://themoneywit.africa/) -> Fast-track sprint for rapid asset rebalancing, debt exits, and portfolio audits.
-            5. 'The Money Wit Show: Macro & Investment Breakdowns' (Link: https://www.youtube.com/@themoneywitclub) -> Free weekly video masterclasses breaking down Nigerian and global markets.
+            OFFICIAL MONEY WIT CATALOG & TAXONOMY (STRICT MAPPING RULES):
+            Rule 1: If Goal involves "Eurobonds, FGN Sukuk & Global Dollar Fixed Income" OR Hurdle is "Confused by financial jargon":
+               -> Primary Solution: 'The Fixed Income & Eurobond Mastery Masterclass'
+               -> URL: https://themoneywit.africa/
+               -> YouTube: "Eurobonds vs Treasury Bills: How to Invest Safely in Dollars" (https://www.youtube.com/@themoneywitclub)
+               -> Solve Angle: Demystifies bond yields, interest rate cycles, and dollar preservation without confusing jargon.
 
-            STRICT FORMATTING REQUIREMENTS (Use clean Markdown):
+            Rule 2: If Goal involves "Scaling a Multi-Asset Investment Portfolio" OR Hurdle is "Lack of time to research deals" OR "Need for private wealth network":
+               -> Primary Solution: 'The Money Wit Club (Exclusive Wealth Membership)'
+               -> URL: https://themoneywit.africa/community/
+               -> YouTube: "How High-Earning Professionals Structure Multi-Asset Portfolios" (https://www.youtube.com/@themoneywitclub)
+               -> Solve Angle: Hands-off curated deal analysis, monthly investor briefings, and a private circle of peer investors.
 
-            ### 🏆 Wealth Archetype: [Empowering Title Tailored to Them]
+            Rule 3: If Goal involves "Building Emergency Buffer" OR "Clearing High-Interest Debts" OR Hurdle is "Inconsistency & lack of budgeting structure":
+               -> Primary Solution: 'The Money Wit School: Cashflow & Wealth Foundations Course'
+               -> URL: https://themoneywit.africa/
+               -> YouTube: "5 Practical Steps to Automate Your Savings and Build a 6-Month Buffer" (https://www.youtube.com/@themoneywitclub)
+               -> Solve Angle: Provides automated cashflow blueprints, debt repayment ladders, and habit-tracking loops.
+
+            Rule 4: If Earning Stage is "Business Owner / Entrepreneur":
+               -> Primary Solution: 'The Money Wit Masterclass: Business Finance & Personal Wealth Separation'
+               -> URL: https://themoneywit.africa/
+               -> YouTube: "How Founders and Business Owners Pay Themselves and Build Personal Assets" (https://www.youtube.com/@themoneywitclub)
+               -> Solve Angle: Solves the co-mingling of funds and turns business profits into diversified personal wealth.
+
+            OUTPUT FORMAT (Strict Markdown):
+
+            ### 🏆 Wealth Archetype: [Specific empowering title, e.g., 'The Dollar Asset Strategist' or 'The Scalable Portfolio Builder']
 
             #### 🔍 Financial Health Assessment:
-            - **Current Strength & Position:** [1 sentence acknowledging what they are doing well]
-            - **The Core Bottleneck:** [1 crisp sentence explaining why '{biggest_challenge}' is blocking '{primary_goal}']
+            - **Current Position:** [1 sentence on their financial positioning and readiness]
+            - **The Bottleneck:** [1 sentence explaining how '{biggest_challenge}' directly restricts their goal of '{primary_goal}']
 
-            #### 🎯 Your Recommended Money Wit Pathway:
-            - **Primary Recommended Program / Masterclass:** [Pick the single most exact match from the catalog above]
-            - **Direct Access Link:** [Provide the exact URL link for the recommended program above as a Markdown link, e.g. [Access Masterclass Here](https://themoneywit.africa)]
-            - **Why This Solves Your Hurdle:** [2 sentences detailing how this directly eliminates their challenge and accomplishes their primary focus]
+            #### 🎯 Your Recommended Money Wit Solution:
+            - **Primary Program / Masterclass:** [Use the EXACT matched program name from the rules]
+            - **Direct Access Link:** [[Access This Program on Money Wit Africa](URL_from_rule)]
+            - **Why This Solves Your Hurdle:** [2 sentences detailing how this exact program addresses '{biggest_challenge}' and accomplishes '{primary_goal}']
 
-            #### 📺 Free Masterclass & Video Breakdown:
-            - **Recommended YouTube Masterclass:** [Suggest a specific topic to watch on 'The Money Wit Show']
-            - **Watch Link:** [[Watch on 'The Money Wit Show' YouTube](https://www.youtube.com/@themoneywitclub)]
-            - **Key Takeaway:** [1 sentence on what they will learn from this video]
+            #### 📺 Recommended Free Video Masterclass:
+            - **YouTube Topic:** "[Exact YouTube Video Title from rule]"
+            - **Watch Link:** [[Watch Episode on 'The Money Wit Show' YouTube](YouTube_URL_from_rule)]
+            - **Core Takeaway:** [1 concise sentence on what they will master from this episode]
 
-            #### 🚀 Next Tactical Steps:
-            1. [Tactical Step 1 specific to their immediate cashflow/investing move]
-            2. [Tactical Step 2 connecting them directly to the recommended Money Wit pathway]
+            #### 🚀 Immediate Tactical Action Steps:
+            1. [Tactical Step 1 specific to their immediate cash or asset move]
+            2. [Tactical Step 2 directly connecting them to the recommended Money Wit pathway]
             """
             
-            with st.spinner("Generating your personalized action plan..."):
+            with st.spinner("Analyzing your profile and matching optimal pathways..."):
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
-                    messages=[{"role": "user", "content": prompt}]
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.2
                 )
                 summary = response.choices[0].message.content
                 
@@ -304,7 +325,7 @@ if submitted:
             st.markdown("---")
             st.markdown(summary)
 
-            # Module 3: Instant Dispatch Options (WhatsApp & Email)
+            # Dispatch Options
             st.markdown("---")
             st.subheader("📤 Save or Share Your Action Plan")
             st.write("Send this diagnostic summary directly to your Email or WhatsApp for easy reference:")
