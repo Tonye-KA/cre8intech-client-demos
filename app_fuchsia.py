@@ -1,5 +1,7 @@
 import streamlit as st
 import openai
+import urllib.parse
+from datetime import datetime
 
 # Page Setup
 st.set_page_config(
@@ -74,7 +76,7 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. TABS BAR - COMPACT 1-LINE FIT */
+    /* 5. TABS BAR */
     div[data-baseweb="tab-list"],
     div[data-testid="stTabs"] > div:first-child {
         border-bottom: 2px solid #F3E8FF !important;
@@ -84,11 +86,6 @@ st.markdown("""
         width: 100% !important;
         gap: 4px !important;
         background: transparent !important;
-    }
-
-    [data-testid="stTabs"] button[aria-label="Scroll right"],
-    [data-testid="stTabs"] button[aria-label="Scroll left"] {
-        display: none !important;
     }
 
     button[data-baseweb="tab"],
@@ -112,7 +109,7 @@ st.markdown("""
         color: #D946EF !important;
     }
 
-    /* 6. SELECTBOX HARD OVERRIDE: FORCES PURE WHITE BACKGROUND */
+    /* 6. SELECTBOX HARD OVERRIDE */
     [data-baseweb="select"],
     [data-baseweb="select"] > div,
     [data-baseweb="select"] [role="combobox"],
@@ -130,10 +127,6 @@ st.markdown("""
         -webkit-text-fill-color: #1A1A1A !important;
         font-weight: 600 !important;
         font-size: 14px !important;
-    }
-
-    [data-baseweb="select"] svg {
-        fill: #64748B !important;
     }
 
     /* 7. POPUP LIST OPTIONS */
@@ -171,9 +164,6 @@ st.markdown("""
 
     /* 8. SIGNATURE FUCHSIA PINK BUTTON */
     button[kind="primaryFormSubmit"],
-    button[kind="secondaryFormSubmit"],
-    button[data-testid="baseButton-primary"],
-    button[data-testid="baseButton-secondary"],
     div[data-testid="stFormSubmitButton"] button,
     div.stButton > button {
         background-color: #D946EF !important;
@@ -188,9 +178,6 @@ st.markdown("""
     }
 
     button[kind="primaryFormSubmit"] *,
-    button[kind="secondaryFormSubmit"] *,
-    button[data-testid="baseButton-primary"] *,
-    button[data-testid="baseButton-secondary"] *,
     div[data-testid="stFormSubmitButton"] button *,
     div.stButton > button * {
         color: #FFFFFF !important;
@@ -208,6 +195,27 @@ st.markdown("""
         background: #C026D3 !important;
         transform: translateY(-1px);
         box-shadow: 0px 6px 16px rgba(217, 70, 239, 0.4) !important;
+    }
+
+    /* 9. WHATSAPP CONCIERGE BUTTON */
+    .fuchsia-wa-btn {
+        display: block;
+        text-align: center;
+        background-color: #25D366;
+        color: #FFFFFF !important;
+        font-weight: 800;
+        padding: 13px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-top: 12px;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        box-shadow: 0px 4px 12px rgba(37, 211, 102, 0.25);
+    }
+    .fuchsia-wa-btn:hover {
+        background-color: #1EBE5D;
+        color: #FFFFFF !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -275,8 +283,14 @@ with tab1:
                     model="gpt-4o-mini",
                     messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
                 )
+                answer_text = res.choices[0].message.content
                 st.success(f"Health Benefits of {product_choice}:")
-                st.markdown(res.choices[0].message.content)
+                st.markdown(answer_text)
+
+                # WhatsApp Inquiry Dispatch
+                wa_msg = f"🍰 *FUCHSIA DESSERTS HEALTH INQUIRY*\n━━━━━━━━━━━━━━━━━━━━\n🎯 *Product:* {product_choice}\n\n💡 *Concierge Notes:*\n{answer_text}\n\n━━━━━━━━━━━━━━━━━━━━\n✨ I would like to order or ask more about this treat!"
+                wa_url = f"https://api.whatsapp.com/send?text={urllib.parse.quote(wa_msg)}"
+                st.markdown(f'<a href="{wa_url}" target="_blank" class="fuchsia-wa-btn">📲 Order / Inquire via WhatsApp</a>', unsafe_allow_html=True)
 
 # --- TAB 2: Health Goal Matcher ---
 with tab2:
@@ -308,8 +322,14 @@ with tab2:
                     model="gpt-4o-mini",
                     messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
                 )
+                answer_text = res.choices[0].message.content
                 st.success("Your Recommended Dessert Match:")
-                st.markdown(res.choices[0].message.content)
+                st.markdown(answer_text)
+
+                # WhatsApp Inquiry Dispatch
+                wa_msg = f"🍰 *FUCHSIA DESSERTS HEALTH MATCH*\n━━━━━━━━━━━━━━━━━━━━\n🎯 *Health Goal:* {health_focus}\n\n💡 *Concierge Recommendation:*\n{answer_text}\n\n━━━━━━━━━━━━━━━━━━━━\n✨ I would like to order these recommended desserts!"
+                wa_url = f"https://api.whatsapp.com/send?text={urllib.parse.quote(wa_msg)}"
+                st.markdown(f'<a href="{wa_url}" target="_blank" class="fuchsia-wa-btn">📲 Order Matched Desserts via WhatsApp</a>', unsafe_allow_html=True)
 
 # --- TAB 3: Event Catering Planner ---
 with tab3:
@@ -342,8 +362,14 @@ with tab3:
                     model="gpt-4o-mini",
                     messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
                 )
+                answer_text = res.choices[0].message.content
                 st.success("Your Custom Event Catering Plan:")
-                st.markdown(res.choices[0].message.content)
+                st.markdown(answer_text)
+
+                # WhatsApp Catering Quote Dispatch
+                wa_msg = f"🎉 *FUCHSIA DESSERTS EVENT CATERING QUOTE*\n━━━━━━━━━━━━━━━━━━━━\n🎪 *Event Type:* {event_type}\n👥 *Guest Count:* {guest_count}\n\n📋 *Curated Menu & Plan:*\n{answer_text}\n\n━━━━━━━━━━━━━━━━━━━━\n✨ Please provide pricing and availability for this date!"
+                wa_url = f"https://api.whatsapp.com/send?text={urllib.parse.quote(wa_msg)}"
+                st.markdown(f'<a href="{wa_url}" target="_blank" class="fuchsia-wa-btn">📲 Send Catering Request via WhatsApp</a>', unsafe_allow_html=True)
 
 # --- TAB 4: Luxury Gifting Assistant ---
 with tab4:
@@ -376,5 +402,11 @@ with tab4:
                     model="gpt-4o-mini",
                     messages=[{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]
                 )
+                answer_text = res.choices[0].message.content
                 st.success("Your Curated Gift Package:")
-                st.markdown(res.choices[0].message.content)
+                st.markdown(answer_text)
+
+                # WhatsApp Gifting Dispatch
+                wa_msg = f"🎁 *FUCHSIA DESSERTS LUXURY GIFT ORDER*\n━━━━━━━━━━━━━━━━━━━━\n🎀 *Occasion:* {gift_occasion}\n📦 *Box Size:* {gift_size}\n\n✨ *Curated Selection:*\n{answer_text}\n\n━━━━━━━━━━━━━━━━━━━━\n✨ Please confirm packaging options and delivery details!"
+                wa_url = f"https://api.whatsapp.com/send?text={urllib.parse.quote(wa_msg)}"
+                st.markdown(f'<a href="{wa_url}" target="_blank" class="fuchsia-wa-btn">📲 Order Luxury Gift Box via WhatsApp</a>', unsafe_allow_html=True)
