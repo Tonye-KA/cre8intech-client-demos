@@ -1,6 +1,7 @@
 import streamlit as st
 import openai
 import urllib.parse
+from datetime import datetime
 
 # Page Setup
 st.set_page_config(page_title="MathsBot | Green Obsidian", page_icon="📐", layout="centered")
@@ -35,7 +36,7 @@ st.markdown("""
         font-weight: 500;
     }
 
-    /* Primary Buttons */
+    /* Primary Action Buttons */
     div.stButton > button {
         background-color: #0F382C !important;
         border-radius: 8px !important;
@@ -63,14 +64,14 @@ st.markdown("""
         padding: 10px 16px;
         border-radius: 8px;
         text-decoration: none;
-        margin-top: 8px;
+        margin-top: 2px;
     }
     .wa-btn:hover {
         background-color: #1EBE5D;
         color: #FFFFFF !important;
     }
 
-    /* Demo Badge & Cards */
+    /* Demo Badge */
     .demo-badge {
         background-color: #10B981;
         color: white !important;
@@ -78,14 +79,6 @@ st.markdown("""
         border-radius: 12px;
         font-size: 12px;
         font-weight: bold;
-    }
-    
-    .dispatch-box {
-        background-color: #FFFFFF;
-        border: 1px solid #10B981;
-        border-radius: 10px;
-        padding: 14px;
-        margin-top: 15px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -100,8 +93,8 @@ You are 'MathsBot', an encouraging Year 6 Primary School Maths Tutor for Green O
 Target audience: 10-11 year old students preparing for secondary entrance exams.
 
 CORE PEDAGOGICAL RULES:
-1. MODULE 1 (Socratic Step-by-Step Problem Solver): NEVER dump the final answer immediately. Break problems into 3-4 structured, easy-to-digest steps.
-2. MODULE 2 (Interactive Concept Checker): Always conclude your explanation with a quick 'Concept Check' mini-question to test active student understanding before they move on.
+1. MODULE 1 (Socratic Step-by-Step Problem Solver): NEVER dump the final raw answer immediately. Break problems down into 3-4 structured, easy-to-digest steps.
+2. MODULE 2 (Interactive Concept Checker): Conclude your explanation with a quick 'Concept Check' mini-question to test active student understanding.
 3. Keep the tone warm, highly encouraging, and clear for exam revision.
 """
 
@@ -146,39 +139,47 @@ if user_input:
         with st.chat_message("assistant"):
             st.write(bot_reply)
 
-# ==========================================
-# MODULE 3: REVISION DISPATCH & PARENT SHARE
-# ==========================================
+# ==============================================================
+# FULL-SESSION COMPILATION & REVISION NOTES DISPATCH
+# ==============================================================
 user_assistant_msgs = [m for m in st.session_state.messages if m["role"] in ["user", "assistant"]]
 
 if len(user_assistant_msgs) >= 2:
     st.markdown("---")
-    st.subheader("📤 Module 3: Revision Dispatch & Parent Summary")
-    st.write("Save or share this lesson summary for homework review or parent updates:")
-    
-    last_user_q = [m["content"] for m in st.session_state.messages if m["role"] == "user"][-1]
-    last_bot_a = [m["content"] for m in st.session_state.messages if m["role"] == "assistant"][-1]
+    st.subheader("📥 Save Lesson & Revision Notes")
+    st.caption("Download or share the complete summary of all questions and worked solutions from this study session:")
 
-    summary_text = (
-        f"📚 *Green Obsidian Maths Revision Summary*\n"
-        f"━━━━━━━━━━━━━━━━━━\n"
-        f"🎯 *Question/Topic:* {last_user_q}\n\n"
-        f"💡 *Step-by-Step Solution & Notes:*\n{last_bot_a}\n\n"
-        f"━━━━━━━━━━━━━━━━━━\n"
-        f"✨ *Green Obsidian Educational Services* | 24/7 Maths Copilot"
-    )
+    # Compile the entire study session into one cohesive revision sheet
+    session_date = datetime.now().strftime("%d %b %Y, %I:%M %p")
+    full_session_summary = f"📚 GREEN OBSIDIAN MATHS REVISION SHEET\n"
+    full_session_summary += f"📅 Session Date: {session_date}\n"
+    full_session_summary += f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
 
-    encoded_wa_text = urllib.parse.quote(summary_text)
+    q_count = 1
+    # Pair each question with its answer
+    for i in range(0, len(user_assistant_msgs), 2):
+        if i + 1 < len(user_assistant_msgs):
+            q_text = user_assistant_msgs[i]["content"]
+            a_text = user_assistant_msgs[i+1]["content"]
+            full_session_summary += f"🎯 [TOPIC/QUESTION {q_count}]: {q_text}\n\n"
+            full_session_summary += f"💡 [WORKED SOLUTION & NOTES]:\n{a_text}\n\n"
+            full_session_summary += f"────────────────────────────────────\n\n"
+            q_count += 1
+
+    full_session_summary += "✨ Green Obsidian Educational Services | 24/7 Maths Copilot"
+
+    # Encode for WhatsApp Link
+    encoded_wa_text = urllib.parse.quote(full_session_summary)
     wa_share_url = f"https://api.whatsapp.com/send?text={encoded_wa_text}"
 
     col_a, col_b = st.columns(2)
     with col_a:
-        st.markdown(f'<a href="{wa_share_url}" target="_blank" class="wa-btn">📲 Share to WhatsApp (Parent/Student)</a>', unsafe_allow_html=True)
+        st.markdown(f'<a href="{wa_share_url}" target="_blank" class="wa-btn">📲 Share Full Session (WhatsApp)</a>', unsafe_allow_html=True)
     with col_b:
         st.download_button(
-            label="📄 Download Revision Sheet (.txt)",
-            data=summary_text,
-            file_name="Green_Obsidian_Maths_Revision.txt",
+            label="📄 Download Full Session Notes (.txt)",
+            data=full_session_summary,
+            file_name=f"Green_Obsidian_Study_Session_{datetime.now().strftime('%Y%m%d')}.txt",
             mime="text/plain",
             use_container_width=True
         )
