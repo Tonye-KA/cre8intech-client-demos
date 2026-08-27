@@ -15,7 +15,7 @@ st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
 
-    /* 1. Page Canvas & Spacing */
+    /* Page Canvas */
     .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
         background-color: #FFFFFF !important;
         font-family: 'Plus Jakarta Sans', sans-serif !important;
@@ -30,7 +30,7 @@ st.markdown("""
         max-width: 740px !important;
     }
 
-    /* 2. Headings & Typography */
+    /* Typography */
     h1, h2, h3, h4 {
         font-family: 'Playfair Display', serif !important;
         color: #0F172A !important;
@@ -49,7 +49,7 @@ st.markdown("""
         font-size: 14.5px !important;
     }
 
-    /* 3. Demo Badge */
+    /* Demo Badge */
     .demo-badge {
         background-color: #0F172A !important;
         color: #F59E0B !important;
@@ -64,7 +64,7 @@ st.markdown("""
         box-shadow: 0px 2px 8px rgba(15, 23, 42, 0.15);
     }
 
-    /* 4. Assessment Card */
+    /* Assessment Card */
     div[data-testid="stForm"], div.stBlock {
         background-color: #FFFDF5 !important;
         border: 2px solid #FCD34D !important;
@@ -75,7 +75,7 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. Dropdown Styling */
+    /* Dropdown Styling */
     .stSelectbox div[data-baseweb="select"],
     .stSelectbox div[data-baseweb="select"] > div,
     .stSelectbox div[data-baseweb="select"] > div:first-child,
@@ -104,7 +104,6 @@ st.markdown("""
         fill: #F59E0B !important;
     }
 
-    /* 6. Dropdown Options Menu */
     ul[role="listbox"] li,
     li[role="option"] {
         background-color: #FEF3C7 !important;
@@ -127,7 +126,7 @@ st.markdown("""
         -webkit-text-fill-color: #451A03 !important;
     }
 
-    /* 7. Action Buttons */
+    /* Action Buttons */
     button[kind="primaryFormSubmit"],
     div[data-testid="stFormSubmitButton"] button,
     div.stButton > button {
@@ -154,7 +153,35 @@ st.markdown("""
         text-transform: uppercase !important;
     }
 
-    /* Custom Action Links */
+    /* Custom Recommendation & Dispatch Cards */
+    .rec-card {
+        background-color: #FFFDF5;
+        border: 1.5px solid #FCD34D;
+        border-radius: 12px;
+        padding: 18px;
+        margin-top: 14px;
+        margin-bottom: 14px;
+    }
+
+    .direct-link-btn {
+        display: inline-block;
+        background-color: #0F172A;
+        color: #F59E0B !important;
+        font-size: 13px;
+        font-weight: 800;
+        padding: 10px 18px;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-top: 8px;
+        border: 1px solid #F59E0B;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .direct-link-btn:hover {
+        background-color: #F59E0B;
+        color: #0F172A !important;
+    }
+
     .dispatch-btn-wa {
         display: block;
         text-align: center;
@@ -200,7 +227,7 @@ st.markdown("""
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
 st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
-st.write("Complete this 2-minute assessment to receive a customized action plan mapped to the Money Wit ecosystem.")
+st.write("Complete this 2-minute assessment to receive a customized action plan with direct pathway links.")
 
 # Assessment Form
 with st.form("diagnostic_form"):
@@ -242,6 +269,49 @@ with st.form("diagnostic_form"):
     
     submitted = st.form_submit_button("Generate My Action Plan 🚀")
 
+# Deterministic Catalog Routing
+def get_exact_resources(goal, hurdle, stage):
+    if "Eurobonds" in goal or "jargon" in hurdle:
+        return {
+            "title": "Fixed Income & Global Dollar Assets",
+            "prod_name": "The Money Wit Community & Investment Advisory Circle",
+            "prod_url": "https://themoneywit.africa/community/",
+            "prod_desc": "Gain access to vetted Eurobond breakdowns, government debt instrument guides, and quarterly macro briefings.",
+            "yt_topic": "Eurobonds vs Treasury Bills: Complete Beginner Guide",
+            "yt_url": "https://www.youtube.com/@themoneywitclub/search?query=Eurobonds",
+            "yt_desc": "Watch Oler Oladele break down how bond coupons work and how to safely purchase dollar fixed income without jargon."
+        }
+    elif "Multi-Asset" in goal or "vetted investment deals" in hurdle or "private wealth network" in hurdle or "High-Net-Worth" in stage:
+        return {
+            "title": "Private Deal Rooms & Multi-Asset Portfolio Scaling",
+            "prod_name": "The Money Wit Club (Private Wealth Membership)",
+            "prod_url": "https://themoneywit.africa/community/",
+            "prod_desc": "An exclusive mastermind network for high earners to co-invest, evaluate private market opportunities, and access curated deals.",
+            "yt_topic": "How High Earners Build Multi-Asset Portfolios",
+            "yt_url": "https://www.youtube.com/@themoneywitclub/search?query=portfolio",
+            "yt_desc": "Learn asset allocation strategies across cash, fixed income, real estate, and global equities."
+        }
+    elif "Business Owner" in stage:
+        return {
+            "title": "Entrepreneurial Wealth & Cash Flow Optimization",
+            "prod_name": "The Money Wit Advisory & Wealth Planning",
+            "prod_url": "https://themoneywit.africa/",
+            "prod_desc": "Separate your company balance sheet from personal net worth and build disciplined profit-retention systems.",
+            "yt_topic": "How Founders and Business Owners Pay Themselves First",
+            "yt_url": "https://www.youtube.com/@themoneywitclub/search?query=business",
+            "yt_desc": "A step-by-step masterclass on paying yourself a sustainable salary and building personal emergency assets."
+        }
+    else:
+        return {
+            "title": "Cashflow Foundations & Debt Elimination",
+            "prod_name": "The Money Wit Financial Literacy & Budgeting Programs",
+            "prod_url": "https://themoneywit.africa/",
+            "prod_desc": "Master personal cashflow management, automate savings targets, and eliminate high-interest liabilities.",
+            "yt_topic": "5 Practical Steps to Automate Your Monthly Savings",
+            "yt_url": "https://www.youtube.com/@themoneywitclub/search?query=budgeting",
+            "yt_desc": "Learn practical cash envelopes and automated banking structures to effortlessly save 20-30% of your income."
+        }
+
 # Process Diagnostic
 if submitted:
     if not user_name.strip():
@@ -254,77 +324,69 @@ if submitted:
             st.error("Please configure your OPENAI_API_KEY in Streamlit Secrets.")
         else:
             client = openai.OpenAI(api_key=api_key)
+            exact_res = get_exact_resources(primary_goal, biggest_challenge, earner_type)
             
             prompt = f"""
             You are the Senior Wealth Advisory Engine for Money Wit Africa (founded by Oler Oladele, CFA).
-            Diagnose this specific user and select the EXACT MATCHING product, masterclass, and YouTube masterclass from the verified catalog below.
+            Diagnose this specific user and generate a customized profile.
 
             USER PROFILE:
-            - Name: {user_name}
+            - Client: {user_name}
             - Earning Stage: {earner_type}
-            - Primary Goal: {primary_goal}
-            - Primary Hurdle: {biggest_challenge}
+            - Primary Focus: {primary_goal}
+            - Primary Bottleneck: {biggest_challenge}
+            - Recommended Focus Pathway: {exact_res['title']}
 
-            OFFICIAL MONEY WIT CATALOG & TAXONOMY (STRICT MAPPING RULES):
-            Rule 1: If Goal involves "Eurobonds, FGN Sukuk & Global Dollar Fixed Income" OR Hurdle is "Confused by financial jargon":
-               -> Primary Solution: 'The Fixed Income & Eurobond Mastery Masterclass'
-               -> URL: https://themoneywit.africa/
-               -> YouTube: "Eurobonds vs Treasury Bills: How to Invest Safely in Dollars" (https://www.youtube.com/@themoneywitclub)
-               -> Solve Angle: Demystifies bond yields, interest rate cycles, and dollar preservation without confusing jargon.
+            STRICT OUTPUT INSTRUCTIONS:
+            Format using clean Markdown:
 
-            Rule 2: If Goal involves "Scaling a Multi-Asset Investment Portfolio" OR Hurdle is "Lack of time to research deals" OR "Need for private wealth network":
-               -> Primary Solution: 'The Money Wit Club (Exclusive Wealth Membership)'
-               -> URL: https://themoneywit.africa/community/
-               -> YouTube: "How High-Earning Professionals Structure Multi-Asset Portfolios" (https://www.youtube.com/@themoneywitclub)
-               -> Solve Angle: Hands-off curated deal analysis, monthly investor briefings, and a private circle of peer investors.
-
-            Rule 3: If Goal involves "Building Emergency Buffer" OR "Clearing High-Interest Debts" OR Hurdle is "Inconsistency & lack of budgeting structure":
-               -> Primary Solution: 'The Money Wit School: Cashflow & Wealth Foundations Course'
-               -> URL: https://themoneywit.africa/
-               -> YouTube: "5 Practical Steps to Automate Your Savings and Build a 6-Month Buffer" (https://www.youtube.com/@themoneywitclub)
-               -> Solve Angle: Provides automated cashflow blueprints, debt repayment ladders, and habit-tracking loops.
-
-            Rule 4: If Earning Stage is "Business Owner / Entrepreneur":
-               -> Primary Solution: 'The Money Wit Masterclass: Business Finance & Personal Wealth Separation'
-               -> URL: https://themoneywit.africa/
-               -> YouTube: "How Founders and Business Owners Pay Themselves and Build Personal Assets" (https://www.youtube.com/@themoneywitclub)
-               -> Solve Angle: Solves the co-mingling of funds and turns business profits into diversified personal wealth.
-
-            OUTPUT FORMAT (Strict Markdown):
-
-            ### 🏆 Wealth Archetype: [Specific empowering title, e.g., 'The Dollar Asset Strategist' or 'The Scalable Portfolio Builder']
+            ### 🏆 Wealth Archetype: [Create a bold, empowering archetype title]
 
             #### 🔍 Financial Health Assessment:
-            - **Current Position:** [1 sentence on their financial positioning and readiness]
-            - **The Bottleneck:** [1 sentence explaining how '{biggest_challenge}' directly restricts their goal of '{primary_goal}']
-
-            #### 🎯 Your Recommended Money Wit Solution:
-            - **Primary Program / Masterclass:** [Use the EXACT matched program name from the rules]
-            - **Direct Access Link:** [[Access This Program on Money Wit Africa](URL_from_rule)]
-            - **Why This Solves Your Hurdle:** [2 sentences detailing how this exact program addresses '{biggest_challenge}' and accomplishes '{primary_goal}']
-
-            #### 📺 Recommended Free Video Masterclass:
-            - **YouTube Topic:** "[Exact YouTube Video Title from rule]"
-            - **Watch Link:** [[Watch Episode on 'The Money Wit Show' YouTube](YouTube_URL_from_rule)]
-            - **Core Takeaway:** [1 concise sentence on what they will master from this episode]
+            - **Current Positioning:** [1 sentence on their financial baseline]
+            - **The Immediate Gap:** [1 sentence explaining how '{biggest_challenge}' directly restricts their goal of '{primary_goal}']
 
             #### 🚀 Immediate Tactical Action Steps:
-            1. [Tactical Step 1 regarding cashflow or planning with a clickable link to learn more: e.g. "Track expenses and start building your buffer with free guides on [The Money Wit Africa](https://themoneywit.africa/)"]
-            2. [Tactical Step 2 directly enrolling in the matched solution: e.g. "Enroll in [Program Name](URL_from_rule) to structure your path"]
-            3. [Tactical Step 3 to watch the masterclass: e.g. "Watch [Exact Video Title](YouTube_URL_from_rule) for practical insights"]
+            1. [Tactical Step 1 regarding cash management or savings automation]
+            2. [Tactical Step 2 connecting them to their recommended learning track]
             """
             
-            with st.spinner("Analyzing your profile and matching optimal pathways..."):
+            with st.spinner("Analyzing your profile and matching verified resources..."):
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[{"role": "user", "content": prompt}],
                     temperature=0.2
                 )
-                summary = response.choices[0].message.content
+                analysis_text = response.choices[0].message.content
                 
             st.success(f"Personalized Action Plan Ready for {user_name}!")
             st.markdown("---")
-            st.markdown(summary)
+            st.markdown(analysis_text)
+
+            # Direct Verified Recommendation Cards
+            st.markdown("---")
+            st.subheader("🎯 Your Recommended Money Wit Pathways")
+            
+            col_rec1, col_rec2 = st.columns(2)
+            with col_rec1:
+                st.markdown(f"""
+                <div class="rec-card">
+                    <h4>🏛️ Recommended Program</h4>
+                    <p style="font-weight: 700; color: #0F172A; font-size: 14.5px; margin-top: 4px;">{exact_res['prod_name']}</p>
+                    <p style="font-size: 13px; color: #475569;">{exact_res['prod_desc']}</p>
+                    <a href="{exact_res['prod_url']}" target="_blank" class="direct-link-btn">Access Program Page →</a>
+                </div>
+                """, unsafe_allow_html=True)
+                
+            with col_rec2:
+                st.markdown(f"""
+                <div class="rec-card">
+                    <h4>📺 Free YouTube Masterclass</h4>
+                    <p style="font-weight: 700; color: #0F172A; font-size: 14.5px; margin-top: 4px;">"{exact_res['yt_topic']}"</p>
+                    <p style="font-size: 13px; color: #475569;">{exact_res['yt_desc']}</p>
+                    <a href="{exact_res['yt_url']}" target="_blank" class="direct-link-btn">Watch Video on YouTube →</a>
+                </div>
+                """, unsafe_allow_html=True)
 
             # Dispatch Options
             st.markdown("---")
@@ -337,10 +399,13 @@ if submitted:
                 f"📧 *Email:* {user_email}\n"
                 f"📅 *Date:* {datetime.now().strftime('%d %b %Y')}\n"
                 f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
-                f"{summary}\n\n"
+                f"{analysis_text}\n\n"
+                f"🎯 *Recommended Program:* {exact_res['prod_name']}\n"
+                f"🔗 *Direct Link:* {exact_res['prod_url']}\n\n"
+                f"📺 *Free Masterclass:* {exact_res['yt_topic']}\n"
+                f"▶️ *Watch Link:* {exact_res['yt_url']}\n\n"
                 f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                f"✨ Access your recommended program: https://themoneywit.africa\n"
-                f"📺 Watch 'The Money Wit Show' on YouTube: https://www.youtube.com/@themoneywitclub"
+                f"✨ The Money Wit Club (themoneywit.africa)"
             )
             
             # WhatsApp Link
