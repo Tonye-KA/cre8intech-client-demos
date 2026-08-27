@@ -27,7 +27,7 @@ st.markdown("""
 
     .main .block-container {
         padding-top: 3.5rem !important;
-        max-width: 720px !important;
+        max-width: 740px !important;
     }
 
     /* 2. Headings & Typography */
@@ -50,7 +50,7 @@ st.markdown("""
         font-size: 14.5px !important;
     }
 
-    /* 3. Cre8intech Demo Badge */
+    /* 3. Demo Badge */
     .demo-badge {
         background-color: #0F172A !important;
         color: #F59E0B !important;
@@ -76,7 +76,7 @@ st.markdown("""
         margin-bottom: 20px !important;
     }
 
-    /* 5. BLACK DROPDOWN BUTTON */
+    /* 5. Dropdown Styling */
     .stSelectbox div[data-baseweb="select"],
     .stSelectbox div[data-baseweb="select"] > div,
     .stSelectbox div[data-baseweb="select"] > div:first-child,
@@ -105,19 +105,7 @@ st.markdown("""
         fill: #F59E0B !important;
     }
 
-    /* 6. POPUP MENU CONTAINER */
-    div[data-baseweb="popover"],
-    div[data-baseweb="menu"],
-    ul[role="listbox"],
-    div[role="listbox"] {
-        background-color: #FFFDF5 !important;
-        border: 2px solid #F59E0B !important;
-        border-radius: 8px !important;
-        padding: 6px !important;
-        box-shadow: 0px 10px 25px rgba(15, 23, 42, 0.18) !important;
-    }
-
-    /* 7. DROPDOWN OPTIONS */
+    /* 6. Dropdown Options Menu */
     ul[role="listbox"] li,
     li[role="option"] {
         background-color: #FEF3C7 !important;
@@ -140,7 +128,7 @@ st.markdown("""
         -webkit-text-fill-color: #451A03 !important;
     }
 
-    /* 8. GOLD SUBMIT & ACTION BUTTONS */
+    /* 7. Action Buttons */
     button[kind="primaryFormSubmit"],
     div[data-testid="stFormSubmitButton"] button,
     div.stButton > button {
@@ -167,24 +155,67 @@ st.markdown("""
         text-transform: uppercase !important;
     }
 
-    /* WhatsApp Button */
-    .wa-btn {
+    /* Custom Action Links (WhatsApp, Email & Products) */
+    .dispatch-btn-wa {
         display: block;
         text-align: center;
         background-color: #25D366;
         color: #FFFFFF !important;
         font-weight: 800;
-        padding: 12px 16px;
+        padding: 12px 14px;
         border-radius: 8px;
         text-decoration: none;
-        margin-top: 2px;
+        margin-top: 4px;
         text-transform: uppercase;
         font-size: 13px;
         letter-spacing: 0.5px;
     }
-    .wa-btn:hover {
+    .dispatch-btn-wa:hover {
         background-color: #1EBE5D;
         color: #FFFFFF !important;
+    }
+
+    .dispatch-btn-email {
+        display: block;
+        text-align: center;
+        background-color: #0F172A;
+        color: #F59E0B !important;
+        font-weight: 800;
+        padding: 12px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-top: 4px;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+        border: 1px solid #F59E0B;
+    }
+    .dispatch-btn-email:hover {
+        background-color: #1E293B;
+        color: #FBBF24 !important;
+    }
+
+    .product-card {
+        background-color: #FFFDF5;
+        border: 1.5px solid #FCD34D;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 12px;
+    }
+    .product-btn {
+        display: inline-block;
+        background-color: #0F172A;
+        color: #FFFFFF !important;
+        font-size: 12.5px;
+        font-weight: 700;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-top: 8px;
+    }
+    .product-btn:hover {
+        background-color: #F59E0B;
+        color: #0F172A !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -193,13 +224,18 @@ st.markdown("""
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
 st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
-st.write("Complete this 2-minute assessment to receive your personalized Wealth Archetype score and recommended Money Wit roadmap.")
+st.write("Complete this 2-minute assessment to receive your personalized Wealth Archetype and custom Money Wit roadmap.")
 
-# Assessment Form (Module 1 & Lead Capture)
+# Assessment Form
 with st.form("diagnostic_form"):
-    st.subheader("1. Your Profile & Contact Details")
-    user_name = st.text_input("Full Name (or First Name)", placeholder="e.g. Amaka Adebayo")
-    user_phone = st.text_input("WhatsApp Number", placeholder="e.g. +234 801 234 5678")
+    st.subheader("1. Your Profile (Name is required)")
+    user_name = st.text_input("Full Name *", placeholder="e.g. Amaka Adebayo")
+    
+    col_c1, col_c2 = st.columns(2)
+    with col_c1:
+        user_phone = st.text_input("WhatsApp Number (Optional)", placeholder="e.g. +234 801 234 5678")
+    with col_c2:
+        user_email = st.text_input("Email Address (Optional)", placeholder="e.g. amaka@example.com")
     
     st.subheader("2. Financial Health Assessment")
     earner_type = st.selectbox(
@@ -234,69 +270,112 @@ with st.form("diagnostic_form"):
     
     submitted = st.form_submit_button("Generate My Wealth Roadmap 🚀")
 
-# Module 2 & 3 Output
+# Process Diagnostic
 if submitted:
-    api_key = st.secrets.get("OPENAI_API_KEY", "")
-    if not api_key:
-        st.error("Please configure your OPENAI_API_KEY in Streamlit Secrets.")
+    if not user_name.strip():
+        st.error("Please provide your name before generating your roadmap.")
     else:
-        client = openai.OpenAI(api_key=api_key)
-        
-        display_name = user_name if user_name else "Investor"
-        
-        prompt = f"""
-        Analyze this user for Money Wit Africa (Founder: Oler Oladele, CFA):
-        - Name: {display_name}
-        - Earner Stage: {earner_type}
-        - Primary Goal: {primary_goal}
-        - Biggest Hurdle: {biggest_challenge}
-
-        OUTPUT FORMAT:
-        1. **Wealth Archetype:** (A sharp, empowering title, e.g., 'The Strategic Wealth Builder')
-        2. **Financial Diagnostics:** (2 structured bullet points analyzing their strengths and current gap)
-        3. **Your 3-Pillar Action Roadmap:** (3 step-by-step tactical moves they need to make next)
-        4. **Recommended Money Wit Program:** 
-           - Match 'The Money Wit Club' for Eurobonds, asset scaling, and vetted deal circles.
-           - Match 'The Money Wit School' for foundational budgeting, cashflow mastery, and habit loops.
-           - Match 'Money Wit Bootcamps' for intensive short-term execution.
-        """
-        
-        with st.spinner("Diagnosing your wealth profile..."):
-            response = client.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[{"role": "user", "content": prompt}]
-            )
-            summary = response.choices[0].message.content
+        api_key = st.secrets.get("OPENAI_API_KEY", "")
+        if not api_key:
+            st.error("Please configure your OPENAI_API_KEY in Streamlit Secrets.")
+        else:
+            client = openai.OpenAI(api_key=api_key)
             
-        st.success(f"Assessment Complete for {display_name}!")
-        st.markdown("---")
-        st.markdown(summary)
+            prompt = f"""
+            Analyze this user for Money Wit Africa (Founder: Oler Oladele, CFA):
+            - Name: {user_name}
+            - Earner Stage: {earner_type}
+            - Primary Goal: {primary_goal}
+            - Biggest Hurdle: {biggest_challenge}
 
-        # Module 3: Lead Dispatch & Action Links
-        st.markdown("---")
-        st.subheader("📥 Save & Share Your Wealth Roadmap")
-        
-        formatted_summary = (
-            f"📊 *MONEY WIT AFRICA — FINANCIAL HEALTH DIAGNOSTIC*\n"
-            f"👤 *Client:* {display_name}\n"
-            f"📅 *Date:* {datetime.now().strftime('%d %b %Y')}\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
-            f"{summary}\n\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"✨ Empowered by The Money Wit Club (themoneywit.africa)"
-        )
-        
-        encoded_wa = urllib.parse.quote(formatted_summary)
-        wa_url = f"https://api.whatsapp.com/send?text={encoded_wa}"
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.markdown(f'<a href="{wa_url}" target="_blank" class="wa-btn">📲 Share to WhatsApp</a>', unsafe_allow_html=True)
-        with col2:
-            st.download_button(
-                label="📄 Download Roadmap (.txt)",
-                data=formatted_summary,
-                file_name=f"MoneyWit_Roadmap_{display_name.replace(' ', '_')}.txt",
-                mime="text/plain",
-                use_container_width=True
+            OUTPUT FORMAT:
+            1. **Wealth Archetype:** (A sharp, empowering title, e.g., 'The Strategic Wealth Builder')
+            2. **Financial Diagnostics:** (2 structured bullet points analyzing strengths and opportunities)
+            3. **Your 3-Pillar Action Roadmap:** (3 tactical steps aligned directly with Money Wit resources):
+               - Foundation/Habits -> The Money Wit School / Budgeting blueprints
+               - Video Learning -> 'The Money Wit Show' on YouTube
+               - Investing & Growth -> The Money Wit Club / Eurobond Masterclasses
+            """
+            
+            with st.spinner("Diagnosing your wealth profile..."):
+                response = client.chat.completions.create(
+                    model="gpt-4o-mini",
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                summary = response.choices[0].message.content
+                
+            st.success(f"Assessment Complete for {user_name}!")
+            st.markdown("---")
+            st.markdown(summary)
+
+            # Direct Website Product Match Cards
+            st.markdown("---")
+            st.subheader("🎯 Recommended Money Wit Pathways")
+            st.write("Explore the exact programs and channels tailored to your diagnostic results:")
+
+            prod_col1, prod_col2 = st.columns(2)
+            with prod_col1:
+                st.markdown("""
+                <div class="product-card">
+                    <h4>🏛️ The Money Wit Club</h4>
+                    <p style="font-size: 13.5px;">For professionals & entrepreneurs ready to access Eurobonds, global investments, and curated deal rooms.</p>
+                    <a href="https://themoneywit.africa/community/" target="_blank" class="product-btn">Explore The Club →</a>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                st.markdown("""
+                <div class="product-card">
+                    <h4>🎓 The Money Wit School</h4>
+                    <p style="font-size: 13.5px;">Master cashflow management, eliminate financial confusion, and build lifelong wealth habits.</p>
+                    <a href="https://themoneywit.africa/" target="_blank" class="product-btn">Explore Courses →</a>
+                </div>
+                """, unsafe_allow_html=True)
+
+            with prod_col2:
+                st.markdown("""
+                <div class="product-card">
+                    <h4>📺 The Money Wit Show (YouTube)</h4>
+                    <p style="font-size: 13.5px;">Watch in-depth weekly market breakdowns, investment strategies, and financial masterclasses.</p>
+                    <a href="https://www.youtube.com/@themoneywitclub" target="_blank" class="product-btn">Watch on YouTube →</a>
+                </div>
+                """, unsafe_allow_html=True)
+
+                st.markdown("""
+                <div class="product-card">
+                    <h4>⚡ Masterclasses & Bootcamps</h4>
+                    <p style="font-size: 13.5px;">Short-term, intensive wealth acceleration bootcamps to fast-track your investment goals.</p>
+                    <a href="https://themoneywit.africa/" target="_blank" class="product-btn">View Upcoming Sessions →</a>
+                </div>
+                """, unsafe_allow_html=True)
+
+            # Module 3: Instant Dispatch Options (WhatsApp & Email)
+            st.markdown("---")
+            st.subheader("📤 Send & Save Your Roadmap")
+            st.write("Share this diagnostic summary to your WhatsApp or Email for easy reference:")
+            
+            full_roadmap_text = (
+                f"📊 *MONEY WIT AFRICA — WEALTH ROADMAP*\n"
+                f"👤 *Client:* {user_name}\n"
+                f"📅 *Date:* {datetime.now().strftime('%d %b %Y')}\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                f"{summary}\n\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                f"✨ Next Steps: Explore programs at https://themoneywit.africa\n"
+                f"📺 Watch 'The Money Wit Show' on YouTube: https://www.youtube.com/@themoneywitclub"
             )
+            
+            # WhatsApp Link
+            encoded_wa = urllib.parse.quote(full_roadmap_text)
+            wa_share_url = f"https://api.whatsapp.com/send?text={encoded_wa}"
+            
+            # Email Mailto Link
+            email_subject = urllib.parse.quote(f"My Money Wit Wealth Roadmap - {user_name}")
+            email_body = urllib.parse.quote(full_roadmap_text)
+            target_email = user_email if user_email.strip() else ""
+            mailto_url = f"mailto:{target_email}?subject={email_subject}&body={email_body}"
+
+            col_send1, col_send2 = st.columns(2)
+            with col_send1:
+                st.markdown(f'<a href="{wa_share_url}" target="_blank" class="dispatch-btn-wa">📲 Send / Share via WhatsApp</a>', unsafe_allow_html=True)
+            with col_send2:
+                st.markdown(f'<a href="{mailto_url}" target="_blank" class="dispatch-btn-email">✉️ Send via Email</a>', unsafe_allow_html=True)
