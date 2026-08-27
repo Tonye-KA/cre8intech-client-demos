@@ -200,7 +200,7 @@ st.markdown("""
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
 st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
-st.write("Complete this 2-minute assessment to receive a customized action plan mapped to the Money Wit ecosystem.")
+st.write("Complete this 2-minute free assessment to know your financial health and receive a customized action plan.")
 
 # Assessment Form
 with st.form("diagnostic_form"):
@@ -257,7 +257,7 @@ if submitted:
             
             prompt = f"""
             You are the Senior Wealth Advisory Engine for Money Wit Africa (founded by Oler Oladele, CFA).
-            Diagnose this specific user and select the EXACT MATCHING product, direct page link, and YouTube video from the verified catalog below.
+            Diagnose this specific user. ALWAYS recommend 'The Money Wit Club' (https://themoneywit.africa/community/) as the primary community pillar, paired with the specific workshop/resource from the catalog below.
 
             USER PROFILE:
             - Name: {user_name}
@@ -265,56 +265,60 @@ if submitted:
             - Primary Goal: {primary_goal}
             - Primary Hurdle: {biggest_challenge}
 
-            OFFICIAL MONEY WIT CATALOG & EXACT DESTINATION URLS:
-            Rule 1: If Goal involves "Eurobonds, FGN Sukuk & Global Dollar Fixed Income" OR Hurdle is "Confused by financial jargon":
-               -> Primary Solution: 'The Money Wit Club (Deals & Multi-Asset Access)'
-               -> Exact Program URL: https://themoneywit.africa/community/
-               -> YouTube Episode Title: "Invest in Nigeria from the Diaspora: Dollar-Denominated Opportunities & High Returns"
-               -> Exact YouTube URL: https://www.youtube.com/@oleroladele
-               -> Solve Angle: Demystifies foreign exchange risk, bond yields, and capital preservation in simple English.
+            OFFICIAL CATALOG & DIRECT DESTINATIONS:
+            Core Community (ALWAYS INCLUDE IN EVERY RECOMMENDATION):
+            - The Money Wit Club: https://themoneywit.africa/community/
 
-            Rule 2: If Goal involves "Scaling a Multi-Asset Investment Portfolio" OR Hurdle is "Lack of time to research deals" OR "Need for private wealth network":
-               -> Primary Solution: 'The Money Wit Club (Premium Tier - Deal Flow & Vetted Opportunities)'
-               -> Exact Program URL: https://themoneywit.africa/community/
-               -> YouTube Episode Title: "Don't Buy Stocks in 2026 Until You Watch This"
-               -> Exact YouTube URL: https://www.youtube.com/@oleroladele
-               -> Solve Angle: Hands-off curated deal analysis, monthly briefings, and a private circle of peer investors from Nigeria, UK, US, and Canada.
+            Specialized Tracks:
+            Track 1 (Fixed Income / Eurobonds / Jargon):
+            - Track Name: 'The Money Wit Club (Fixed Income & Global Assets Track)'
+            - Program Link: https://themoneywit.africa/community/
+            - YouTube Video: "Invest in Nigeria from the Diaspora: Dollar-Denominated Opportunities & High Returns"
+            - YouTube Link: https://www.youtube.com/@oleroladele
+            - Track Action: Join the club deal sessions and watch the diaspora dollar masterclass.
 
-            Rule 3: If Goal involves "Building a 6-Month Emergency Buffer" OR "Clearing High-Interest Debts" OR Hurdle is "Inconsistency in execution, impulse spending, and lack of budgeting structure":
-               -> Primary Solution: 'The Money Wit School (Foundation Path & Workshops)'
-               -> Exact Program URL: https://school.themoneywit.africa/
-               -> YouTube Episode Title: "Personal Finance for Beginners: 7 Things You Should Know"
-               -> Exact YouTube URL: https://www.youtube.com/@oleroladele
-               -> Solve Angle: Provides automated cashflow management blueprints, habit-tracking loops, and debt exits.
+            Track 2 (Portfolio Scaling / Deal Flow / Network):
+            - Track Name: 'The Money Wit Club (Deal Flow & Vetted Opportunities Circle)'
+            - Program Link: https://themoneywit.africa/community/
+            - YouTube Video: "Don't Buy Stocks in 2026 Until You Watch This"
+            - YouTube Link: https://www.youtube.com/@oleroladele
+            - Track Action: Join the exclusive club circle for monthly deal memos and peer accountability.
 
-            Rule 4: If Earning Stage is "Business Owner / Entrepreneur":
-               -> Primary Solution: 'The Money Wit High Earner Clarity & Strategy Program'
-               -> Exact Program URL: https://themoneywit.africa/what-we-do/
-               -> YouTube Episode Title: "How Compounding Can Help You Double Your Money"
-               -> Exact YouTube URL: https://www.youtube.com/@oleroladele
-               -> Solve Angle: Eliminates comingling of business and personal cashflow and turns enterprise earnings into lasting assets.
+            Track 3 (Savings Buffer / Debt / Budgeting / Discipline):
+            - Track Name: 'The Money Wit School & Community Circle'
+            - Program Link: https://school.themoneywit.africa/
+            - YouTube Video: "Personal Finance for Beginners: 7 Things You Should Know"
+            - YouTube Link: https://www.youtube.com/@oleroladele
+            - Track Action: Complete the cashflow foundation workshop and join The Money Wit Club accountability group.
 
-            OUTPUT FORMAT (Strict Markdown):
+            Track 4 (Business Owners / Entrepreneurs):
+            - Track Name: 'The Money Wit High Earner Strategy & Club Circle'
+            - Program Link: https://themoneywit.africa/what-we-do/
+            - YouTube Video: "How Compounding Can Help You Double Your Money"
+            - YouTube Link: https://www.youtube.com/@oleroladele
+            - Track Action: Apply the business-personal wealth separation framework inside The Money Wit Club.
 
-            ### 🏆 Wealth Archetype: [Specific empowering title, e.g., 'The Dollar Asset Strategist' or 'The Scalable Portfolio Builder']
+            OUTPUT FORMAT (Strict Markdown - Every single tactical step MUST include an active clickable Markdown link):
+
+            ### 🏆 Wealth Archetype: [Empowering Title Tailored to Them]
 
             #### 🔍 Financial Health Assessment:
-            - **Current Position:** [1 sentence on their financial positioning and readiness]
-            - **The Bottleneck:** [1 sentence explaining how '{biggest_challenge}' directly restricts their goal of '{primary_goal}']
+            - **Current Position:** [1 sentence on their financial positioning]
+            - **The Bottleneck:** [1 sentence explaining how '{biggest_challenge}' directly restricts '{primary_goal}']
 
             #### 🎯 Your Recommended Money Wit Solution:
-            - **Primary Program:** [Use the EXACT matched program name from the rules]
-            - **Direct Access Link:** [[Access Program Details & Registration]](Exact Program URL from rule)
-            - **Why This Solves Your Hurdle:** [2 sentences detailing how this exact program addresses '{biggest_challenge}' and accomplishes '{primary_goal}']
+            - **Primary Program:** [Track Name]
+            - **Direct Access Link:** [[Join The Money Wit Club & Access Programs]](https://themoneywit.africa/community/)
+            - **Why This Solves Your Hurdle:** [2 sentences detailing how The Money Wit Club community and track address '{biggest_challenge}' to reach '{primary_goal}']
 
             #### 📺 Recommended Free Video Masterclass:
-            - **YouTube Masterclass:** "[Exact YouTube Episode Title from rule]"
-            - **Watch Link:** [[Watch Episode on Oler Oladele's YouTube Channel]](Exact YouTube URL from rule)
-            - **Core Takeaway:** [1 concise sentence on what they will master from this episode]
+            - **YouTube Masterclass:** "[Exact YouTube Episode Title from matched track]"
+            - **Watch Link:** [[Watch Episode on Oler Oladele's YouTube Channel]](https://www.youtube.com/@oleroladele)
+            - **Core Takeaway:** [1 sentence on what they will learn]
 
             #### 🚀 Immediate Tactical Action Steps:
-            1. [Tactical Step 1 specific to their immediate cash or asset move]
-            2. [Tactical Step 2 directly connecting them to the recommended Money Wit pathway]
+            1. [Immediate step with direct link, e.g., Set up your baseline audit and watch the free masterclass via [Oler Oladele's YouTube Channel](https://www.youtube.com/@oleroladele).]
+            2. [Second tactical step with direct link, e.g., Apply to join [The Money Wit Club Community](https://themoneywit.africa/community/) to unlock vetted deal memos, peer accountability, and wealth frameworks.]
             """
             
             with st.spinner("Analyzing your profile and matching optimal pathways..."):
@@ -342,8 +346,8 @@ if submitted:
                 f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
                 f"{summary}\n\n"
                 f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                f"✨ Access your recommended program: https://themoneywit.africa/community/\n"
-                f"📺 Watch 'The Money Wit' on YouTube: https://www.youtube.com/@oleroladele"
+                f"✨ Join The Money Wit Club: https://themoneywit.africa/community/\n"
+                f"📺 Watch on YouTube: https://www.youtube.com/@oleroladele"
             )
             
             # WhatsApp Link
