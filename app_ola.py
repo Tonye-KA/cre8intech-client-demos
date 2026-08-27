@@ -309,8 +309,9 @@ if submitted:
             - **Core Takeaway:** [1 concise sentence on what they will master from this episode]
 
             #### 🚀 Immediate Tactical Action Steps:
-            1. [Tactical Step 1 specific to their immediate cash or asset move]
-            2. [Tactical Step 2 directly connecting them to the recommended Money Wit pathway]
+            1. [Tactical Step 1 regarding cashflow or planning with a clickable link to learn more: e.g. "Track expenses and start building your buffer with free guides on [The Money Wit Africa](https://themoneywit.africa/)"]
+            2. [Tactical Step 2 directly enrolling in the matched solution: e.g. "Enroll in [Program Name](URL_from_rule) to structure your path"]
+            3. [Tactical Step 3 to watch the masterclass: e.g. "Watch [Exact Video Title](YouTube_URL_from_rule) for practical insights"]
             """
             
             with st.spinner("Analyzing your profile and matching optimal pathways..."):
