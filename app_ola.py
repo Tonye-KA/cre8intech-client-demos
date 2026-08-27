@@ -202,27 +202,23 @@ st.title("📊 Financial Health Diagnostic Tool")
 st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
 st.write("Complete this 2-minute free assessment to know your financial health and receive a customized action plan")
 
-# Delivery Preference Selector (Outside form for instant reactive field update)
-st.subheader("1. Select Your Report Delivery Method")
+# Delivery Preference Selector (Controls dynamic contact requirement in Step 3)
+st.markdown("**Select Your Report Delivery Preference:**")
 delivery_choice = st.radio(
-    "How should we deliver your customized diagnostic report?",
-    ["📲 Send via WhatsApp", "✉️ Send via Email"],
-    horizontal=True
+    "Choose how you want to receive and access your report:",
+    ["📲 Send via WhatsApp", "✉️ Send via Email", "📄 Download Report (PDF / Text)"],
+    horizontal=True,
+    label_visibility="collapsed"
 )
 
 # Assessment Form
 with st.form("diagnostic_form"):
-    st.subheader("2. Your Contact Information")
+    # Step 1: Name Only
+    st.subheader("1. Your Details")
     user_name = st.text_input("Full Name *", placeholder="e.g. Amaka Adebayo")
     
-    if "WhatsApp" in delivery_choice:
-        user_phone = st.text_input("WhatsApp Number *", placeholder="e.g. +234 801 234 5678")
-        user_email = ""
-    else:
-        user_email = st.text_input("Email Address *", placeholder="e.g. amaka@example.com")
-        user_phone = ""
-    
-    st.subheader("3. Financial Health Assessment")
+    # Step 2: Dropdowns
+    st.subheader("2. Financial Health Assessment")
     earner_type = st.selectbox(
         "What best describes your current career / earning stage?",
         [
@@ -253,16 +249,29 @@ with st.form("diagnostic_form"):
         ]
     )
     
-    submitted = st.form_submit_button("Generate & Send My Action Plan 🚀")
+    # Step 3: Contact Details based on Delivery Choice
+    st.subheader("3. Report Delivery Details")
+    if "WhatsApp" in delivery_choice:
+        user_phone = st.text_input("WhatsApp Number *", placeholder="e.g. +234 801 234 5678")
+        user_email = ""
+    elif "Email" in delivery_choice:
+        user_email = st.text_input("Email Address *", placeholder="e.g. amaka@example.com")
+        user_phone = ""
+    else:
+        st.info("📄 Your customized report will be generated on-screen with an instant download button.")
+        user_phone = ""
+        user_email = ""
+    
+    submitted = st.form_submit_button("Generate & Access My Action Plan 🚀")
 
 # Diagnostic Processing & Validation
 if submitted:
     if not user_name.strip():
-        st.error("Please provide your full name.")
+        st.error("Please provide your full name in Step 1.")
     elif "WhatsApp" in delivery_choice and not user_phone.strip():
-        st.error("Please enter your WhatsApp Number to receive your report.")
+        st.error("Please enter your WhatsApp Number in Step 3 to receive your report.")
     elif "Email" in delivery_choice and (not user_email.strip() or "@" not in user_email):
-        st.error("Please enter a valid Email Address to receive your report.")
+        st.error("Please enter a valid Email Address in Step 3 to receive your report.")
     else:
         api_key = st.secrets.get("OPENAI_API_KEY", "")
         if not api_key:
@@ -270,7 +279,7 @@ if submitted:
         else:
             client = openai.OpenAI(api_key=api_key)
             
-            contact_info = user_phone if "WhatsApp" in delivery_choice else user_email
+            contact_info = user_phone if "WhatsApp" in delivery_choice else (user_email if "Email" in delivery_choice else "Direct Download")
             
             prompt = f"""
             You are the Senior Wealth Advisory Engine for Money Wit Africa (founded by Oler Oladele, CFA).
@@ -361,13 +370,13 @@ if submitted:
             st.subheader("📤 Confirm Delivery of Your Action Plan")
             
             full_roadmap_text = (
-                f"📊 *MONEY WIT AFRICA — PERSONALIZED ACTION PLAN*\n"
-                f"👤 *Client:* {user_name}\n"
-                f"📞 *Contact:* {contact_info}\n"
-                f"📅 *Date:* {datetime.now().strftime('%d %b %Y')}\n"
-                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+                f"📊 MONEY WIT AFRICA — PERSONALIZED ACTION PLAN\n"
+                f"👤 Client: {user_name}\n"
+                f"📞 Delivery Channel: {delivery_choice}\n"
+                f"📅 Date: {datetime.now().strftime('%d %b %Y')}\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
                 f"{summary}\n\n"
-                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
                 f"✨ Access The Money Wit Club: https://themoneywit.africa/community/\n"
                 f"📺 Watch 'The Money Wit' on YouTube: https://www.youtube.com/@oleroladele"
             )
@@ -377,9 +386,18 @@ if submitted:
                 wa_share_url = f"https://api.whatsapp.com/send?text={encoded_wa}"
                 st.write(f"Click below to receive and open this roadmap directly on WhatsApp:")
                 st.markdown(f'<a href="{wa_share_url}" target="_blank" class="dispatch-btn-wa">📲 Open & Send Report via WhatsApp</a>', unsafe_allow_html=True)
-            else:
+            elif "Email" in delivery_choice:
                 email_subject = urllib.parse.quote(f"My Money Wit Action Plan - {user_name}")
                 email_body = urllib.parse.quote(full_roadmap_text)
                 mailto_url = f"mailto:{user_email}?subject={email_subject}&body={email_body}"
                 st.write(f"Click below to send this roadmap to your email inbox ({user_email}):")
                 st.markdown(f'<a href="{mailto_url}" target="_blank" class="dispatch-btn-email">✉️ Open & Send to My Email</a>', unsafe_allow_html=True)
+            else:
+                st.write("Click below to download your complete diagnostic summary sheet:")
+                st.download_button(
+                    label="📄 Download Full Action Plan Report (.txt / PDF-ready)",
+                    data=full_roadmap_text,
+                    file_name=f"MoneyWit_Action_Plan_{user_name.replace(' ', '_')}.txt",
+                    mime="text/plain",
+                    use_container_width=True
+                )
