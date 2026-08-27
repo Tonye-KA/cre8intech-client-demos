@@ -43,7 +43,6 @@ st.markdown("""
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    /* Question Labels */
     label[data-testid="stWidgetLabel"] p {
         color: #0F172A !important;
         font-weight: 700 !important;
@@ -155,7 +154,7 @@ st.markdown("""
         text-transform: uppercase !important;
     }
 
-    /* Custom Action Links (WhatsApp, Email & Products) */
+    /* Custom Action Links */
     .dispatch-btn-wa {
         display: block;
         text-align: center;
@@ -194,29 +193,6 @@ st.markdown("""
         background-color: #1E293B;
         color: #FBBF24 !important;
     }
-
-    .product-card {
-        background-color: #FFFDF5;
-        border: 1.5px solid #FCD34D;
-        border-radius: 12px;
-        padding: 16px;
-        margin-bottom: 12px;
-    }
-    .product-btn {
-        display: inline-block;
-        background-color: #0F172A;
-        color: #FFFFFF !important;
-        font-size: 12.5px;
-        font-weight: 700;
-        padding: 8px 16px;
-        border-radius: 6px;
-        text-decoration: none;
-        margin-top: 8px;
-    }
-    .product-btn:hover {
-        background-color: #F59E0B;
-        color: #0F172A !important;
-    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -224,11 +200,11 @@ st.markdown("""
 st.markdown('<span class="demo-badge">CRE8INTECH PROTOTYPE DEMO</span>', unsafe_allow_html=True)
 st.title("📊 Financial Health Diagnostic Tool")
 st.caption("Configured for **Money Wit Africa** (Founder: Oler Oladele, CFA)")
-st.write("Complete this 2-minute assessment to receive your personalized Wealth Archetype and custom Money Wit roadmap.")
+st.write("Complete this 2-minute diagnostic to receive your targeted Money Wit wealth action plan.")
 
 # Assessment Form
 with st.form("diagnostic_form"):
-    st.subheader("1. Your Profile (Name is required)")
+    st.subheader("1. Your Details")
     user_name = st.text_input("Full Name *", placeholder="e.g. Amaka Adebayo")
     
     col_c1, col_c2 = st.columns(2)
@@ -237,43 +213,43 @@ with st.form("diagnostic_form"):
     with col_c2:
         user_email = st.text_input("Email Address (Optional)", placeholder="e.g. amaka@example.com")
     
-    st.subheader("2. Financial Health Assessment")
+    st.subheader("2. Financial Health Diagnostic")
     earner_type = st.selectbox(
-        "What best describes your current earning stage?",
+        "What best describes your current career / earning stage?",
         [
-            "Early Career Professional", 
-            "Mid-Level / Senior Professional", 
-            "Business Owner / Entrepreneur", 
-            "High-Net-Worth Individual"
+            "Early Career Professional (Building initial income & habits)", 
+            "Mid-Level / Senior Professional (Growing cash surplus & scaling)", 
+            "Business Owner / Entrepreneur (Optimizing business & personal cashflow)", 
+            "High-Net-Worth Individual (Preserving capital & accessing global assets)"
         ]
     )
     
     primary_goal = st.selectbox(
         "What is your primary financial focus right now?",
         [
-            "Building consistent monthly savings & emergency buffer", 
-            "Investing in Eurobonds, FGN Sukuk & global equities", 
-            "Clearing high-interest debt & cash flow optimization", 
-            "Scaling and protecting a high-ticket wealth portfolio"
+            "Building consistent monthly savings & emergency cash buffer", 
+            "Investing in Eurobonds, FGN Sukuk & global dollar assets", 
+            "Clearing high-interest debt & creating a sustainable budget", 
+            "Scaling and diversifying a multi-asset investment portfolio"
         ]
     )
     
     biggest_challenge = st.selectbox(
         "What is your biggest financial hurdle?",
         [
-            "Financial jargon and investment complexity", 
-            "Lack of time to analyze deals and market opportunities", 
-            "Inconsistency in execution and accountability", 
-            "Need for a vetted wealth circle and mastermind community"
+            "Financial jargon and complex investment terminology", 
+            "Lack of time to analyze deals and evaluate legitimate assets", 
+            "Inconsistency in execution, budgeting discipline, and accountability", 
+            "Need for a vetted private wealth circle and mastermind community"
         ]
     )
     
-    submitted = st.form_submit_button("Generate My Wealth Roadmap 🚀")
+    submitted = st.form_submit_button("Generate My Streamlined Action Plan 🚀")
 
 # Process Diagnostic
 if submitted:
     if not user_name.strip():
-        st.error("Please provide your name before generating your roadmap.")
+        st.error("Please enter your name before generating your action plan.")
     else:
         api_key = st.secrets.get("OPENAI_API_KEY", "")
         if not api_key:
@@ -282,85 +258,63 @@ if submitted:
             client = openai.OpenAI(api_key=api_key)
             
             prompt = f"""
-            Analyze this user for Money Wit Africa (Founder: Oler Oladele, CFA):
-            - Name: {user_name}
-            - Earner Stage: {earner_type}
+            You are the Chief Financial Advisory Engine for Money Wit Africa (founded by Oler Oladele, CFA).
+            Diagnose this specific user and provide tailored, non-generic recommendations:
+            - Client Name: {user_name}
+            - Earning Stage: {earner_type}
             - Primary Goal: {primary_goal}
-            - Biggest Hurdle: {biggest_challenge}
+            - Primary Hurdle: {biggest_challenge}
 
-            OUTPUT FORMAT:
-            1. **Wealth Archetype:** (A sharp, empowering title, e.g., 'The Strategic Wealth Builder')
-            2. **Financial Diagnostics:** (2 structured bullet points analyzing strengths and opportunities)
-            3. **Your 3-Pillar Action Roadmap:** (3 tactical steps aligned directly with Money Wit resources):
-               - Foundation/Habits -> The Money Wit School / Budgeting blueprints
-               - Video Learning -> 'The Money Wit Show' on YouTube
-               - Investing & Growth -> The Money Wit Club / Eurobond Masterclasses
+            MONEY WIT PRODUCT CATALOG TO SELECT FROM:
+            1. 'The Money Wit Club' (themoneywit.africa/community/): Premium wealth circle for high-yield deals, Eurobonds, global portfolio scaling, and peer accountability.
+            2. 'The Money Wit School - Cashflow & Budgeting Mastery' (themoneywit.africa): For building disciplined monthly saving habits, debt elimination blueprints, and foundational systems.
+            3. 'The Money Wit School - Fixed Income & Eurobond Masterclass' (themoneywit.africa): For professionals seeking practical debt instrument knowledge without financial jargon.
+            4. 'The Money Wit Show on YouTube' (youtube.com/@themoneywitclub): Free video masterclasses covering weekly macro breakdowns, financial literacy, and market updates.
+            5. 'Money Wit Intensive Wealth Bootcamp' (themoneywit.africa): Fast-track sprint for rapid asset rebalancing and portfolio audits.
+
+            STRICT OUTPUT INSTRUCTIONS:
+            Format your response cleanly in Markdown:
+
+            ### 🏆 Wealth Archetype: [Create a bold, empowering title tailored to them]
+
+            #### 🔍 Financial Health Assessment:
+            - **Current Strength & Position:** [1 crisp sentence analyzing what they are doing well]
+            - **The Core Bottleneck:** [1 crisp sentence explaining why their specific hurdle '{biggest_challenge}' is holding them back from '{primary_goal}']
+
+            #### 🎯 Your Streamlined Money Wit Recommendation:
+            - **Primary Recommended Solution:** [Pick ONLY the single most relevant Money Wit product or course from the catalog that directly solves their bottleneck]
+            - **Why This Fits You:** [2-3 sentences explaining exactly how this specific product eliminates their hurdle and helps them achieve their primary goal]
+            - **Free Media Recommendation:** [Pick a specific topic to watch on 'The Money Wit Show' on YouTube to start learning immediately]
+
+            #### 🚀 Next Tactical Steps:
+            1. [Tactical Step 1 based on their goal]
+            2. [Tactical Step 2 connecting them to the recommended Money Wit pathway]
             """
             
-            with st.spinner("Diagnosing your wealth profile..."):
+            with st.spinner("Generating your personalized diagnostic plan..."):
                 response = client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[{"role": "user", "content": prompt}]
                 )
                 summary = response.choices[0].message.content
                 
-            st.success(f"Assessment Complete for {user_name}!")
+            st.success(f"Tailored Action Plan Ready for {user_name}!")
             st.markdown("---")
             st.markdown(summary)
 
-            # Direct Website Product Match Cards
-            st.markdown("---")
-            st.subheader("🎯 Recommended Money Wit Pathways")
-            st.write("Explore the exact programs and channels tailored to your diagnostic results:")
-
-            prod_col1, prod_col2 = st.columns(2)
-            with prod_col1:
-                st.markdown("""
-                <div class="product-card">
-                    <h4>🏛️ The Money Wit Club</h4>
-                    <p style="font-size: 13.5px;">For professionals & entrepreneurs ready to access Eurobonds, global investments, and curated deal rooms.</p>
-                    <a href="https://themoneywit.africa/community/" target="_blank" class="product-btn">Explore The Club →</a>
-                </div>
-                """, unsafe_allow_html=True)
-                
-                st.markdown("""
-                <div class="product-card">
-                    <h4>🎓 The Money Wit School</h4>
-                    <p style="font-size: 13.5px;">Master cashflow management, eliminate financial confusion, and build lifelong wealth habits.</p>
-                    <a href="https://themoneywit.africa/" target="_blank" class="product-btn">Explore Courses →</a>
-                </div>
-                """, unsafe_allow_html=True)
-
-            with prod_col2:
-                st.markdown("""
-                <div class="product-card">
-                    <h4>📺 The Money Wit Show (YouTube)</h4>
-                    <p style="font-size: 13.5px;">Watch in-depth weekly market breakdowns, investment strategies, and financial masterclasses.</p>
-                    <a href="https://www.youtube.com/@themoneywitclub" target="_blank" class="product-btn">Watch on YouTube →</a>
-                </div>
-                """, unsafe_allow_html=True)
-
-                st.markdown("""
-                <div class="product-card">
-                    <h4>⚡ Masterclasses & Bootcamps</h4>
-                    <p style="font-size: 13.5px;">Short-term, intensive wealth acceleration bootcamps to fast-track your investment goals.</p>
-                    <a href="https://themoneywit.africa/" target="_blank" class="product-btn">View Upcoming Sessions →</a>
-                </div>
-                """, unsafe_allow_html=True)
-
             # Module 3: Instant Dispatch Options (WhatsApp & Email)
             st.markdown("---")
-            st.subheader("📤 Send & Save Your Roadmap")
-            st.write("Share this diagnostic summary to your WhatsApp or Email for easy reference:")
+            st.subheader("📤 Save or Share Your Action Plan")
+            st.write("Send this diagnostic summary to your WhatsApp or Email for quick reference:")
             
             full_roadmap_text = (
-                f"📊 *MONEY WIT AFRICA — WEALTH ROADMAP*\n"
+                f"📊 *MONEY WIT AFRICA — PERSONALIZED ACTION PLAN*\n"
                 f"👤 *Client:* {user_name}\n"
                 f"📅 *Date:* {datetime.now().strftime('%d %b %Y')}\n"
                 f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
                 f"{summary}\n\n"
                 f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                f"✨ Next Steps: Explore programs at https://themoneywit.africa\n"
+                f"✨ Access your recommended program: https://themoneywit.africa\n"
                 f"📺 Watch 'The Money Wit Show' on YouTube: https://www.youtube.com/@themoneywitclub"
             )
             
@@ -369,7 +323,7 @@ if submitted:
             wa_share_url = f"https://api.whatsapp.com/send?text={encoded_wa}"
             
             # Email Mailto Link
-            email_subject = urllib.parse.quote(f"My Money Wit Wealth Roadmap - {user_name}")
+            email_subject = urllib.parse.quote(f"My Money Wit Action Plan - {user_name}")
             email_body = urllib.parse.quote(full_roadmap_text)
             target_email = user_email if user_email.strip() else ""
             mailto_url = f"mailto:{target_email}?subject={email_subject}&body={email_body}"
